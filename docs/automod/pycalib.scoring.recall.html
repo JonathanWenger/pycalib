@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>recall &mdash; pycalib  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sharpness" href="pycalib.scoring.sharpness.html" />
+    <link rel="prev" title="precision" href="pycalib.scoring.precision.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pycalib
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../calibration_methods.html">pycalib.calibration_methods Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gp_classes.html">pycalib.gp_classes Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../benchmark.html">pycalib.benchmark Module</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../scoring.html">pycalib.scoring Module</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../scoring.html#functions">Functions</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.accuracy.html">accuracy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.average_confidence.html">average_confidence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.brier_score.html">brier_score</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.error.html">error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.expected_calibration_error.html">expected_calibration_error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.overconfidence.html">overconfidence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.precision.html">precision</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">recall</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.sharpness.html">sharpness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.underconfidence.html">underconfidence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.weighted_abs_conf_difference.html">weighted_abs_conf_difference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../scoring.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting.html">pycalib.plotting Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pycalib</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../modules.html">Documentation</a> &raquo;</li>
+        
+          <li><a href="../scoring.html">pycalib.scoring Module</a> &raquo;</li>
+        
+      <li>recall</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/automod/pycalib.scoring.recall.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="recall">
+<h1>recall<a class="headerlink" href="#recall" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="pycalib.scoring.recall">
+<code class="descclassname">pycalib.scoring.</code><code class="descname">recall</code><span class="sig-paren">(</span><em>y</em>, <em>p_pred</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#recall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.recall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the recall.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>y</strong> – </li>
+<li><strong>p_pred</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pycalib.scoring.sharpness.html" class="btn btn-neutral float-right" title="sharpness" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pycalib.scoring.precision.html" class="btn btn-neutral" title="precision" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Jonathan Wenger
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

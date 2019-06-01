@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>confidence_diagram &mdash; pycalib  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="confidence_trajectories" href="pycalib.plotting.confidence_trajectories.html" />
+    <link rel="prev" title="pycalib.plotting Module" href="../plotting.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pycalib
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../calibration_methods.html">pycalib.calibration_methods Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gp_classes.html">pycalib.gp_classes Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../benchmark.html">pycalib.benchmark Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scoring.html">pycalib.scoring Module</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../plotting.html">pycalib.plotting Module</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../plotting.html#functions">Functions</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">confidence_diagram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.plotting.confidence_trajectories.html">confidence_trajectories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.plotting.logsumexp_illustration.html">logsumexp_illustration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.plotting.over_underconfidence_curve.html">over_underconfidence_curve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.plotting.reliability_diagram.html">reliability_diagram</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pycalib</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../modules.html">Documentation</a> &raquo;</li>
+        
+          <li><a href="../plotting.html">pycalib.plotting Module</a> &raquo;</li>
+        
+      <li>confidence_diagram</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/automod/pycalib.plotting.confidence_diagram.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="confidence-diagram">
+<h1>confidence_diagram<a class="headerlink" href="#confidence-diagram" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="pycalib.plotting.confidence_diagram">
+<code class="descclassname">pycalib.plotting.</code><code class="descname">confidence_diagram</code><span class="sig-paren">(</span><em>y</em>, <em>y_pred</em>, <em>p_pred</em>, <em>n_classes=None</em>, <em>file=None</em>, <em>plot=True</em>, <em>n_bins=20</em>, <em>color=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/plotting.html#confidence_diagram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.plotting.confidence_diagram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot a confidence diagram</p>
+<p>Plots a diagram showing both distributions of over- and underconfidence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>y</strong> (<em>array</em><em>, </em><em>shape =</em><em> [</em><em>n_samples</em><em>]</em>) – Ground truth labels.</li>
+<li><strong>y_pred</strong> (<em>array</em><em>, </em><em>shape =</em><em> [</em><em>n_samples</em><em>]</em>) – Predicted labels.</li>
+<li><strong>p_pred</strong> (<em>array</em><em>, </em><em>shape =</em><em> [</em><em>n_samples</em><em>, </em><em>n_classes</em><em>]</em>) – Array of confidence estimates.</li>
+<li><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – File name of output plot.</li>
+<li><strong>plot</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Should the generated plot be shown?</li>
+<li><strong>n_bins</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em><em>, </em><em>default=20</em>) – Number of bins to use for the histograms.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pycalib.plotting.confidence_trajectories.html" class="btn btn-neutral float-right" title="confidence_trajectories" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../plotting.html" class="btn btn-neutral" title="pycalib.plotting Module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Jonathan Wenger
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
