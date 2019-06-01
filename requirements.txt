@@ -1,4 +1,5 @@
 betacal>=0.2.7
+Cython>=0.29.1
 gpflow>=1.3.0
 matplotlib>=3.0.2
 numpy>=1.15.4
