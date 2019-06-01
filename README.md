@@ -1,6 +1,6 @@
 # Non-parametric Calibration for Classification
 
-<img src="figures/gpcalib_illustration/latent_process.png" alt="drawing" width="256"/>
+<img align="center" src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="512"/>
 
 This repository provides the implementation of our paper ["Non-parametric Calibration for Classification"](addlink) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel). All results presented in our work were produced with this code.
 
