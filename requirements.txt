@@ -8,5 +8,5 @@ scipy>=1.1.0
 tensorflow>=1.12.2
 torch>=0.4.1
 pretrainedmodels>=0.7.4
-
+git+git://github.com/scikit-garden/scikit-garden.git#egg=skgarden
 
