@@ -20,15 +20,15 @@ This repository provides the implementation of our paper ["Non-parametric Calibr
 Many popular classification models in computer vision and robotics are often not calibrated, meaning their predicted uncertainties do not match the  probability of classifying correctly. This repository provides a new multi-class and model-agnostic approach to calibration, based on Gaussian processes, which have a number of desirable properties making them suitable as a calibration tool, such as the ability to incorporate prior knowledge.
 
 ## <a name="usage">Installation</a>
-The code was developed in Python 3.6 under macOS Mojave (10.14). You can clone the repo with
+The code was developed in Python 3.6 under macOS Mojave (10.14). You can clone this repository with
 ```
 git clone https://github.com/JonathanWenger/pycalib
 ```
-or install it directly the python package directly via
+or install the Python package directly via `pip`:
 ```
 pip install git+https://github.com/JonathanWenger/pycalib.git
 ```
-You can access the documentation of `pycalib` at https://jonathanwenger.github.io/pycalib/.
+For tips on getting started and how to use this package please refer to the [documentation](https://jonathanwenger.github.io/pycalib/).
 
 ## <a name="data">Datasets and Experiments</a>
 
