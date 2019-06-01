@@ -1,4 +1,4 @@
-# Non-parametric Probabilistic Calibration for Classification
+# Non-parametric Calibration for Classification
 
 This repository provides the implementation of our paper ["Non-parametric Calibration for Classification"](addlink) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel). All results presented in our work were produced with this code.
 
@@ -21,6 +21,12 @@ pip install git+https://github.com/JonathanWenger/pycalib.git
 
 ## <a name="data">Datasets</a>
 
+* PCam
+
+* KITTI
+
+The repository includes 64-dimensional features extracted from KITTI sequences compressed in a zip file (data/kitti_features.zip).
+
 * MNIST
 
 A script will automatically download the MNIST dataset if an experiment is run on it.
@@ -28,10 +34,6 @@ A script will automatically download the MNIST dataset if an experiment is run o
 * ImageNet 2012
 
 Due to the size of the data, only a script replicating the experiments is provided.
-
-* KITTI
-
-The repository includes 64-dimensional features extracted from KITTI sequences compressed in a zip file (data/kitti_features.zip).
 
 
 ## <a name="experiments">Experiments</a>
