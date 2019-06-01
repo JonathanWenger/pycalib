@@ -4,9 +4,6 @@ import numpy as np
 
 # Package imports
 import pycalib.calibration_methods as cm
-import pycalib.scoring as meas
-import pycalib.benchmark as bm
-
 
 # General
 @pytest.fixture(scope='module')
