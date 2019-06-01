@@ -1,5 +1,7 @@
 # Non-parametric Calibration for Classification
 
+![](figures/latent_process.png?raw=true)
+
 This repository provides the implementation of our paper ["Non-parametric Calibration for Classification"](addlink) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel). All results presented in our work were produced with this code.
 
 * [Installation](#usage)
