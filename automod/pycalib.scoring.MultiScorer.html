@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MultiScorer &mdash; pycalib  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pycalib.plotting Module" href="../plotting.html" />
+    <link rel="prev" title="weighted_abs_conf_difference" href="pycalib.scoring.weighted_abs_conf_difference.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pycalib
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../calibration_methods.html">pycalib.calibration_methods Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gp_classes.html">pycalib.gp_classes Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../benchmark.html">pycalib.benchmark Module</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../scoring.html">pycalib.scoring Module</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../scoring.html#functions">Functions</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../scoring.html#classes">Classes</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">MultiScorer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting.html">pycalib.plotting Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pycalib</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../modules.html">Documentation</a> &raquo;</li>
+        
+          <li><a href="../scoring.html">pycalib.scoring Module</a> &raquo;</li>
+        
+      <li>MultiScorer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/automod/pycalib.scoring.MultiScorer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="multiscorer">
+<h1>MultiScorer<a class="headerlink" href="#multiscorer" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pycalib.scoring.MultiScorer">
+<em class="property">class </em><code class="descclassname">pycalib.scoring.</code><code class="descname">MultiScorer</code><span class="sig-paren">(</span><em>metrics</em>, <em>plots</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#MultiScorer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.MultiScorer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Use this class to encapsulate and/or aggregate multiple scoring functions so that it can be passed as an argument
+for scoring in scikit’s cross_val_score function. Instances of this class are also callables, with signature as
+needed by <cite>cross_val_score</cite>. Evaluating multiple scoring function in this way versus scikit learns native way in the
+<cite>cross_validate</cite> function avoids the unnecessary overhead of predicting anew for each scorer. This class is slightly
+adapted from Kyriakos Stylianopoulos’s implementation at <a class="footnote-reference brackets" href="#id2" id="id1">1</a>.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://github.com/StKyr/multiscorer">https://github.com/StKyr/multiscorer</a></p>
+</dd>
+</dl>
+<p class="rubric">Methods Summary</p>
+<table class="longtable docutils align-center">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.scoring.MultiScorer.__call__" title="pycalib.scoring.MultiScorer.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a>(estimator, X, y)</p></td>
+<td><p>To be called by for evaluation from sklearn’s GridSearchCV or cross_val_score.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.scoring.MultiScorer.get_metric_names" title="pycalib.scoring.MultiScorer.get_metric_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_metric_names</span></code></a>()</p></td>
+<td><p>Get all the metric names as given when initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.scoring.MultiScorer.get_results" title="pycalib.scoring.MultiScorer.get_results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_results</span></code></a>([metric, fold])</p></td>
+<td><p>Get the results of a specific or all the metrics.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Documentation</p>
+<dl class="method">
+<dt id="pycalib.scoring.MultiScorer.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>estimator</em>, <em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#MultiScorer.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.MultiScorer.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>To be called by for evaluation from sklearn’s GridSearchCV or cross_val_score. Parameters are as they are
+defined in the respective documentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>dummy</strong> – A dummy value of 0.5 just for compatibility reasons.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.scoring.MultiScorer.get_metric_names">
+<code class="descname">get_metric_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#MultiScorer.get_metric_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.MultiScorer.get_metric_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the metric names as given when initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>metric_names</strong> – A list containing the given names (str) of the metrics</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.scoring.MultiScorer.get_results">
+<code class="descname">get_results</code><span class="sig-paren">(</span><em>metric=None</em>, <em>fold='all'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#MultiScorer.get_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.MultiScorer.get_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the results of a specific or all the metrics.</p>
+<p>This method should be called after the object itself has been called so that the metrics are applied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a><em> (</em><em>default</em><em>)</em>) – The given name of a metric to return its result(s). If omitted the results of all metrics will be returned.</p></li>
+<li><p><strong>fold</strong> (<em>int in range</em><em> [</em><em>1</em><em>, </em><em>number_of_folds</em><em>] or </em><em>'all'</em><em> (</em><em>Default</em><em>)</em>) – Get the metric(s) results for the specific fold.
+The number of folds corresponds to the number of times the instance is called.
+If its value is a number, either the score of a single metric for that fold or a dictionary of the (single)
+scores for that fold will be returned, depending on the value of <cite>metric</cite> parameter. If its value is ‘all’,
+either a list of a single metric or a dictionary containing the lists of scores for all folds will be
+returned, depending on the value of <cite>metric</cite> parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>metric_result_for_one_fold</em> – The result of the designated metric function for the specific fold, if <cite>metric</cite> parameter was not omitted
+and an integer value was given to <cite>fold</cite> parameter. If  the value of <cite>metric</cite> does not correspond to a
+metric name, <cite>None</cite> will be returned.</p></li>
+<li><p><strong>all_metric_results_for_one_fold</strong> (<em>dict</em>) – A dict having as keys the names of the metrics and as values their results for the specific fold.
+This will be returned only if <cite>metric</cite> parameter was omitted and an integer value was given to <cite>fold</cite>
+parameter.</p></li>
+<li><p><strong>metric_results_for_all_folds</strong> (<em>list</em>) – A list of length number_of_folds containing the results of all folds for the specific metric, if <cite>metric</cite>
+parameter was not omitted and value ‘all’ was given to <cite>fold</cite>. If  the value of <cite>metric</cite> does not correspond
+to a metric name, <cite>None</cite> will be returned.</p></li>
+<li><p><strong>all_metric_results_for_all_folds</strong> (<em>dict of lists</em>) – A dict having as keys the names of the metrics and as values lists (of length number_of_folds) of their
+results for all folds. This will be returned only if <cite>metric</cite> parameter was omitted and ‘all’ value was
+given to <cite>fold</cite> parameter.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#UserWarning" title="(in Python v3.7)"><strong>UserWarning</strong></a> – If this method is called before the instance is called for evaluation.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If the value for <cite>fold</cite> parameter is not appropriate.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../plotting.html" class="btn btn-neutral float-right" title="pycalib.plotting Module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pycalib.scoring.weighted_abs_conf_difference.html" class="btn btn-neutral float-left" title="weighted_abs_conf_difference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Jonathan Wenger
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

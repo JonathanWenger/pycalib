@@ -1,0 +1,843 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ScalarMult &mdash; pycalib  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SoftArgMax" href="pycalib.gp_classes.SoftArgMax.html" />
+    <link rel="prev" title="SVGPcal" href="pycalib.gp_classes.SVGPcal.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pycalib
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../calibration_methods.html">pycalib.calibration_methods Module</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../gp_classes.html">pycalib.gp_classes Module</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../gp_classes.html#classes">Classes</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pycalib.gp_classes.Log.html">Log</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.gp_classes.MultiCal.html">MultiCal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.gp_classes.SVGPcal.html">SVGPcal</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">ScalarMult</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.gp_classes.SoftArgMax.html">SoftArgMax</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../benchmark.html">pycalib.benchmark Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scoring.html">pycalib.scoring Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting.html">pycalib.plotting Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pycalib</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../modules.html">Documentation</a> &raquo;</li>
+        
+          <li><a href="../gp_classes.html">pycalib.gp_classes Module</a> &raquo;</li>
+        
+      <li>ScalarMult</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/automod/pycalib.gp_classes.ScalarMult.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="scalarmult">
+<h1>ScalarMult<a class="headerlink" href="#scalarmult" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pycalib.gp_classes.ScalarMult">
+<em class="property">class </em><code class="descclassname">pycalib.gp_classes.</code><code class="descname">ScalarMult</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/gp_classes.html#ScalarMult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.gp_classes.ScalarMult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gpflow.mean_functions.MeanFunction</span></code></p>
+<p>Scalar multiplication mean function.</p>
+<p><span class="math notranslate nohighlight">\(y_i = \alpha x_i\)</span></p>
+<p class="rubric">Attributes Summary</p>
+<table class="longtable docutils align-center">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.children" title="pycalib.gp_classes.ScalarMult.children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">children</span></code></a></p></td>
+<td><p>Abstract property for getting pairs of names and children, respectively.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.data_holders" title="pycalib.gp_classes.ScalarMult.data_holders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_holders</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.descendants" title="pycalib.gp_classes.ScalarMult.descendants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">descendants</span></code></a></p></td>
+<td><p>Scans full list of node descendants.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.empty" title="pycalib.gp_classes.ScalarMult.empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.feeds" title="pycalib.gp_classes.ScalarMult.feeds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feeds</span></code></a></p></td>
+<td><p>TensorFlow feed dictionary for passing to tf.Session.run()</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.full_name" title="pycalib.gp_classes.ScalarMult.full_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">full_name</span></code></a></p></td>
+<td><p>Backward compatibility with previous versions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.graph" title="pycalib.gp_classes.ScalarMult.graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code></a></p></td>
+<td><p>TensorFlow graph property.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.index" title="pycalib.gp_classes.ScalarMult.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.initializable_feeds" title="pycalib.gp_classes.ScalarMult.initializable_feeds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initializable_feeds</span></code></a></p></td>
+<td><p>Feed dictionary which will be used along with <cite>initializables</cite> list at <cite>initialize</cite> function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.initializables" title="pycalib.gp_classes.ScalarMult.initializables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initializables</span></code></a></p></td>
+<td><p>List of TensorFlow tensors which must be initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.name" title="pycalib.gp_classes.ScalarMult.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p>The name assigned to node at creation time.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.non_empty_params" title="pycalib.gp_classes.ScalarMult.non_empty_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">non_empty_params</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.parameters" title="pycalib.gp_classes.ScalarMult.parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parameters</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.params" title="pycalib.gp_classes.ScalarMult.params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">params</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.parent" title="pycalib.gp_classes.ScalarMult.parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent</span></code></a></p></td>
+<td><p>Parent for this node.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.pathname" title="pycalib.gp_classes.ScalarMult.pathname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pathname</span></code></a></p></td>
+<td><p>Path name is a recursive representation parent path name plus the name which was assigned to this object by its parent.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.prior_tensor" title="pycalib.gp_classes.ScalarMult.prior_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prior_tensor</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.root" title="pycalib.gp_classes.ScalarMult.root"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root</span></code></a></p></td>
+<td><p>Top of the parentable tree.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.tf_name_scope" title="pycalib.gp_classes.ScalarMult.tf_name_scope"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tf_name_scope</span></code></a></p></td>
+<td><p>Auxilary method for composing gpflow’s tree name scopes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.tf_pathname" title="pycalib.gp_classes.ScalarMult.tf_pathname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tf_pathname</span></code></a></p></td>
+<td><p>Method used for defining full path name for particular tensor at build time.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.trainable" title="pycalib.gp_classes.ScalarMult.trainable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trainable</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.trainable_parameters" title="pycalib.gp_classes.ScalarMult.trainable_parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trainable_parameters</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.trainable_tensors" title="pycalib.gp_classes.ScalarMult.trainable_tensors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trainable_tensors</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table class="longtable docutils align-center">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.__call__" title="pycalib.gp_classes.ScalarMult.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a>(X)</p></td>
+<td><p>Call self as a function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.anchor" title="pycalib.gp_classes.ScalarMult.anchor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">anchor</span></code></a>(session)</p></td>
+<td><p>The <cite>anchor</cite> method is intended to bind TensorFlow session values with pythonic values saved by node’s objects.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.as_pandas_table" title="pycalib.gp_classes.ScalarMult.as_pandas_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_pandas_table</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.assign" title="pycalib.gp_classes.ScalarMult.assign"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assign</span></code></a>(values[, session, force])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.build" title="pycalib.gp_classes.ScalarMult.build"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build</span></code></a>()</p></td>
+<td><p>Implementation for ICompilable interface <cite>build</cite> method.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.childname" title="pycalib.gp_classes.ScalarMult.childname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">childname</span></code></a>(child)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.clear" title="pycalib.gp_classes.ScalarMult.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</p></td>
+<td><p>Calls <cite>_clear</cite> abstract method which must be implemented by descendants.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.compile" title="pycalib.gp_classes.ScalarMult.compile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compile</span></code></a>([session])</p></td>
+<td><p>Compile is two phase operation: at first it calls <cite>build</cite> method and then intializes the node for passed session.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.contains" title="pycalib.gp_classes.ScalarMult.contains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contains</span></code></a>(node)</p></td>
+<td><p>Checks either node already exist somewhere among descendants.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.enquire_graph" title="pycalib.gp_classes.ScalarMult.enquire_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enquire_graph</span></code></a>([graph])</p></td>
+<td><p>Verifies and returns relevant TensorFlow graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.enquire_session" title="pycalib.gp_classes.ScalarMult.enquire_session"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enquire_session</span></code></a>([session])</p></td>
+<td><p>Verifies and returns relevant TensorFlow session.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.fix_shape" title="pycalib.gp_classes.ScalarMult.fix_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_shape</span></code></a>([parameters, data_holders])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.initialize" title="pycalib.gp_classes.ScalarMult.initialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize</span></code></a>([session, force])</p></td>
+<td><p>Initializes TensorFlow variables, which are returned by <cite>initializables</cite> property and uses feed dictionary returned by <cite>initializable_feeds</cite> property defined at ICompilable interface and implemented by descendants.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.is_built" title="pycalib.gp_classes.ScalarMult.is_built"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_built</span></code></a>(graph)</p></td>
+<td><p>Checks if tensors belonging to this ICompilable object were built for the <cite>graph</cite> argument.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.is_built_coherence" title="pycalib.gp_classes.ScalarMult.is_built_coherence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_built_coherence</span></code></a>([graph])</p></td>
+<td><p>Checks that node was build using input <cite>graph</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.read_trainables" title="pycalib.gp_classes.ScalarMult.read_trainables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_trainables</span></code></a>([session])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.read_values" title="pycalib.gp_classes.ScalarMult.read_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_values</span></code></a>([session])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.remove_child" title="pycalib.gp_classes.ScalarMult.remove_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_child</span></code></a>(name, child)</p></td>
+<td><p>Abstract method for removing an association between child and its name in parent’s specific storage.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.reset_name" title="pycalib.gp_classes.ScalarMult.reset_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_name</span></code></a>([name])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.set_child" title="pycalib.gp_classes.ScalarMult.set_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_child</span></code></a>(name, child)</p></td>
+<td><p>Set child.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.set_parent" title="pycalib.gp_classes.ScalarMult.set_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_parent</span></code></a>([parent])</p></td>
+<td><p>Set parent.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.set_trainable" title="pycalib.gp_classes.ScalarMult.set_trainable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_trainable</span></code></a>(value)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.store_child" title="pycalib.gp_classes.ScalarMult.store_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">store_child</span></code></a>(name, child)</p></td>
+<td><p>Abstract method for saving association between child and its name in parent’s specific storage.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.ScalarMult.unset_child" title="pycalib.gp_classes.ScalarMult.unset_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unset_child</span></code></a>(name, child)</p></td>
+<td><p>Untie child from parent.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.children">
+<code class="descname">children</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract property for getting pairs of names and children, respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary where keys are names and values are Parentable objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.data_holders">
+<code class="descname">data_holders</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.data_holders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.descendants">
+<code class="descname">descendants</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.descendants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scans full list of node descendants.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Generator of nodes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.empty">
+<code class="descname">empty</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.feeds">
+<code class="descname">feeds</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.feeds" title="Permalink to this definition">¶</a></dt>
+<dd><p>TensorFlow feed dictionary for passing to tf.Session.run()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>TensorFlow feed dictionary or None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.full_name">
+<code class="descname">full_name</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.full_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Backward compatibility with previous versions.
+WARNING: WILL BE DEPRICATED SOON.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.graph">
+<code class="descname">graph</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>TensorFlow graph property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>tf.Graph which was used during building.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.index">
+<code class="descname">index</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.initializable_feeds">
+<code class="descname">initializable_feeds</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.initializable_feeds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feed dictionary which will be used along with <cite>initializables</cite> list
+at <cite>initialize</cite> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Standard TensorFlow feed dictionary which must be used at
+at initialization.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.initializables">
+<code class="descname">initializables</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.initializables" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of TensorFlow tensors which must be initialized.
+This list is necessary for successfull _initialize_ call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of TensorFlow variables, data iterators or both,
+which are capable to be initialized.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.name">
+<code class="descname">name</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name assigned to node at creation time. It can be referred also
+as original name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Given name.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.non_empty_params">
+<code class="descname">non_empty_params</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.non_empty_params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.parameters">
+<code class="descname">parameters</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.params">
+<code class="descname">params</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.parent">
+<code class="descname">parent</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parent for this node.
+:return: Reference to parent object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.pathname">
+<code class="descname">pathname</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.pathname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path name is a recursive representation parent path name plus the name
+which was assigned to this object by its parent. In other words, it is
+stack of parent name where top is always parent’s original name:
+<cite>parent.pathname + parent.childname</cite> and stop condition is root’s
+name.</p>
+<p>For example, the pathname of an instance with the two parents may look
+like <cite>parent0/parent1/childname_at_parent1</cite>.
+Top parent’s name equals its original name <cite>parent0.name == parent0.pathname</cite>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.prior_tensor">
+<code class="descname">prior_tensor</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.prior_tensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.root">
+<code class="descname">root</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Top of the parentable tree.
+:return: Reference to top parentable object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.tf_name_scope">
+<code class="descname">tf_name_scope</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.tf_name_scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Auxilary method for composing gpflow’s tree name scopes. The Parentable pathname
+can be considered as a set of name scopes. This method grabs <cite>pathname</cite> and
+returns only name of the node in that path.
+Leading node name is always replaced with two parts: the name and the index
+for uniquiness in TensorFlow.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.tf_pathname">
+<code class="descname">tf_pathname</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.tf_pathname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method used for defining full path name for particular tensor at build time.
+For example, <cite>tf.get_variable</cite> creates variable w/o taking into account
+name scopes and <cite>tf_pathname</cite> consists of all parts of scope names
+which were used up to that point - <cite>tf.get_variable</cite> call.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.trainable">
+<code class="descname">trainable</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.trainable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.trainable_parameters">
+<code class="descname">trainable_parameters</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.trainable_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pycalib.gp_classes.ScalarMult.trainable_tensors">
+<code class="descname">trainable_tensors</code><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.trainable_tensors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/gp_classes.html#ScalarMult.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call self as a function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.anchor">
+<code class="descname">anchor</code><span class="sig-paren">(</span><em>session</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.anchor" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <cite>anchor</cite> method is intended to bind TensorFlow session values with
+pythonic values saved by node’s objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.as_pandas_table">
+<code class="descname">as_pandas_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.as_pandas_table" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.assign">
+<code class="descname">assign</code><span class="sig-paren">(</span><em>values</em>, <em>session=None</em>, <em>force=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.build">
+<code class="descname">build</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation for ICompilable interface <cite>build</cite> method. Builds tensors within
+TensorFlow name scope using parentable node’s name. Hidden name is used when
+no parent exists for current node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>GPflowError</strong> – Node’s parts were built with different graph and differ from
+default TensorFlow graph.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.childname">
+<code class="descname">childname</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.childname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls <cite>_clear</cite> abstract method which must be implemented by descendants.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>GPflowError exception when parent of the node is built.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.compile">
+<code class="descname">compile</code><span class="sig-paren">(</span><em>session=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.compile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compile is two phase operation: at first it calls <cite>build</cite> method and then
+intializes the node for passed session. The policy around <cite>session</cite> is defined
+inside the <cite>initialize</cite> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>session</strong> – TensorFlow session used for initializing. If the node is built the
+session’s graph value must be equal to the node tensor’s graph.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p>GPflowError exception if session’s graph is different from the graph
+used by node tensors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.contains">
+<code class="descname">contains</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.contains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks either node already exist somewhere among descendants.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Boolean value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.enquire_graph">
+<code class="descname">enquire_graph</code><span class="sig-paren">(</span><em>graph=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.enquire_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verifies and returns relevant TensorFlow graph. If non-None graph were passed,
+the same graph is returned. Otherwise, nodes’s graph is exposed and it is
+undefined the default TensorFlow graph is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>graph</strong> – TensorFlow graph or None. Default is None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>TensorFlow graph.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.enquire_session">
+<code class="descname">enquire_session</code><span class="sig-paren">(</span><em>session=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.enquire_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verifies and returns relevant TensorFlow session. If non-None session
+were passed, session is checked for graph compliance and returned back.
+Otherwise, default TensorFlow session is returned. When TensorFlow default
+session is not set up, GPflow session’s manager creates or uses existing
+one for returning.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>session</strong> – TensorFlow session or None. Default value is None.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>TensorFlow session.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>GPflowError</strong> – Session’s graph is not compilable with node’s graph.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.fix_shape">
+<code class="descname">fix_shape</code><span class="sig-paren">(</span><em>parameters=True</em>, <em>data_holders=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.fix_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>session=None</em>, <em>force=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes TensorFlow variables, which are returned by <cite>initializables</cite> property and
+uses feed dictionary returned by <cite>initializable_feeds</cite> property defined at ICompilable
+interface and implemented by descendants.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>session</strong> – TensorFlow session used for initializing. In case when session is None,
+default TensorFlow session will be checked first, if session is still None, then
+default GPflowFlow session will used, but there is <em>no garuantee</em> that GPflow
+session’s graph is compliant with node’s tensors graph.</p></li>
+<li><p><strong>force</strong> – inidicates either the initialized TensorFlow variables must be
+re-initialized or not.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p>GPflowError exception if session’s graph is different from the graph
+used by node tensors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.is_built">
+<code class="descname">is_built</code><span class="sig-paren">(</span><em>graph</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.is_built" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if tensors belonging to this ICompilable object were built for
+the <cite>graph</cite> argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>graph</strong> – TensorFlow graph.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>Build</cite> status.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.is_built_coherence">
+<code class="descname">is_built_coherence</code><span class="sig-paren">(</span><em>graph=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.is_built_coherence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks that node was build using input <cite>graph</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><cite>Build</cite> status.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>GPflowError</strong> – Valid passed TensorFlow graph is different from
+used graph in node.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.read_trainables">
+<code class="descname">read_trainables</code><span class="sig-paren">(</span><em>session=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.read_trainables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.read_values">
+<code class="descname">read_values</code><span class="sig-paren">(</span><em>session=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.read_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.remove_child">
+<code class="descname">remove_child</code><span class="sig-paren">(</span><em>name</em>, <em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.remove_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract method for removing an association between child and its name in
+parent’s specific storage.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.reset_name">
+<code class="descname">reset_name</code><span class="sig-paren">(</span><em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.reset_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.set_child">
+<code class="descname">set_child</code><span class="sig-paren">(</span><em>name</em>, <em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.set_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set child.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Child name.</p></li>
+<li><p><strong>child</strong> – Parentable object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.set_parent">
+<code class="descname">set_parent</code><span class="sig-paren">(</span><em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.set_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set parent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>parent</strong> – Parentable object.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – Self-reference object passed.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – Non-Parentable object passed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.set_trainable">
+<code class="descname">set_trainable</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.set_trainable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.store_child">
+<code class="descname">store_child</code><span class="sig-paren">(</span><em>name</em>, <em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.store_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract method for saving association between child and its name in
+parent’s specific storage.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.gp_classes.ScalarMult.unset_child">
+<code class="descname">unset_child</code><span class="sig-paren">(</span><em>name</em>, <em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.ScalarMult.unset_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Untie child from parent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Child name.</p></li>
+<li><p><strong>child</strong> – Parentable object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pycalib.gp_classes.SoftArgMax.html" class="btn btn-neutral float-right" title="SoftArgMax" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pycalib.gp_classes.SVGPcal.html" class="btn btn-neutral float-left" title="SVGPcal" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Jonathan Wenger
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

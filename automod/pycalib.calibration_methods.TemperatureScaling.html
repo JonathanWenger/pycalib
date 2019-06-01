@@ -1,0 +1,414 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>TemperatureScaling &mdash; pycalib  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pycalib.gp_classes Module" href="../gp_classes.html" />
+    <link rel="prev" title="PlattScaling" href="pycalib.calibration_methods.PlattScaling.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pycalib
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../calibration_methods.html">pycalib.calibration_methods Module</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../calibration_methods.html#classes">Classes</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pycalib.calibration_methods.BayesianBinningQuantiles.html">BayesianBinningQuantiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.calibration_methods.BetaCalibration.html">BetaCalibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.calibration_methods.CalibrationMethod.html">CalibrationMethod</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.calibration_methods.GPCalibration.html">GPCalibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.calibration_methods.HistogramBinning.html">HistogramBinning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.calibration_methods.IsotonicRegression.html">IsotonicRegression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.calibration_methods.NoCalibration.html">NoCalibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.calibration_methods.OneVsRestCalibrator.html">OneVsRestCalibrator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.calibration_methods.PlattScaling.html">PlattScaling</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">TemperatureScaling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../gp_classes.html">pycalib.gp_classes Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../benchmark.html">pycalib.benchmark Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scoring.html">pycalib.scoring Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting.html">pycalib.plotting Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pycalib</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../modules.html">Documentation</a> &raquo;</li>
+        
+          <li><a href="../calibration_methods.html">pycalib.calibration_methods Module</a> &raquo;</li>
+        
+      <li>TemperatureScaling</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/automod/pycalib.calibration_methods.TemperatureScaling.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="temperaturescaling">
+<h1>TemperatureScaling<a class="headerlink" href="#temperaturescaling" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pycalib.calibration_methods.TemperatureScaling">
+<em class="property">class </em><code class="descclassname">pycalib.calibration_methods.</code><code class="descname">TemperatureScaling</code><span class="sig-paren">(</span><em>T_init=1</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#TemperatureScaling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.TemperatureScaling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pycalib.calibration_methods.CalibrationMethod.html#pycalib.calibration_methods.CalibrationMethod" title="pycalib.calibration_methods.CalibrationMethod"><code class="xref py py-class docutils literal notranslate"><span class="pre">pycalib.calibration_methods.CalibrationMethod</span></code></a></p>
+<p>Probability calibration using temperature scaling</p>
+<p>Temperature scaling <a class="footnote-reference brackets" href="#id2" id="id1">1</a> is a one parameter multi-class scaling method. Output confidence scores are calibrated, meaning
+they match empirical frequencies of the associated class prediction. Temperature scaling does not change the class
+predictions of the underlying model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T_init</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Initial temperature parameter used for scaling. This parameter is optimized in order to calibrate output
+probabilities.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Print information on optimization procedure.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>On calibration of modern neural networks, C. Guo, G. Pleiss, Y. Sun, K. Weinberger, ICML 2017</p>
+</dd>
+</dl>
+<p class="rubric">Methods Summary</p>
+<table class="longtable docutils align-center">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.TemperatureScaling.fit" title="pycalib.calibration_methods.TemperatureScaling.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(X, y)</p></td>
+<td><p>Fit the calibration method based on the given uncalibrated class probabilities X and ground truth labels y.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.TemperatureScaling.get_params" title="pycalib.calibration_methods.TemperatureScaling.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>([deep])</p></td>
+<td><p>Get parameters for this estimator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.TemperatureScaling.plot" title="pycalib.calibration_methods.TemperatureScaling.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>(filename[, xlim])</p></td>
+<td><p>Plot the calibration map.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.TemperatureScaling.plot_latent" title="pycalib.calibration_methods.TemperatureScaling.plot_latent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_latent</span></code></a>(filename[, xlim])</p></td>
+<td><p>Plot the latent function of the calibration method.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.TemperatureScaling.predict" title="pycalib.calibration_methods.TemperatureScaling.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a>(X)</p></td>
+<td><p>Predict the class of new samples after scaling.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.TemperatureScaling.predict_proba" title="pycalib.calibration_methods.TemperatureScaling.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a>(X)</p></td>
+<td><p>Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary classifier.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.TemperatureScaling.set_params" title="pycalib.calibration_methods.TemperatureScaling.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**params)</p></td>
+<td><p>Set the parameters of this estimator.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Documentation</p>
+<dl class="method">
+<dt id="pycalib.calibration_methods.TemperatureScaling.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#TemperatureScaling.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.TemperatureScaling.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the calibration method based on the given uncalibrated class probabilities X and ground truth labels y.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_classes</em><em>)</em>) – Training data, i.e. predicted probabilities of the base classifier on the calibration set.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em>) – Target classes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>self</strong> – Returns an instance of self.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.calibration_methods.TemperatureScaling.get_params">
+<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.TemperatureScaling.get_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get parameters for this estimator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>deep</strong> (<em>boolean</em><em>, </em><em>optional</em>) – If True, will return the parameters for this estimator and
+contained subobjects that are estimators.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>params</strong> – Parameter names mapped to their values.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>mapping of string to any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.calibration_methods.TemperatureScaling.plot">
+<code class="descname">plot</code><span class="sig-paren">(</span><em>filename, xlim=[0, 1], **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.TemperatureScaling.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the calibration map.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xlim</strong> (<em>array-like</em>) – Range of inputs of the calibration map to be plotted.</p></li>
+<li><p><strong>**kwargs</strong> – Additional arguments passed on to <code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.plot()</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.calibration_methods.TemperatureScaling.plot_latent">
+<code class="descname">plot_latent</code><span class="sig-paren">(</span><em>filename</em>, <em>xlim=array([0</em>, <em>1])</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#TemperatureScaling.plot_latent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.TemperatureScaling.plot_latent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the latent function of the calibration method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – Filename / -path where to save output.</p></li>
+<li><p><strong>xlim</strong> (<em>array-like</em><em>, </em><em>shape=</em><em>(</em><em>2</em><em>,</em><em>)</em><em>, </em><em>default=</em><em>[</em><em>0</em><em>,</em><em>1</em><em>]</em>) – Limits of the x-axis of the plot.</p></li>
+<li><p><strong>kwargs</strong> – Additional arguments passed on to matplotlib.pyplot.subplots.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.calibration_methods.TemperatureScaling.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.TemperatureScaling.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the class of new samples after scaling. Predictions are identical to the ones from the uncalibrated
+classifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_classes</em><em>)</em>) – The uncalibrated posterior probabilities.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>C</strong> – The predicted classes.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array, shape (n_samples,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.calibration_methods.TemperatureScaling.predict_proba">
+<code class="descname">predict_proba</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#TemperatureScaling.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.TemperatureScaling.predict_proba" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary
+classifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_classes</em><em>)</em>) – The uncalibrated posterior probabilities.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>P</strong> – The predicted probabilities.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array, shape (n_samples, n_classes)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.calibration_methods.TemperatureScaling.set_params">
+<code class="descname">set_params</code><span class="sig-paren">(</span><em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.TemperatureScaling.set_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the parameters of this estimator.</p>
+<p>The method works on simple estimators as well as on nested objects
+(such as pipelines). The latter have parameters of the form
+<code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s possible to update each
+component of a nested object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>self</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../gp_classes.html" class="btn btn-neutral float-right" title="pycalib.gp_classes Module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pycalib.calibration_methods.PlattScaling.html" class="btn btn-neutral float-left" title="PlattScaling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Jonathan Wenger
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

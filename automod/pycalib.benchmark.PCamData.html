@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PCamData &mdash; pycalib  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SyntheticBeta" href="pycalib.benchmark.SyntheticBeta.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pycalib
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../calibration_methods.html">pycalib.calibration_methods Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gp_classes.html">pycalib.gp_classes Module</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../benchmark.html">pycalib.benchmark Module</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../benchmark.html#classes">Classes</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pycalib.benchmark.Benchmark.html">Benchmark</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.benchmark.ImageNetData.html">ImageNetData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.benchmark.KITTIBinaryData.html">KITTIBinaryData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.benchmark.MNISTData.html">MNISTData</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PCamData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.benchmark.SyntheticBeta.html">SyntheticBeta</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../scoring.html">pycalib.scoring Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting.html">pycalib.plotting Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pycalib</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../modules.html">Documentation</a> &raquo;</li>
+        
+          <li><a href="../benchmark.html">pycalib.benchmark Module</a> &raquo;</li>
+        
+      <li>PCamData</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/automod/pycalib.benchmark.PCamData.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pcamdata">
+<h1>PCamData<a class="headerlink" href="#pcamdata" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pycalib.benchmark.PCamData">
+<em class="property">class </em><code class="descclassname">pycalib.benchmark.</code><code class="descname">PCamData</code><span class="sig-paren">(</span><em>run_dir</em>, <em>data_dir</em>, <em>classifier_names</em>, <em>cal_methods</em>, <em>cal_method_names</em>, <em>n_splits=10</em>, <em>test_size=0.9</em>, <em>train_size=None</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#PCamData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.PCamData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pycalib.benchmark.Benchmark.html#pycalib.benchmark.Benchmark" title="pycalib.benchmark.Benchmark"><code class="xref py py-class docutils literal notranslate"><span class="pre">pycalib.benchmark.Benchmark</span></code></a></p>
+<p>Model evaluation using the PCam benchmark dataset.</p>
+<p>This class implements a data generation method returning a new evaluation data set for each scoring round.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>run_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Directory to run benchmarking in and save output and logs to.</p></li>
+<li><p><strong>data_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Directory containing calibration data obtained from PCam classification.</p></li>
+<li><p><strong>classifier_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Names of classifiers to be calibrated. Classification results on PCam must be contained in <cite>data_dir</cite>.</p></li>
+<li><p><strong>cal_methods</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Calibration methods to benchmark.</p></li>
+<li><p><strong>cal_method_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Names of calibration methods.</p></li>
+<li><p><strong>n_splits</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default=10</em>) – Number of splits for cross validation.</p></li>
+<li><p><strong>test_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default=0.9</em>) – Size of test set.</p></li>
+<li><p><strong>train_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default=None</em>) – Size of calibration set.</p></li>
+<li><p><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>RandomState instance</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a><em>, </em><em>optional</em><em> (</em><em>default=None</em><em>)</em>) – If <cite>int</cite>, <cite>random_state</cite> is the seed used by the random number generator;
+If <cite>RandomState</cite> instance, <cite>random_state</cite> is the random number generator;
+If <cite>None</cite>, the random number generator is the RandomState instance used
+by <cite>np.random</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Methods Summary</p>
+<table class="longtable docutils align-center">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.benchmark.PCamData.classify_val_data" title="pycalib.benchmark.PCamData.classify_val_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">classify_val_data</span></code></a>(file, clf_name, classifier)</p></td>
+<td><p>Classify the PCam evaluation data set with a given model.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.benchmark.PCamData.data_gen" title="pycalib.benchmark.PCamData.data_gen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_gen</span></code></a>()</p></td>
+<td><p>Returns the full dataset or a generator of datasets.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.benchmark.PCamData.plot" title="pycalib.benchmark.PCamData.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>(out_file, results_file, score, methods)</p></td>
+<td><p>Plot results from benchmark experiments as an error bar plot.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.benchmark.PCamData.run" title="pycalib.benchmark.PCamData.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>([n_jobs])</p></td>
+<td><p>Train all models, evaluate on test data and save the results.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Documentation</p>
+<dl class="staticmethod">
+<dt id="pycalib.benchmark.PCamData.classify_val_data">
+<em class="property">static </em><code class="descname">classify_val_data</code><span class="sig-paren">(</span><em>file</em>, <em>clf_name</em>, <em>classifier</em>, <em>data_folder='pcam'</em>, <em>output_folder='clf_output'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#PCamData.classify_val_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.PCamData.classify_val_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classify the PCam evaluation data set with a given model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Output from the model is saved in the given directory.</p></li>
+<li><p><strong>clf_name</strong> – Name of classifier.</p></li>
+<li><p><strong>classifier</strong> (<em>sklearn.base.BaseEstimator</em>) – Classifier to classify p53 data with.</p></li>
+<li><p><strong>data_folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>default=''</em>) – Folder where data is stored.</p></li>
+<li><p><strong>output_folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>default='clf_output'</em>) – Name of folder where output is to be stored. This folder is created if non-existent.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.benchmark.PCamData.data_gen">
+<code class="descname">data_gen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#PCamData.data_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.PCamData.data_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the full dataset or a generator of datasets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>X, y giving uncalibrated predictions and corresponding classes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pycalib.benchmark.PCamData.plot">
+<em class="property">static </em><code class="descname">plot</code><span class="sig-paren">(</span><em>out_file</em>, <em>results_file</em>, <em>score</em>, <em>methods</em>, <em>classifiers='all'</em>, <em>width=5.0</em>, <em>height=2.5</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.benchmark.PCamData.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot results from benchmark experiments as an error bar plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>out_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File location for the output plot.</p></li>
+<li><p><strong>results_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The location of the csv files containing experiment results.</p></li>
+<li><p><strong>score</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Type of score to plot.</p></li>
+<li><p><strong>methods</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Calibration methods to plot.</p></li>
+<li><p><strong>classifiers</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em> or </em><em>&quot;all&quot;</em>) – List of classifiers for which to show results.</p></li>
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default=5.</em>) – Width of the plot.</p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default=2.5</em>) – Height of the plot.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.benchmark.PCamData.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>n_jobs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.benchmark.PCamData.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train all models, evaluate on test data and save the results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n_jobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a><em>, </em><em>optional</em><em> (</em><em>default=None</em><em>)</em>) – The number of CPUs to use to do the computation.
+<code class="docutils literal notranslate"><span class="pre">None</span></code> means 1 unless in a <code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code> context.
+<code class="docutils literal notranslate"><span class="pre">-1</span></code> means using all processors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pycalib.benchmark.SyntheticBeta.html" class="btn btn-neutral float-right" title="SyntheticBeta" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Jonathan Wenger
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

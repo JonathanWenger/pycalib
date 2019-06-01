@@ -1,0 +1,1338 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycalib.benchmark &mdash; pycalib  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pycalib
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycalib</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>pycalib.benchmark</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pycalib.benchmark</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Standard library imports</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+
+<span class="c1"># Numerics and plotting</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.special</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="k">import</span> <span class="n">get_cmap</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+
+<span class="c1"># scikit-learn imports</span>
+<span class="kn">import</span> <span class="nn">sklearn.utils</span>
+<span class="kn">import</span> <span class="nn">sklearn.model_selection</span> <span class="k">as</span> <span class="nn">ms</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="k">import</span> <span class="n">fetch_openml</span>
+
+<span class="c1"># pytorch imports</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.utils.data</span>
+<span class="kn">import</span> <span class="nn">pretrainedmodels</span>
+<span class="kn">import</span> <span class="nn">pretrainedmodels.utils</span>
+
+<span class="c1"># Package imports</span>
+<span class="kn">import</span> <span class="nn">pycalib.calibration_methods</span> <span class="k">as</span> <span class="nn">calib</span>
+<span class="kn">import</span> <span class="nn">pycalib.texfig</span> <span class="k">as</span> <span class="nn">texfig</span>
+<span class="kn">import</span> <span class="nn">pycalib.scoring</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">import</span> <span class="nn">pycalib.plotting</span>
+
+
+<div class="viewcode-block" id="Benchmark"><a class="viewcode-back" href="../../automod/pycalib.benchmark.Benchmark.html#pycalib.benchmark.Benchmark">[docs]</a><span class="k">class</span> <span class="nc">Benchmark</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A benchmarking class for calibration methods.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    run_dir : str</span>
+<span class="sd">        Directory to run benchmarking in and save output and logs to.</span>
+<span class="sd">    cal_methods : list</span>
+<span class="sd">        Calibration methods to benchmark.</span>
+<span class="sd">    cal_method_names : list</span>
+<span class="sd">        Names of calibration methods.</span>
+<span class="sd">    cross_validator : int, cross-validation generator or an iterable, optional</span>
+<span class="sd">        Determines the cross-validation splitting strategy. Possible inputs for cv are:</span>
+<span class="sd">        - None, to use the default 3-fold cross validation,</span>
+<span class="sd">        - integer, to specify the number of folds in a `(Stratified)KFold`,</span>
+<span class="sd">        - `CV splitter`,</span>
+<span class="sd">        - An iterable yielding (train, test) splits as arrays of indices.</span>
+<span class="sd">        For integer/None inputs, if the estimator is a classifier and ``y`` is</span>
+<span class="sd">        either binary or multi-class, :class:`StratifiedKFold` is used. In all</span>
+<span class="sd">        other cases, :class:`KFold` is used.</span>
+<span class="sd">    random_state : int, RandomState instance or None, optional (default=None)</span>
+<span class="sd">        If int, random_state is the seed used by the random number generator;</span>
+<span class="sd">        If RandomState instance, random_state is the random number generator;</span>
+<span class="sd">        If None, the random number generator is the RandomState instance used</span>
+<span class="sd">        by `np.random`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span> <span class="n">cross_validator</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Create directory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">run_dir</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Check models for consistency</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cal_methods</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="n">cal_methods</span> <span class="o">=</span> <span class="p">[</span><span class="n">cal_methods</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cal_method_names</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="n">cal_method_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">cal_method_names</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">cal_methods</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">calib</span><span class="o">.</span><span class="n">CalibrationMethod</span><span class="p">),</span> <span class="s2">&quot;Method is not a subclass of CalibrationMethod.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cal_methods</span> <span class="o">=</span> <span class="n">cal_methods</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cal_method_names</span> <span class="o">=</span> <span class="n">cal_method_names</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cal_methods</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cal_method_names</span><span class="p">)</span>
+        <span class="c1"># Set cross validator and random state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cross_validator</span> <span class="o">=</span> <span class="n">cross_validator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_size</span> <span class="o">=</span> <span class="n">cross_validator</span><span class="o">.</span><span class="n">train_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_size</span> <span class="o">=</span> <span class="n">cross_validator</span><span class="o">.</span><span class="n">test_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+        <span class="c1"># Initialize results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Benchmark.data_gen"><a class="viewcode-back" href="../../automod/pycalib.benchmark.Benchmark.html#pycalib.benchmark.Benchmark.data_gen">[docs]</a>    <span class="k">def</span> <span class="nf">data_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the full dataset or a generator of datasets.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            X, y giving uncalibrated predictions and corresponding classes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclass must implement this method.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Benchmark.run"><a class="viewcode-back" href="../../automod/pycalib.benchmark.Benchmark.html#pycalib.benchmark.Benchmark.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Train all models, evaluate on test data and save the results.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        n_jobs : int or None, optional (default=None)</span>
+<span class="sd">            The number of CPUs to use to do the computation.</span>
+<span class="sd">            ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.</span>
+<span class="sd">            ``-1`` means using all processors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initialization</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="c1"># Iterate through models</span>
+        <span class="k">for</span> <span class="n">cal_method</span><span class="p">,</span> <span class="n">cal_method_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cal_methods</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cal_method_names</span><span class="p">):</span>
+
+            <span class="c1"># Create cal_method and plot directory</span>
+            <span class="n">method_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="s2">&quot;methods&quot;</span><span class="p">,</span> <span class="n">cal_method_name</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">method_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">plot_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">method_dir</span><span class="p">,</span> <span class="s2">&quot;plots&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="c1"># Initialize cal_method specific scores data frame</span>
+            <span class="n">model_scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+            <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+            <span class="n">h</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">=== Model </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">, Total Time: </span><span class="si">{:.0f}</span><span class="s2">:</span><span class="si">{:02.0f}</span><span class="s2">:</span><span class="si">{:02.0f}</span><span class="s2"> ===</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cal_method_name</span><span class="p">,</span>
+                                                                                               <span class="bp">self</span><span class="o">.</span><span class="n">cal_method_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span>
+                                                                                                   <span class="n">cal_method_name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                                                                                               <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cal_methods</span><span class="p">),</span> <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span>
+                                                                                               <span class="n">s</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">-fold CV in </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cal_method_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cross_validator</span><span class="o">.</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">method_dir</span><span class="p">))</span>
+
+            <span class="c1"># Reset random state of cross validator to guarantee same splits for each cal_method</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cross_validator</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
+
+            <span class="c1"># Iterate through data sets</span>
+            <span class="k">for</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">data_params</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_gen</span><span class="p">():</span>
+
+                <span class="c1"># Create directories and measure time</span>
+                <span class="n">dataset_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+                <span class="k">if</span> <span class="s2">&quot;Model&quot;</span> <span class="ow">in</span> <span class="n">data_params</span><span class="p">:</span>
+                    <span class="n">plot_model_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">,</span> <span class="n">data_params</span><span class="p">[</span><span class="s2">&quot;Model&quot;</span><span class="p">])</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">plot_model_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">plot_model_dir</span> <span class="o">=</span> <span class="n">plot_dir</span>
+
+                <span class="c1"># Define scorers and parameters</span>
+                <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
+
+                <span class="n">metrics_dict</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;accuracy&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">accuracy</span><span class="p">,</span> <span class="p">{}),</span>
+                    <span class="s2">&quot;log-loss&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">log_loss</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;labels&quot;</span><span class="p">:</span> <span class="n">labels</span><span class="p">}),</span>
+                    <span class="s2">&quot;ECE&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">expected_calibration_error</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}),</span>
+                    <span class="s2">&quot;MCE&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">expected_calibration_error</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">}),</span>
+                    <span class="s2">&quot;sharpness&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">sharpness</span><span class="p">,</span> <span class="p">{}),</span>
+                    <span class="s2">&quot;overconfidence&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">overconfidence</span><span class="p">,</span> <span class="p">{}),</span>
+                    <span class="s2">&quot;underconfidence&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">underconfidence</span><span class="p">,</span> <span class="p">{}),</span>
+                    <span class="s2">&quot;avg_confidence&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">average_confidence</span><span class="p">,</span> <span class="p">{}),</span>
+                    <span class="s2">&quot;weighted_abs_conf_difference&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">weighted_abs_conf_difference</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="p">}</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">metrics_dict</span><span class="p">[</span><span class="s2">&quot;brier_score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">brier_score</span><span class="p">,</span> <span class="p">{})</span>
+
+                <span class="n">scorer</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">MultiScorer</span><span class="p">(</span>
+                    <span class="n">metrics</span><span class="o">=</span><span class="n">metrics_dict</span><span class="p">,</span>
+                    <span class="n">plots</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;reliability_diagram&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">pycalib</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">reliability_diagram</span><span class="p">,</span>
+                                                <span class="p">{</span><span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plot_model_dir</span><span class="p">,</span>
+                                                                          <span class="s2">&quot;reliability_diagram&quot;</span><span class="p">),</span>
+                                                 <span class="s2">&quot;show_ece&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="p">})</span>
+                    <span class="p">})</span>
+
+                <span class="c1"># Run cross validation for current cal_method specification</span>
+                <span class="n">ms</span><span class="o">.</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">cal_method</span><span class="p">,</span>
+                                   <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+                                   <span class="n">scoring</span><span class="o">=</span><span class="n">scorer</span><span class="p">,</span>
+                                   <span class="n">cv</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cross_validator</span><span class="p">,</span>
+                                   <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
+                                   <span class="n">pre_dispatch</span><span class="o">=</span><span class="s2">&quot;1*n_jobs&quot;</span><span class="p">,</span>
+                                   <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+                <span class="c1"># TODO: right now this prevents n_jobs != 1</span>
+                <span class="n">model_scores_dict</span> <span class="o">=</span> <span class="n">scorer</span><span class="o">.</span><span class="n">get_results</span><span class="p">(</span><span class="n">fold</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+
+                <span class="c1"># Convert result to data frame and add to cal_method scores data frame</span>
+                <span class="n">model_scores_tmp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model_scores_dict</span><span class="p">)</span>
+                <span class="n">info_params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;Method&quot;</span><span class="p">:</span> <span class="n">cal_method_name</span><span class="p">},</span> <span class="o">**</span><span class="n">data_params</span><span class="p">}</span>
+                <span class="n">model_scores_tmp</span> <span class="o">=</span> <span class="n">model_scores_tmp</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="o">**</span><span class="n">info_params</span><span class="p">)</span>
+                <span class="n">model_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model_scores_tmp</span><span class="p">)</span>
+
+                <span class="c1"># Save summary statistics</span>
+                <span class="n">grouped</span> <span class="o">=</span> <span class="n">model_scores_tmp</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">info_params</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+                <span class="n">summ_stats_model_scores</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">])</span>
+                <span class="n">scores</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">summ_stats_model_scores</span><span class="p">)</span>
+
+                <span class="c1"># Log summary statistics for current cal_method and data set</span>
+                <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">dataset_time</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+                <span class="n">h</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">-fold results:</span><span class="se">\t</span><span class="s2"> ECE: </span><span class="si">{:.4f}</span><span class="s2"> +/- </span><span class="si">{:.4f}</span><span class="se">\t</span><span class="s2"> Time: </span><span class="si">{:.0f}</span><span class="s2">:</span><span class="si">{:02.0f}</span><span class="s2">:</span><span class="si">{:02.0f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">cal_method_name</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cross_validator</span><span class="o">.</span><span class="n">n_splits</span><span class="p">,</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">model_scores_dict</span><span class="p">[</span><span class="s2">&quot;ECE&quot;</span><span class="p">]),</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">model_scores_dict</span><span class="p">[</span><span class="s2">&quot;ECE&quot;</span><span class="p">]),</span>
+                    <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span>
+                <span class="p">))</span>
+
+            <span class="c1"># Save cal_method specific CV results to file</span>
+            <span class="n">tmp_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">-%Hh%Mm%Ss&quot;</span><span class="p">)</span>
+            <span class="n">model_scores</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path_or_buf</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">method_dir</span><span class="p">,</span> <span class="s2">&quot;cv_scores_</span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2">.csv&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cal_method_name</span><span class="p">,</span> <span class="n">tmp_time</span><span class="p">)))</span>
+            <span class="c1"># Save summary statistics</span>
+            <span class="n">mi</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">columns</span>
+            <span class="n">model_scores</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">mi</span><span class="o">.</span><span class="n">tolist</span><span class="p">()])</span>
+            <span class="n">scores</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path_or_buf</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">method_dir</span><span class="p">,</span> <span class="s2">&quot;cv_scores_</span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2">_summ.csv&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cal_method_name</span><span class="p">,</span> <span class="n">tmp_time</span><span class="p">)))</span>
+
+        <span class="c1"># Save summary statistics of all models to file</span>
+        <span class="n">mi</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">columns</span>
+        <span class="n">scores</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">mi</span><span class="o">.</span><span class="n">tolist</span><span class="p">()])</span>
+        <span class="n">scores</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+            <span class="n">path_or_buf</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="s2">&quot;cv_scores_total_</span><span class="si">{}</span><span class="s2">.csv&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">-%Hh%Mm%Ss&quot;</span><span class="p">))))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">scores</span></div>
+
+<div class="viewcode-block" id="Benchmark.plot"><a class="viewcode-back" href="../../automod/pycalib.benchmark.Benchmark.html#pycalib.benchmark.Benchmark.plot">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="n">results_file</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">methods</span><span class="p">,</span> <span class="n">classifiers</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">2.5</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot results from benchmark experiments as an error bar plot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        out_file : str</span>
+<span class="sd">            File location for the output plot.</span>
+<span class="sd">        results_file : str</span>
+<span class="sd">             The location of the csv files containing experiment results.</span>
+<span class="sd">        score : str</span>
+<span class="sd">            Type of score to plot.</span>
+<span class="sd">        methods : list</span>
+<span class="sd">            Calibration methods to plot.</span>
+<span class="sd">        classifiers : list or &quot;all&quot;</span>
+<span class="sd">            List of classifiers for which to show results.</span>
+<span class="sd">        width : float, default=5.</span>
+<span class="sd">            Width of the plot.</span>
+<span class="sd">        height : float, default=2.5</span>
+<span class="sd">            Height of the plot.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Load data from file</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">results_file</span><span class="p">)</span>
+
+        <span class="c1"># Filter data</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">classifiers</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">classifiers</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+            <span class="n">classifiers</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;Model&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Colors</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;tab10&quot;</span><span class="p">)</span>  <span class="c1"># https://matplotlib.org/gallery/color/colormap_reference.html</span>
+
+        <span class="c1"># Create figure</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">texfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="n">height</span><span class="o">/</span><span class="n">width</span><span class="p">)</span>
+        <span class="n">x_base</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">classifiers</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_base</span> <span class="o">-</span> <span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="n">x_base</span><span class="p">,</span> <span class="n">x_base</span> <span class="o">+</span> <span class="o">.</span><span class="mi">2</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">i_method</span><span class="p">,</span> <span class="n">method</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">methods</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i_clf</span><span class="p">,</span> <span class="n">clf</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">classifiers</span><span class="p">):</span>
+                <span class="n">results_tmp</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;Method&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">method</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;Model&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">clf</span><span class="p">)]</span>
+                <span class="n">ymean</span> <span class="o">=</span> <span class="n">results_tmp</span><span class="p">[</span><span class="n">score</span> <span class="o">+</span> <span class="s2">&quot;_mean&quot;</span><span class="p">]</span>
+                <span class="n">y2sigma</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">results_tmp</span><span class="p">[</span><span class="n">score</span> <span class="o">+</span> <span class="s2">&quot;_std&quot;</span><span class="p">]</span>
+                <span class="n">marker</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">bar</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i_method</span><span class="p">,</span> <span class="n">i_clf</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">ymean</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="n">y2sigma</span><span class="p">,</span>
+                                               <span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="n">i_method</span><span class="p">],</span> <span class="n">ecolor</span><span class="o">=</span><span class="n">cmap</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="n">i_method</span><span class="p">],</span>
+                                               <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">elinewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
+                <span class="n">bar</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+
+        <span class="c1"># axes.set_xlabel(&quot;model&quot;)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">x_base</span><span class="p">)</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">classifiers</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+
+        <span class="n">handles</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+        <span class="n">by_label</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">handles</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">by_label</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">by_label</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Save figure</span>
+        <span class="n">texfig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">out_file</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="SyntheticBeta"><a class="viewcode-back" href="../../automod/pycalib.benchmark.SyntheticBeta.html#pycalib.benchmark.SyntheticBeta">[docs]</a><span class="k">class</span> <span class="nc">SyntheticBeta</span><span class="p">(</span><span class="n">Benchmark</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model evaluation using synthetic data sampled from a Beta distribution.</span>
+
+<span class="sd">    Implements a data generation method returning a new evaluation data with maximum posterior probabilities sampled</span>
+<span class="sd">    from a Beta distribution :math:`\hat{p}_{\max} \sim (1-\\frac{1}{K})\\text{Beta}(\\alpha, \\beta)+\\frac{1}{K}` and</span>
+<span class="sd">    corresponding class labels sampled from a Bernoulli distribution with parameter :math:`f(\\hat{p}_{\max})`, where</span>
+<span class="sd">    :math:`f : [\\frac{1}{n_\\text{classes}},1] \\rightarrow [\\frac{1}{n_\\text{classes}},1]` is a miscalibration function.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    run_dir : str</span>
+<span class="sd">        Directory to run benchmarking in and save output and logs to.</span>
+<span class="sd">    cal_methods : list</span>
+<span class="sd">        Calibration methods to benchmark.</span>
+<span class="sd">    cal_method_names : list</span>
+<span class="sd">        Names of calibration methods.</span>
+<span class="sd">    beta_params : tuple or list, shape=(n,2)</span>
+<span class="sd">        Parameters :math:`(\\alpha, \\beta)` of the Beta distribution.</span>
+<span class="sd">    miscal_functions : function or list</span>
+<span class="sd">        Function(s) :math:`f : [0,1] \\rightarrow [0,1]` for miscalibration. When this function is different from the</span>
+<span class="sd">        identity, the generated output from this function is miscalibrated. The function automatically gets rescaled to</span>
+<span class="sd">        :math:`f : [\\frac{1}{n_\\text{classes}},1] \\rightarrow [\\frac{1}{n_\\text{classes}},1]`.</span>
+<span class="sd">    miscal_function_names : str or list</span>
+<span class="sd">        Names of miscalibration functions.</span>
+<span class="sd">    size : int or list</span>
+<span class="sd">        Size of data set.</span>
+<span class="sd">    marginal_probs : float or list, default=None</span>
+<span class="sd">        Marginal class probabilities.</span>
+<span class="sd">    n_splits : int, default=10</span>
+<span class="sd">        Number of splits for cross validation.</span>
+<span class="sd">    test_size : float, default=0.9</span>
+<span class="sd">        Size of test set.</span>
+<span class="sd">    train_size : float, default=None</span>
+<span class="sd">        Size of calibration set.</span>
+<span class="sd">    random_state : int, RandomState instance or None, optional (default=None)</span>
+<span class="sd">        If `int`, `random_state` is the seed used by the random number generator;</span>
+<span class="sd">        If `RandomState` instance, `random_state` is the random number generator;</span>
+<span class="sd">        If `None`, the random number generator is the RandomState instance used</span>
+<span class="sd">        by `np.random`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
+                 <span class="n">beta_params</span><span class="p">,</span> <span class="n">miscal_functions</span><span class="p">,</span> <span class="n">miscal_function_names</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">marginal_probs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="c1"># Instantiate cross validator</span>
+        <span class="n">cv</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
+                             <span class="n">random_state</span><span class="o">=</span><span class="n">sklearn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">check_random_state</span><span class="p">(</span><span class="n">random_state</span><span class="p">))</span>
+
+        <span class="c1"># Run super class constructor</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">run_dir</span><span class="o">=</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">cal_methods</span><span class="o">=</span><span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="o">=</span><span class="n">cal_method_names</span><span class="p">,</span> <span class="n">cross_validator</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
+                         <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+
+        <span class="c1"># Check synthetic data parameters</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">beta_params</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="n">beta_params</span> <span class="o">=</span> <span class="p">[</span><span class="n">beta_params</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">miscal_functions</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="n">miscal_functions</span> <span class="o">=</span> <span class="p">[</span><span class="n">miscal_functions</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">miscal_function_names</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="n">miscal_function_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">miscal_function_names</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">miscal_functions</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="n">miscal_function_names</span><span class="p">),</span> <span class="s2">&quot;Lists of miscalibration functions and their names have different sizes.&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="p">[</span><span class="n">size</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">marginal_probs</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="n">n_classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">marginal_probs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="n">n_classes</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Must have more than one class.&quot;</span>
+            <span class="n">marginal_probs</span> <span class="o">=</span> <span class="p">[</span><span class="n">marginal_probs</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">n_classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">marginal_probs</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">mp</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">n_classes</span> <span class="k">for</span> <span class="n">mp</span> <span class="ow">in</span>
+                           <span class="n">marginal_probs</span><span class="p">]),</span> <span class="s2">&quot;Marginal probabilities must have the same shape.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span> <span class="o">=</span> <span class="n">n_classes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_params</span> <span class="o">=</span> <span class="n">beta_params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">miscal_functions</span> <span class="o">=</span> <span class="n">miscal_functions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">miscal_function_names</span> <span class="o">=</span> <span class="n">miscal_function_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">marginal_probs</span> <span class="o">=</span> <span class="n">marginal_probs</span>
+
+<div class="viewcode-block" id="SyntheticBeta.data_gen"><a class="viewcode-back" href="../../automod/pycalib.benchmark.SyntheticBeta.html#pycalib.benchmark.SyntheticBeta.data_gen">[docs]</a>    <span class="k">def</span> <span class="nf">data_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the full dataset or a generator of datasets.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            X, y giving uncalibrated predictions and corresponding classes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Automatically rescale miscalibration function to :math:`f : [1/n_classes,1] \\rightarrow [1/n_classes,1]`</span>
+        <span class="k">def</span> <span class="nf">mf</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">)</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">w</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span>
+
+        <span class="c1"># Return data with all parameter combinations</span>
+        <span class="n">generator_comprehension</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">SyntheticBeta</span><span class="o">.</span><span class="n">sample_miscal_data</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">bp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">beta</span><span class="o">=</span><span class="n">bp</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                             <span class="n">miscal_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">mf</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">miscal_functions</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">),</span>
+                                             <span class="n">miscal_func_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">miscal_function_names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">s</span><span class="p">,</span>
+                                             <span class="n">marginal_probs</span><span class="o">=</span><span class="n">marg</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">bp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_params</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">miscal_functions</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+            <span class="k">for</span> <span class="n">marg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">marginal_probs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">generator_comprehension</span></div>
+
+<div class="viewcode-block" id="SyntheticBeta.sample_miscal_data"><a class="viewcode-back" href="../../automod/pycalib.benchmark.SyntheticBeta.html#pycalib.benchmark.SyntheticBeta.sample_miscal_data">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">sample_miscal_data</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">miscal_func</span><span class="p">,</span> <span class="n">miscal_func_name</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">marginal_probs</span><span class="p">,</span>
+                           <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sample a synthetic data set based on the Beta distribution and a miscalibration function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        alpha : float</span>
+<span class="sd">            Parameter :math:`\alpha` of the Beta distribution.</span>
+<span class="sd">        beta : float</span>
+<span class="sd">            Parameter :math:`\alpha` of the Beta distribution.</span>
+<span class="sd">        miscal_func : function</span>
+<span class="sd">            Function :math:`f : [\\frac{1}{n_\\text{classes}},1] \\rightarrow [\\frac{1}{n_\\text{classes}},1]` giving</span>
+<span class="sd">            the accuracy for a given confidence. When this function is different from the identity, the generated output</span>
+<span class="sd">            from this function is miscalibrated.</span>
+<span class="sd">        miscal_func_name : str</span>
+<span class="sd">            Name of the miscalibration function.</span>
+<span class="sd">        size : int</span>
+<span class="sd">            Size of data set.</span>
+<span class="sd">        marginal_probs : np.ndarray, size=(n_classes,)</span>
+<span class="sd">            Marginal class probabilities.</span>
+<span class="sd">        random_state : int, RandomState instance or None, optional (default=None)</span>
+<span class="sd">            If `int`, `random_state` is the seed used by the random number generator;</span>
+<span class="sd">            If `RandomState` instance, `random_state` is the random number generator;</span>
+<span class="sd">            If `None`, the random number generator is the RandomState instance used</span>
+<span class="sd">            by `np.random`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            X, y giving uncalibrated predictions and corresponding classes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Information on sampled data</span>
+        <span class="n">info_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="n">alpha</span><span class="p">,</span>
+                     <span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="n">beta</span><span class="p">,</span>
+                     <span class="s2">&quot;miscal_function&quot;</span><span class="p">:</span> <span class="n">miscal_func_name</span><span class="p">,</span>
+                     <span class="s2">&quot;test_plus_train_size&quot;</span><span class="p">:</span> <span class="n">size</span><span class="p">,</span>
+                     <span class="s2">&quot;marginal_class_probs&quot;</span><span class="p">:</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">marginal_probs</span><span class="p">)}</span>
+        <span class="n">n_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">marginal_probs</span><span class="p">)</span>
+
+        <span class="c1"># Sample maximum posterior probabilities from a Beta distribution</span>
+        <span class="n">random_state</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">check_random_state</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
+        <span class="n">p_hat</span> <span class="o">=</span> <span class="n">random_state</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">beta</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">n_classes</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">n_classes</span>
+
+        <span class="c1"># Sample true class labels</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">random_state</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">marginal_probs</span><span class="p">)</span>
+
+        <span class="c1"># Sample predicted probabilities with the correctness according to the miscalibration function</span>
+        <span class="n">p_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">size</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">p_hat</span><span class="p">):</span>
+            <span class="n">p_pred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">SyntheticBeta</span><span class="o">.</span><span class="n">_sample_probs</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p_max</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">p_miscal</span><span class="o">=</span><span class="n">miscal_func</span><span class="p">(</span><span class="n">p</span><span class="p">),</span>
+                                                       <span class="n">n_classes</span><span class="o">=</span><span class="n">n_classes</span><span class="p">,</span>
+                                                       <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">p_pred</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">info_dict</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_sample_probs</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">p_max</span><span class="p">,</span> <span class="n">p_miscal</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">10</span> <span class="o">**</span> <span class="o">-</span><span class="mi">9</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Samples a probability vector such that the given class is predicted with the given probability.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        y_true : int</span>
+<span class="sd">            Given class prediction.</span>
+<span class="sd">        p_max : float</span>
+<span class="sd">            Predicted probability.</span>
+<span class="sd">        p_miscal : float</span>
+<span class="sd">            Miscalibrated probability of the correct class prediction.</span>
+<span class="sd">        n_classes : int</span>
+<span class="sd">            Number of classes.</span>
+<span class="sd">        gamma : float, default=2</span>
+<span class="sd">            Parameter in stick-breaking process view. The smaller gamma, the more concentrated the sampled probabilities</span>
+<span class="sd">            will be.</span>
+<span class="sd">        random_state : int, RandomState instance or None, optional (default=None)</span>
+<span class="sd">            If `int`, `random_state` is the seed used by the random number generator;</span>
+<span class="sd">            If `RandomState` instance, `random_state` is the random number generator;</span>
+<span class="sd">            If `None`, the random number generator is the RandomState instance used</span>
+<span class="sd">            by `np.random`.</span>
+<span class="sd">        tol : float, default=10^-9</span>
+<span class="sd">            Tolerance parameter voiding numerical issues. Returned probabilities satisfy</span>
+<span class="sd">            `np.abs(1 - np.sum(p_pred)) &lt; tol`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        p_pred : np.ndarray</span>
+<span class="sd">            Array of posterior probabilities.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initialization</span>
+        <span class="n">random_state</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">check_random_state</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
+        <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_max</span><span class="p">,</span> <span class="n">p_max</span><span class="p">)</span>
+        <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_max</span> <span class="o">-</span> <span class="p">(</span><span class="n">n_classes</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">p_max</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">gamma</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Gamma must be positive.&quot;</span>
+        <span class="k">assert</span> <span class="n">upper_bound</span> <span class="o">&gt;=</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="s2">&quot;Given p_max cannot be maximal for the number of classes.&quot;</span>
+        <span class="n">res_probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_classes</span><span class="p">)</span>
+        <span class="n">res_probs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_max</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">):</span>
+            <span class="c1"># Sample class probabilities uniformly given that p_max is the largest value</span>
+            <span class="k">if</span> <span class="n">upper_bound</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">res_probs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">upper_bound</span> <span class="o">==</span> <span class="n">lower_bound</span><span class="p">:</span>
+                <span class="n">res_probs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">upper_bound</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Sample from beta distribution, can be seen as a stick-breaking process with length constraints</span>
+                <span class="n">res_probs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">((</span><span class="n">upper_bound</span> <span class="o">-</span> <span class="n">lower_bound</span><span class="p">)</span> <span class="o">*</span> <span class="n">random_state</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                                       <span class="o">+</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">a_min</span><span class="o">=</span><span class="n">lower_bound</span><span class="p">,</span> <span class="n">a_max</span><span class="o">=</span><span class="n">upper_bound</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">res_probs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">p_max</span>
+            <span class="c1"># Update lower and upper bound, this is determined by p &lt;= p_max and the number of classes</span>
+            <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">res_probs</span><span class="p">[</span><span class="mi">0</span><span class="p">:(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]),</span> <span class="n">p_max</span><span class="p">)</span>
+            <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">upper_bound</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">res_probs</span><span class="p">[</span><span class="mi">0</span><span class="p">:(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)])</span> <span class="o">-</span> <span class="p">(</span><span class="n">n_classes</span> <span class="o">-</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">p_max</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">res_probs</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="c1"># res_probs /= np.sum(res_probs)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Probabilities do not sum to 1.&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">res_probs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Given supposedly maximal probability is not maximal.&quot;</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">p_max</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">res_probs</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="o">**</span> <span class="o">-</span><span class="mi">9</span>
+
+        <span class="c1"># Reorder probabilities to ensure p_max matches predicted class</span>
+        <span class="n">other_class</span> <span class="o">=</span> <span class="n">random_state</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">y_true</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">class_pred</span> <span class="o">=</span> <span class="n">random_state</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="n">y_true</span><span class="p">,</span> <span class="n">other_class</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="n">p_miscal</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_miscal</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+        <span class="c1"># Mix probabilities other than p_max randomly to remove dependence introduced through the bounds</span>
+        <span class="n">p_pred</span> <span class="o">=</span> <span class="n">random_state</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">res_probs</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">n_classes</span><span class="p">],</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_classes</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Insert p_max to match predicted class</span>
+        <span class="n">p_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">p_pred</span><span class="p">,</span> <span class="n">class_pred</span><span class="p">,</span> <span class="n">p_max</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">p_pred</span><span class="p">[</span><span class="n">class_pred</span><span class="p">]</span> <span class="o">==</span> <span class="n">p_max</span><span class="p">,</span> <span class="s2">&quot;Maximal probability does not match predicted class.&quot;</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">p_pred</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;Probabilities are not non-negative.&quot;</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p_pred</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="o">**</span> <span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="s2">&quot;Probabilities do not sum to 1.&quot;</span>
+
+        <span class="k">return</span> <span class="n">p_pred</span>
+
+<div class="viewcode-block" id="SyntheticBeta.plot"><a class="viewcode-back" href="../../automod/pycalib.benchmark.SyntheticBeta.html#pycalib.benchmark.SyntheticBeta.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plots the result of the benchmark experiment.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional arguments passed on to :func:`matplotlib.plot`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">metric</span> <span class="o">=</span> <span class="s2">&quot;underconfidence&quot;</span>
+
+        <span class="c1"># Read data from file</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="s2">&quot;cv_scores.csv&quot;</span><span class="p">))</span>
+        <span class="n">plot_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="s2">&quot;plots&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">)</span>
+
+        <span class="c1"># Find parameter combinations and select data</span>
+        <span class="n">param_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">,</span> <span class="s2">&quot;beta&quot;</span><span class="p">,</span> <span class="s2">&quot;miscal_function&quot;</span><span class="p">,</span> <span class="s2">&quot;test_plus_train_size&quot;</span><span class="p">,</span> <span class="s2">&quot;marginal_class_probs&quot;</span><span class="p">]</span>
+        <span class="n">param_combinations</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">param_columns</span><span class="p">]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">param_combinations</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="c1"># Select data with specific parameter combination</span>
+            <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="n">param_combinations</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">param_columns</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">df_tmp</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="p">:]</span>
+
+            <span class="c1"># Plot</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">texfig</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df_tmp</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">],</span>
+                         <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df_tmp</span><span class="p">[</span><span class="s2">&quot;test_&quot;</span> <span class="o">+</span> <span class="n">metric</span> <span class="o">+</span> <span class="s2">&quot;_mean&quot;</span><span class="p">]),</span>
+                         <span class="n">yerr</span><span class="o">=</span><span class="n">df_tmp</span><span class="p">[</span><span class="s2">&quot;test_&quot;</span> <span class="o">+</span> <span class="n">metric</span> <span class="o">+</span> <span class="s2">&quot;_std&quot;</span><span class="p">],</span>
+                         <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+
+            <span class="n">texfig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
+                <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">,</span> <span class="n">metric</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">param_combinations</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])))</span></div>
+
+<div class="viewcode-block" id="SyntheticBeta.plot_miscal_function"><a class="viewcode-back" href="../../automod/pycalib.benchmark.SyntheticBeta.html#pycalib.benchmark.SyntheticBeta.plot_miscal_function">[docs]</a>    <span class="k">def</span> <span class="nf">plot_miscal_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plots the miscalibration functions.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        function_names : list</span>
+<span class="sd">            List of miscalibration functions to plot.</span>
+<span class="sd">        **kwargs :</span>
+<span class="sd">            Additional arguments passed on to :func:`matplotlib.plot`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Setup</span>
+        <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">function_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">function_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">miscal_function_names</span>
+        <span class="n">f_ind</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">miscal_function_names</span><span class="p">)</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">function_names</span><span class="p">]</span>
+
+        <span class="c1"># Plot miscalibration functions</span>
+        <span class="k">for</span> <span class="n">name_f</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">miscal_function_names</span><span class="p">[</span><span class="n">f_ind</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">miscal_functions</span><span class="p">[</span><span class="n">f_ind</span><span class="p">]):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="n">name_f</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;predicted probability&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;empirical accuracy&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ax</span></div></div>
+
+
+<div class="viewcode-block" id="KITTIBinaryData"><a class="viewcode-back" href="../../automod/pycalib.benchmark.KITTIBinaryData.html#pycalib.benchmark.KITTIBinaryData">[docs]</a><span class="k">class</span> <span class="nc">KITTIBinaryData</span><span class="p">(</span><span class="n">Benchmark</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model evaluation using the (binary) KITTI benchmark dataset.</span>
+
+<span class="sd">    This class implements a data generation method returning a new evaluation data set for each scoring round.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    run_dir : str</span>
+<span class="sd">        Directory to run benchmarking in and save output and logs to.</span>
+<span class="sd">    data_dir : str</span>
+<span class="sd">        Directory containing calibration data obtained from KITTI classification.</span>
+<span class="sd">    classifier_names : list</span>
+<span class="sd">        Names of classifiers to be calibrated. Classification results on KITTI must be contained in `data_dir`.</span>
+<span class="sd">    cal_methods : list</span>
+<span class="sd">        Calibration methods to benchmark.</span>
+<span class="sd">    cal_method_names : list</span>
+<span class="sd">        Names of calibration methods.</span>
+<span class="sd">    n_splits : int, default=10</span>
+<span class="sd">        Number of splits for cross validation.</span>
+<span class="sd">    test_size : float, default=0.9</span>
+<span class="sd">        Size of test set.</span>
+<span class="sd">    train_size : float, default=None</span>
+<span class="sd">        Size of calibration set.</span>
+<span class="sd">    random_state : int, RandomState instance or None, optional (default=None)</span>
+<span class="sd">        If `int`, `random_state` is the seed used by the random number generator;</span>
+<span class="sd">        If `RandomState` instance, `random_state` is the random number generator;</span>
+<span class="sd">        If `None`, the random number generator is the RandomState instance used</span>
+<span class="sd">        by `np.random`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
+                 <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Create cross validator which splits the data randomly based on test or train size</span>
+        <span class="n">cv</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
+                             <span class="n">random_state</span><span class="o">=</span><span class="n">sklearn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">check_random_state</span><span class="p">(</span><span class="n">random_state</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">=</span> <span class="n">data_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier_names</span> <span class="o">=</span> <span class="n">classifier_names</span>
+
+        <span class="c1"># Run super class constructor</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">run_dir</span><span class="o">=</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">cal_methods</span><span class="o">=</span><span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="o">=</span><span class="n">cal_method_names</span><span class="p">,</span> <span class="n">cross_validator</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
+                         <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+
+<div class="viewcode-block" id="KITTIBinaryData.classify_val_data"><a class="viewcode-back" href="../../automod/pycalib.benchmark.KITTIBinaryData.html#pycalib.benchmark.KITTIBinaryData.classify_val_data">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">classify_val_data</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">data_folder</span><span class="o">=</span><span class="s1">&#39;kitti&#39;</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;clf_output&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Classify the (binary) KITTI evaluation data set with a given model.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file : str</span>
+<span class="sd">            Output from the model is saved in the given directory.</span>
+<span class="sd">        clf_name :</span>
+<span class="sd">            Name of classifier.</span>
+<span class="sd">        classifier : sklearn.base.BaseEstimator</span>
+<span class="sd">            Classifier to classify KITTI data with.</span>
+<span class="sd">        data_folder : str, default=&#39;&#39;</span>
+<span class="sd">            Folder where data is stored.</span>
+<span class="sd">        output_folder : str, default=&#39;clf_output&#39;</span>
+<span class="sd">            Name of folder where output is to be stored. This folder is created if non-existent.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Load data from file</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;kitti_all_train.data&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;kitti_all_train.labels&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;kitti_all_test.data&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;kitti_all_test.labels&#39;</span><span class="p">]</span>
+        <span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_folder</span><span class="p">,</span> <span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_folder</span><span class="p">,</span> <span class="n">files</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_folder</span><span class="p">,</span> <span class="n">files</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_folder</span><span class="p">,</span> <span class="n">files</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_train</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_test</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Train classifier</span>
+        <span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+
+        <span class="c1"># Classify validation data</span>
+        <span class="n">p_pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="n">y_y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">y_test</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">p_pred</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)])</span>
+
+        <span class="c1"># Remove possible nan or inf</span>
+        <span class="n">isnotnan_ind</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">p_pred</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">p_pred</span> <span class="o">=</span> <span class="n">p_pred</span><span class="p">[</span><span class="n">isnotnan_ind</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">y_y_pred</span> <span class="o">=</span> <span class="n">y_y_pred</span><span class="p">[</span><span class="n">isnotnan_ind</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># Save to file</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s2">&quot;p_pred_</span><span class="si">{}</span><span class="s2">.csv&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf_name</span><span class="p">)),</span> <span class="n">p_pred</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s2">&quot;y_y_pred_</span><span class="si">{}</span><span class="s2">.csv&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf_name</span><span class="p">)),</span> <span class="n">y_y_pred</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%i</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KITTIBinaryData.data_gen"><a class="viewcode-back" href="../../automod/pycalib.benchmark.KITTIBinaryData.html#pycalib.benchmark.KITTIBinaryData.data_gen">[docs]</a>    <span class="k">def</span> <span class="nf">data_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the full dataset or a generator of datasets.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            X, y giving uncalibrated predictions and corresponding classes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Load logits and classification results from file</span>
+        <span class="k">for</span> <span class="n">clf_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier_names</span><span class="p">:</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;p_pred_&#39;</span> <span class="o">+</span> <span class="n">clf_name</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;y_y_pred_&#39;</span> <span class="o">+</span> <span class="n">clf_name</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">),</span>
+                           <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">]</span>
+
+            <span class="c1"># Calibration and test size</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_size</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">calib_size_tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_size</span>
+                <span class="n">test_size_tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_size</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">calib_size_tmp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_size</span><span class="p">)</span>
+                <span class="n">test_size_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_size</span><span class="p">)</span>
+
+            <span class="c1"># Collect information on data set</span>
+            <span class="n">info_dict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;Dataset&quot;</span><span class="p">:</span> <span class="s2">&quot;KITTI&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="n">clf_name</span><span class="p">,</span>
+                <span class="s2">&quot;n_classes&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="s2">&quot;calib_size&quot;</span><span class="p">:</span> <span class="n">calib_size_tmp</span><span class="p">,</span>
+                <span class="s2">&quot;test_size&quot;</span><span class="p">:</span> <span class="n">test_size_tmp</span><span class="p">}</span>
+
+            <span class="c1"># Return (as generator)</span>
+            <span class="k">yield</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">info_dict</span></div></div>
+
+
+<div class="viewcode-block" id="PCamData"><a class="viewcode-back" href="../../automod/pycalib.benchmark.PCamData.html#pycalib.benchmark.PCamData">[docs]</a><span class="k">class</span> <span class="nc">PCamData</span><span class="p">(</span><span class="n">Benchmark</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model evaluation using the PCam benchmark dataset.</span>
+
+<span class="sd">    This class implements a data generation method returning a new evaluation data set for each scoring round.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    run_dir : str</span>
+<span class="sd">        Directory to run benchmarking in and save output and logs to.</span>
+<span class="sd">    data_dir : str</span>
+<span class="sd">        Directory containing calibration data obtained from PCam classification.</span>
+<span class="sd">    classifier_names : list</span>
+<span class="sd">        Names of classifiers to be calibrated. Classification results on PCam must be contained in `data_dir`.</span>
+<span class="sd">    cal_methods : list</span>
+<span class="sd">        Calibration methods to benchmark.</span>
+<span class="sd">    cal_method_names : list</span>
+<span class="sd">        Names of calibration methods.</span>
+<span class="sd">    n_splits : int, default=10</span>
+<span class="sd">        Number of splits for cross validation.</span>
+<span class="sd">    test_size : float, default=0.9</span>
+<span class="sd">        Size of test set.</span>
+<span class="sd">    train_size : float, default=None</span>
+<span class="sd">        Size of calibration set.</span>
+<span class="sd">    random_state : int, RandomState instance or None, optional (default=None)</span>
+<span class="sd">        If `int`, `random_state` is the seed used by the random number generator;</span>
+<span class="sd">        If `RandomState` instance, `random_state` is the random number generator;</span>
+<span class="sd">        If `None`, the random number generator is the RandomState instance used</span>
+<span class="sd">        by `np.random`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
+                 <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Create cross validator which splits the data randomly based on test or train size</span>
+        <span class="n">cv</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
+                             <span class="n">random_state</span><span class="o">=</span><span class="n">sklearn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">check_random_state</span><span class="p">(</span><span class="n">random_state</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">=</span> <span class="n">data_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier_names</span> <span class="o">=</span> <span class="n">classifier_names</span>
+
+        <span class="c1"># Run super class constructor</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">run_dir</span><span class="o">=</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">cal_methods</span><span class="o">=</span><span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="o">=</span><span class="n">cal_method_names</span><span class="p">,</span> <span class="n">cross_validator</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
+                         <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PCamData.classify_val_data"><a class="viewcode-back" href="../../automod/pycalib.benchmark.PCamData.html#pycalib.benchmark.PCamData.classify_val_data">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">classify_val_data</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">data_folder</span><span class="o">=</span><span class="s1">&#39;pcam&#39;</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;clf_output&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Classify the PCam evaluation data set with a given model.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file : str</span>
+<span class="sd">            Output from the model is saved in the given directory.</span>
+<span class="sd">        clf_name :</span>
+<span class="sd">            Name of classifier.</span>
+<span class="sd">        classifier : sklearn.base.BaseEstimator</span>
+<span class="sd">            Classifier to classify p53 data with.</span>
+<span class="sd">        data_folder : str, default=&#39;&#39;</span>
+<span class="sd">            Folder where data is stored.</span>
+<span class="sd">        output_folder : str, default=&#39;clf_output&#39;</span>
+<span class="sd">            Name of folder where output is to be stored. This folder is created if non-existent.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Load data from file</span>
+        <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;camelyonpatch_level_2_split_valid_x.h5&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">][:]</span>
+
+        <span class="c1"># Convert to grayscale by weighted average (luminosity method)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.299</span><span class="p">,</span> <span class="mf">0.587</span><span class="p">,</span> <span class="mf">0.114</span><span class="p">])</span>
+
+        <span class="c1"># Reshape and normalize</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+
+        <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;camelyonpatch_level_2_split_valid_y.h5&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">][:]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+        <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+                                                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+        <span class="c1"># Train classifier</span>
+        <span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+
+        <span class="c1"># Classify validation data</span>
+        <span class="n">p_pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="n">y_y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">y_test</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">p_pred</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)])</span>
+
+        <span class="c1"># Remove possible nan or inf</span>
+        <span class="n">isnotnan_ind</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">p_pred</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">p_pred</span> <span class="o">=</span> <span class="n">p_pred</span><span class="p">[</span><span class="n">isnotnan_ind</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">y_y_pred</span> <span class="o">=</span> <span class="n">y_y_pred</span><span class="p">[</span><span class="n">isnotnan_ind</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># Save to file</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s2">&quot;p_pred_</span><span class="si">{}</span><span class="s2">.csv&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf_name</span><span class="p">)),</span> <span class="n">p_pred</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s2">&quot;y_y_pred_</span><span class="si">{}</span><span class="s2">.csv&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf_name</span><span class="p">)),</span> <span class="n">y_y_pred</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%i</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PCamData.data_gen"><a class="viewcode-back" href="../../automod/pycalib.benchmark.PCamData.html#pycalib.benchmark.PCamData.data_gen">[docs]</a>    <span class="k">def</span> <span class="nf">data_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the full dataset or a generator of datasets.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            X, y giving uncalibrated predictions and corresponding classes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Load logits and classification results from file</span>
+        <span class="k">for</span> <span class="n">clf_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier_names</span><span class="p">:</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;p_pred_&#39;</span> <span class="o">+</span> <span class="n">clf_name</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;y_y_pred_&#39;</span> <span class="o">+</span> <span class="n">clf_name</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">),</span>
+                           <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">]</span>
+
+            <span class="c1"># Calibration and test size</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_size</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">calib_size_tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_size</span>
+                <span class="n">test_size_tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_size</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">calib_size_tmp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_size</span><span class="p">)</span>
+                <span class="n">test_size_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_size</span><span class="p">)</span>
+
+            <span class="c1"># Collect information on data set</span>
+            <span class="n">info_dict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;Dataset&quot;</span><span class="p">:</span> <span class="s2">&quot;PCam&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="n">clf_name</span><span class="p">,</span>
+                <span class="s2">&quot;n_classes&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="s2">&quot;calib_size&quot;</span><span class="p">:</span> <span class="n">calib_size_tmp</span><span class="p">,</span>
+                <span class="s2">&quot;test_size&quot;</span><span class="p">:</span> <span class="n">test_size_tmp</span><span class="p">}</span>
+
+            <span class="c1"># Return (as generator)</span>
+            <span class="k">yield</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">info_dict</span></div></div>
+
+
+<div class="viewcode-block" id="MNISTData"><a class="viewcode-back" href="../../automod/pycalib.benchmark.MNISTData.html#pycalib.benchmark.MNISTData">[docs]</a><span class="k">class</span> <span class="nc">MNISTData</span><span class="p">(</span><span class="n">Benchmark</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model evaluation using the benchmark vision dataset MNIST.</span>
+
+<span class="sd">    Implements a data generation method returning a new evaluation data set for each scoring round.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    run_dir : str</span>
+<span class="sd">        Directory to run benchmarking in and save output and logs to.</span>
+<span class="sd">    data_dir : str</span>
+<span class="sd">        Directory containing calibration data obtained from MNIST classification.</span>
+<span class="sd">    classifier_names : list</span>
+<span class="sd">        Names of classifiers to be calibrated. Classification results on MNIST must be contained in `data_dir`.</span>
+<span class="sd">    cal_methods : list</span>
+<span class="sd">        Calibration methods to benchmark.</span>
+<span class="sd">    cal_method_names : list</span>
+<span class="sd">        Names of calibration methods.</span>
+<span class="sd">    n_splits : int, default=10</span>
+<span class="sd">        Number of splits for cross validation.</span>
+<span class="sd">    test_size : float, default=0.9</span>
+<span class="sd">        Size of test set.</span>
+<span class="sd">    train_size : float, default=None</span>
+<span class="sd">        Size of calibration set.</span>
+<span class="sd">    random_state : int, RandomState instance or None, optional (default=None)</span>
+<span class="sd">        If `int`, `random_state` is the seed used by the random number generator;</span>
+<span class="sd">        If `RandomState` instance, `random_state` is the random number generator;</span>
+<span class="sd">        If `None`, the random number generator is the RandomState instance used</span>
+<span class="sd">        by `np.random`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
+                 <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Create cross validator which splits the data randomly based on test or train size</span>
+        <span class="n">cv</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
+                             <span class="n">random_state</span><span class="o">=</span><span class="n">sklearn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">check_random_state</span><span class="p">(</span><span class="n">random_state</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">=</span> <span class="n">data_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier_names</span> <span class="o">=</span> <span class="n">classifier_names</span>
+
+        <span class="c1"># Run super class constructor</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">run_dir</span><span class="o">=</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">cal_methods</span><span class="o">=</span><span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="o">=</span><span class="n">cal_method_names</span><span class="p">,</span> <span class="n">cross_validator</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
+                         <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MNISTData.classify_val_data"><a class="viewcode-back" href="../../automod/pycalib.benchmark.MNISTData.html#pycalib.benchmark.MNISTData.classify_val_data">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">classify_val_data</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;clf_output&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Classify the MNIST evaluation data set with a given model.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file : str</span>
+<span class="sd">            Output from the model is saved in the given directory.</span>
+<span class="sd">        clf_name :</span>
+<span class="sd">            Name of classifier.</span>
+<span class="sd">        classifier : sklearn.base.BaseEstimator</span>
+<span class="sd">            Classifier to classify MNIST data with.</span>
+<span class="sd">        output_folder : str, default=&#39;clf_output&#39;</span>
+<span class="sd">            Name of folder where output is to be stored. This folder is created if non-existent.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Download data from https://www.openml.org/d/554</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="s1">&#39;mnist_784&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">X</span> <span class="o">/</span> <span class="mf">255.</span>  <span class="c1"># normalize</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+                                                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+        <span class="c1"># Train classifier</span>
+        <span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+
+        <span class="c1"># Classify validation data</span>
+        <span class="n">p_pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="n">y_y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">y_test</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">p_pred</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)])</span>
+
+        <span class="c1"># Save to file</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s2">&quot;p_pred_</span><span class="si">{}</span><span class="s2">.csv&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf_name</span><span class="p">)),</span> <span class="n">p_pred</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s2">&quot;y_y_pred_</span><span class="si">{}</span><span class="s2">.csv&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf_name</span><span class="p">)),</span> <span class="n">y_y_pred</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%i</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MNISTData.data_gen"><a class="viewcode-back" href="../../automod/pycalib.benchmark.MNISTData.html#pycalib.benchmark.MNISTData.data_gen">[docs]</a>    <span class="k">def</span> <span class="nf">data_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the full dataset or a generator of datasets.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            X, y giving uncalibrated predictions and corresponding classes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Load classification results from file</span>
+        <span class="k">for</span> <span class="n">clf_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier_names</span><span class="p">:</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;p_pred_&#39;</span> <span class="o">+</span> <span class="n">clf_name</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;y_y_pred_&#39;</span> <span class="o">+</span> <span class="n">clf_name</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">),</span>
+                           <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">]</span>
+
+            <span class="c1"># Calibration and test size</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_size</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">calib_size_tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_size</span>
+                <span class="n">test_size_tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_size</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">calib_size_tmp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_size</span><span class="p">)</span>
+                <span class="n">test_size_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_size</span><span class="p">)</span>
+
+            <span class="c1"># Collect information on data set</span>
+            <span class="n">info_dict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;Dataset&quot;</span><span class="p">:</span> <span class="s2">&quot;MNIST&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="n">clf_name</span><span class="p">,</span>
+                <span class="s2">&quot;n_classes&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="s2">&quot;calib_size&quot;</span><span class="p">:</span> <span class="n">calib_size_tmp</span><span class="p">,</span>
+                <span class="s2">&quot;test_size&quot;</span><span class="p">:</span> <span class="n">test_size_tmp</span><span class="p">}</span>
+
+            <span class="c1"># Return (as generator)</span>
+            <span class="k">yield</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">info_dict</span></div></div>
+
+
+<div class="viewcode-block" id="ImageNetData"><a class="viewcode-back" href="../../automod/pycalib.benchmark.ImageNetData.html#pycalib.benchmark.ImageNetData">[docs]</a><span class="k">class</span> <span class="nc">ImageNetData</span><span class="p">(</span><span class="n">Benchmark</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model evaluation using the benchmark vision dataset ImageNet.</span>
+
+<span class="sd">    Implements a data generation method returning a new evaluation data set for each scoring round.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    run_dir : str</span>
+<span class="sd">        Directory to run benchmarking in and save output and logs to.</span>
+<span class="sd">    data_dir : str</span>
+<span class="sd">        Directory containing calibration data obtained from ImageNet classification.</span>
+<span class="sd">    classifier_names : list</span>
+<span class="sd">        Names of classifiers to be calibrated. Classification results on ImageNet must be contained in `data_dir`.</span>
+<span class="sd">    cal_methods : list</span>
+<span class="sd">        Calibration methods to benchmark.</span>
+<span class="sd">    cal_method_names : list</span>
+<span class="sd">        Names of calibration methods.</span>
+<span class="sd">    use_logits : bool, default=False</span>
+<span class="sd">        Should the calibration methods be used with classification probabilities or logits.</span>
+<span class="sd">    n_splits : int, default=10</span>
+<span class="sd">        Number of splits for cross validation.</span>
+<span class="sd">    test_size : float, default=0.9</span>
+<span class="sd">        Size of test set.</span>
+<span class="sd">    train_size : float, default=None</span>
+<span class="sd">        Size of calibration set.</span>
+<span class="sd">    random_state : int, RandomState instance or None, optional (default=None)</span>
+<span class="sd">        If `int`, `random_state` is the seed used by the random number generator;</span>
+<span class="sd">        If `RandomState` instance, `random_state` is the random number generator;</span>
+<span class="sd">        If `None`, the random number generator is the RandomState instance used</span>
+<span class="sd">        by `np.random`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span> <span class="n">use_logits</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Create cross validator which splits the data randomly based on test or train size</span>
+        <span class="n">cv</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
+                             <span class="n">random_state</span><span class="o">=</span><span class="n">sklearn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">check_random_state</span><span class="p">(</span><span class="n">random_state</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">=</span> <span class="n">data_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier_names</span> <span class="o">=</span> <span class="n">classifier_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_logits</span> <span class="o">=</span> <span class="n">use_logits</span>
+
+        <span class="c1"># Run super class constructor</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">run_dir</span><span class="o">=</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">cal_methods</span><span class="o">=</span><span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="o">=</span><span class="n">cal_method_names</span><span class="p">,</span> <span class="n">cross_validator</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
+                         <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ImageNetData.classify_val_data"><a class="viewcode-back" href="../../automod/pycalib.benchmark.ImageNetData.html#pycalib.benchmark.ImageNetData.classify_val_data">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">classify_val_data</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">file_ending</span><span class="o">=</span><span class="s2">&quot;JPEG&quot;</span><span class="p">,</span>
+                          <span class="n">validation_folder</span><span class="o">=</span><span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;clf_output&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Classify the ImageNet evaluation data set with a given model.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file : str</span>
+<span class="sd">            Directory containing ImageNet evaluation data. Folder &#39;val&#39; under `file` is searched for images.</span>
+<span class="sd">            Output from the model is saved in the given directory.</span>
+<span class="sd">        clf_name : str</span>
+<span class="sd">            Name of classifier (CNN architecture) to classify data with. Must be one of `pretrainedmodels.model_names`.</span>
+<span class="sd">        n_classes : int, default=1000</span>
+<span class="sd">            Number of classes of pretrained model on ImageNet.</span>
+<span class="sd">        file_ending : str, default=&quot;JPEG&quot;</span>
+<span class="sd">            File suffix of images to classify.</span>
+<span class="sd">        validation_folder : str, default=&#39;val&#39;</span>
+<span class="sd">            Folder where validation images are contained. Images must be contained in folder named after their class.</span>
+<span class="sd">        output_folder : str, default=&#39;clf_output&#39;</span>
+<span class="sd">            Folder where output is stored.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Load pretrained model</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">pretrainedmodels</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">clf_name</span><span class="p">](</span><span class="n">num_classes</span><span class="o">=</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Data loading</span>
+        <span class="n">valdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">validation_folder</span><span class="p">)</span>
+        <span class="n">load_img</span> <span class="o">=</span> <span class="n">pretrainedmodels</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">LoadImage</span><span class="p">()</span>
+        <span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">valdir</span><span class="p">,</span> <span class="s2">&quot;**/*.&quot;</span> <span class="o">+</span> <span class="n">file_ending</span><span class="p">),</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Image transformation</span>
+        <span class="n">tf_img</span> <span class="o">=</span> <span class="n">pretrainedmodels</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">TransformImage</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+        <span class="c1"># Classify images</span>
+        <span class="n">n_images</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+        <span class="n">all_logits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_images</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">])</span>
+        <span class="n">all_y_y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_images</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="c1"># Switch to evaluation mode</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">path_img</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
+                <span class="c1"># Compute model output</span>
+                <span class="n">input_img</span> <span class="o">=</span> <span class="n">load_img</span><span class="p">(</span><span class="n">path_img</span><span class="p">)</span>
+                <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">tf_img</span><span class="p">(</span><span class="n">input_img</span><span class="p">)</span>  <span class="c1"># 3x400x225 -&gt; 3x299x299 size may differ</span>
+                <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 3x299x299 -&gt; 1x3x299x299</span>
+                <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+                <span class="c1"># Find class based on folder structure</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">valdir</span><span class="p">,</span> <span class="s1">&#39;(.+?)/.*&#39;</span><span class="p">),</span> <span class="n">path_img</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+                <span class="c1"># Collect model output</span>
+                <span class="n">all_logits</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">logits</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+                <span class="n">all_y_y_pred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">logits</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)])</span>
+
+                <span class="c1"># Print information on progress</span>
+                <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+                <span class="n">h</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classifying image: </span><span class="si">{}</span><span class="s2">/</span><span class="si">{:.0f}</span><span class="s2">. </span><span class="si">{:.2f}% c</span><span class="s2">omplete. Time elapsed: </span><span class="si">{:.0f}</span><span class="s2">:</span><span class="si">{:02.0f}</span><span class="s2">:</span><span class="si">{:02.0f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="n">n_images</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_images</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+                    <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Save to file</span>
+            <span class="n">out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s2">&quot;logits_</span><span class="si">{}</span><span class="s2">.csv&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf_name</span><span class="p">)),</span> <span class="n">all_logits</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s2">&quot;y_y_pred_</span><span class="si">{}</span><span class="s2">.csv&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf_name</span><span class="p">)),</span> <span class="n">all_y_y_pred</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%i</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ImageNetData.data_gen"><a class="viewcode-back" href="../../automod/pycalib.benchmark.ImageNetData.html#pycalib.benchmark.ImageNetData.data_gen">[docs]</a>    <span class="k">def</span> <span class="nf">data_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the full dataset or a generator of datasets.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            X, y giving uncalibrated predictions and corresponding classes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Load logits and classification results from file</span>
+        <span class="k">for</span> <span class="n">clf_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier_names</span><span class="p">:</span>
+            <span class="n">logits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;logits_&#39;</span> <span class="o">+</span> <span class="n">clf_name</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;y_y_pred_&#39;</span> <span class="o">+</span> <span class="n">clf_name</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">),</span>
+                           <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">]</span>
+
+            <span class="c1"># Compute probabilities</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_logits</span><span class="p">:</span>
+                <span class="n">X</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">X</span> <span class="o">=</span> <span class="n">logits</span>
+
+            <span class="c1"># Calibration and test size</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_size</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">calib_size_tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_size</span>
+                <span class="n">test_size_tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_size</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">calib_size_tmp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_size</span><span class="p">)</span>
+                <span class="n">test_size_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_size</span><span class="p">)</span>
+
+            <span class="c1"># Collect information on data set</span>
+            <span class="n">info_dict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;Dataset&quot;</span><span class="p">:</span> <span class="s2">&quot;ImageNet&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="n">clf_name</span><span class="p">,</span>
+                <span class="s2">&quot;n_classes&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="s2">&quot;calib_size&quot;</span><span class="p">:</span> <span class="n">calib_size_tmp</span><span class="p">,</span>
+                <span class="s2">&quot;test_size&quot;</span><span class="p">:</span> <span class="n">test_size_tmp</span><span class="p">}</span>
+
+            <span class="c1"># Return (as generator)</span>
+            <span class="k">yield</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">info_dict</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Jonathan Wenger
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
