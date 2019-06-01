@@ -15,8 +15,6 @@ deploy:              # deploy to github page
   local_dir: docs/_build/html
   github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
   keep_history: true
-  on:
-    branch: master
 # run tests
 script:
   - pytest
