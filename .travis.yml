@@ -4,7 +4,7 @@ script:             # build sphinx document
 - cd docs/
 - make html
 - cd -
-deploy              # deploy to github page
+deploy:              # deploy to github page
 - provider: pages
   skip_cleanup: true
   local_dir: docs/_build/html
