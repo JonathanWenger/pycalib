@@ -65,7 +65,7 @@ Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-parametric Calibr
       booktitle = "",
       year = "2019",
       keywords={calibration, non-parametric, gaussian processes, object classification},
-      note = {{<a href="https://github.com/JonathanWenger/pycalib" target="_blank">[code]</a>} },
+      note = {{<a href="https://github.com/JonathanWenger/pycalib" target="_blank">[code]</a>}},
     }
 
 ## <a name="other"> License and Contact</a>
