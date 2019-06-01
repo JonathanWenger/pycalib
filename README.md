@@ -6,6 +6,7 @@
 
 This repository provides the implementation of our paper ["Non-parametric Calibration for Classification"](addlink) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel). All results presented in our work were produced with this code.
 
+* [Introduction](#introduction)
 * [Installation](#usage)
 * [Datasets](#data)
 * [Experiments](#experiments)
@@ -13,12 +14,15 @@ This repository provides the implementation of our paper ["Non-parametric Calibr
 * [License and Contact](#other)
 
 
+## <a name="usage">Introduction</a>
+
+
 ## <a name="usage">Installation</a>
 The code was developed in python 3.6 under macOS Mojave (10.14). You can clone the repo with:
 ```
 git clone https://github.com/JonathanWenger/pycalib
 ```
-or install it directly the python package directly via
+or install it directly the python package directly via:
 ```
 pip install git+https://github.com/JonathanWenger/pycalib.git
 ```
@@ -26,6 +30,8 @@ pip install git+https://github.com/JonathanWenger/pycalib.git
 ## <a name="data">Datasets</a>
 
 * PCam
+
+Due to the size of the data, only a script replicating the experiments is provided. The data can be downloaded from the [PCam repository](https://github.com/basveeling/pcam).
 
 * KITTI
 
@@ -37,7 +43,7 @@ A script will automatically download the MNIST dataset if an experiment is run o
 
 * ImageNet 2012
 
-Due to the size of the data, only a script replicating the experiments is provided.
+Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be obtained http://www.image-net.org.
 
 
 ## <a name="experiments">Experiments</a>
@@ -55,14 +61,14 @@ Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-parametric Calibr
     @InProceedings{wenger2019calibration,
       author = "J. Wenger and H. Kjellström and R. Triebel",
       title = "Non-parametric Calibration for Classification",
-      booktitle = ,
+      booktitle = "",
       year = "2019",
       month = "October",
       keywords={calibration, non-parametric, gaussian processes, object classification},
       note = {{<a href="https://github.com/JonathanWenger/pycalib" target="_blank">[code]</a>} },
     }
 
-## <a name="others"> License and Contact</a>
+## <a name="other"> License and Contact</a>
 
 This work is released under the [MIT License].
 
