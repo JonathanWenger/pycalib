@@ -1,4 +1,8 @@
-install:            # Install requirement as "Environment Setup Section"
+language: python
+python:
+  - "3.6"
+# install dependencies
+install:
 - pip install -r requirements.txt
 script:             # build sphinx document
 - cd docs/
@@ -12,3 +16,6 @@ deploy:              # deploy to github page
   keep_history: true
   on:
     branch: master
+# run tests
+script:
+  - pytest
