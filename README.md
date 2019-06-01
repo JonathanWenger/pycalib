@@ -6,6 +6,8 @@
 
 This repository provides the implementation of our paper ["Non-parametric Calibration for Classification"](addlink) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel). All results presented in our work were produced with this code.
 
+[![Build Status](https://travis-ci.com/JonathanWenger/pycalib.svg?branch=master)](https://travis-ci.com/JonathanWenger/pycalib)
+
 * [Introduction](#introduction)
 * [Installation](#usage)
 * [Documentation](#documentation)
