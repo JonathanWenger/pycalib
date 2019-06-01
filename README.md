@@ -8,8 +8,8 @@ This repository provides the implementation of our paper ["Non-parametric Calibr
 
 * [Introduction](#introduction)
 * [Installation](#usage)
-* [Datasets](#data)
-* [Experiments](#experiments)
+* [Documentation](#documentation)
+* [Datasets and Experiments](#data)
 * [Publication](#paper)
 * [License and Contact](#other)
 
@@ -27,7 +27,11 @@ or install it directly the python package directly via:
 pip install git+https://github.com/JonathanWenger/pycalib.git
 ```
 
-## <a name="data">Datasets</a>
+## <a name="usage">Documentation</a>
+
+
+
+## <a name="data">Datasets and Experiments</a>
 
 * PCam
 
@@ -43,14 +47,10 @@ A script will automatically download the MNIST dataset if an experiment is run o
 
 * ImageNet 2012
 
-Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be obtained http://www.image-net.org.
+Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be obtained from http://www.image-net.org.
 
+The repository includes scripts that replicate the experiments found in the paper in the `benchmark` and `figures` folders.
 
-## <a name="experiments">Experiments</a>
-
-The repository includes scripts that replicate the experiments found in the paper, including:
-
-* TODO
 
 ## <a name="paper">Publication</a>
 If you use this code in your work, please cite the following paper.
@@ -63,7 +63,6 @@ Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-parametric Calibr
       title = "Non-parametric Calibration for Classification",
       booktitle = "",
       year = "2019",
-      month = "October",
       keywords={calibration, non-parametric, gaussian processes, object classification},
       note = {{<a href="https://github.com/JonathanWenger/pycalib" target="_blank">[code]</a>} },
     }
