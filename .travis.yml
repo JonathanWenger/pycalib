@@ -9,3 +9,6 @@ deploy              # deploy to github page
   skip_cleanup: true
   local_dir: docs/_build/html
   github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  keep_history: true
+  on:
+    branch: gh-pages
