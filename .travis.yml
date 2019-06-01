@@ -6,6 +6,7 @@ python:
 install:
 - pip install sphinx
 - pip install sphinx_rtd_theme
+- pip install sphinx_automodapi
 - pip install Cython
 - pip install -r requirements.txt
 script:             # build sphinx document
