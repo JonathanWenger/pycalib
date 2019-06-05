@@ -185,7 +185,7 @@ classifier, which is not calibrated.</p>
 <span class="n">p_calib</span><span class="p">,</span> <span class="n">p_test</span><span class="p">,</span> <span class="n">y_calib</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">9000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
 
 <span class="c1"># Train calibration method</span>
-<span class="n">gpc</span> <span class="o">=</span> <span class="n">pycalib</span><span class="o">.</span><span class="n">GPCalibration</span><span class="p">(</span><span class="n">n_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">gpc</span> <span class="o">=</span> <span class="n">pycalib</span><span class="o">.</span><span class="n">GPCalibration</span><span class="p">(</span><span class="n">n_classes</span><span class="o">=</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
 <span class="n">gpc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">p_calib</span><span class="p">,</span> <span class="n">y_calib</span><span class="p">)</span>
 
 <span class="c1"># Generate calibrated probabilities</span>
@@ -223,7 +223,7 @@ calibrate its posterior uncertainty using a multi-class calibration method.</p>
 <span class="n">p_uncal</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 
 <span class="c1"># Predict and calibrate output</span>
-<span class="n">gpc</span> <span class="o">=</span> <span class="n">pycalib</span><span class="o">.</span><span class="n">GPCalibration</span><span class="p">(</span><span class="n">n_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">gpc</span> <span class="o">=</span> <span class="n">pycalib</span><span class="o">.</span><span class="n">GPCalibration</span><span class="p">(</span><span class="n">n_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
 <span class="n">gpc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_calib</span><span class="p">),</span> <span class="n">y_calib</span><span class="p">)</span>
 <span class="n">p_pred</span> <span class="o">=</span> <span class="n">gpc</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">p_uncal</span><span class="p">)</span>
 </pre></div>

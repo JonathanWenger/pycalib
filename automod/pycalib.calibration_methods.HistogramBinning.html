@@ -185,7 +185,7 @@
 <h1>HistogramBinning<a class="headerlink" href="#histogrambinning" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pycalib.calibration_methods.HistogramBinning">
-<em class="property">class </em><code class="descclassname">pycalib.calibration_methods.</code><code class="descname">HistogramBinning</code><span class="sig-paren">(</span><em>mode='equal_freq', n_bins=20, input_range=[0, 1]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#HistogramBinning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pycalib.calibration_methods.</code><code class="sig-name descname">HistogramBinning</code><span class="sig-paren">(</span><em class="sig-param">mode='equal_freq', n_bins=20, input_range=[0, 1]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#HistogramBinning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pycalib.calibration_methods.CalibrationMethod.html#pycalib.calibration_methods.CalibrationMethod" title="pycalib.calibration_methods.CalibrationMethod"><code class="xref py py-class docutils literal notranslate"><span class="pre">pycalib.calibration_methods.CalibrationMethod</span></code></a></p>
 <p>Probability calibration using histogram binning</p>
 <p>Histogram binning <a class="footnote-reference brackets" href="#id2" id="id1">1</a> is a nonparametric approach to probability calibration. Classifier scores are binned into a given
@@ -207,7 +207,7 @@ classifiers in Proceedings of the 18th International Conference on Machine Learn
 </dd>
 </dl>
 <p class="rubric">Methods Summary</p>
-<table class="longtable docutils align-center">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -236,7 +236,7 @@ classifiers in Proceedings of the 18th International Conference on Machine Learn
 <p class="rubric">Methods Documentation</p>
 <dl class="method">
 <dt id="pycalib.calibration_methods.HistogramBinning.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>n_jobs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#HistogramBinning.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em>, <em class="sig-param">n_jobs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#HistogramBinning.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the calibration method based on the given uncalibrated class probabilities X and ground truth labels y.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -259,7 +259,7 @@ classifiers in Proceedings of the 18th International Conference on Machine Learn
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.HistogramBinning.get_params">
-<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning.get_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_params</code><span class="sig-paren">(</span><em class="sig-param">deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -277,7 +277,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.HistogramBinning.plot">
-<code class="descname">plot</code><span class="sig-paren">(</span><em>filename, xlim=[0, 1], **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning.plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">filename, xlim=[0, 1], **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the calibration map.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -291,7 +291,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.HistogramBinning.predict">
-<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning.predict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Predict the class of new samples after scaling. Predictions are identical to the ones from the uncalibrated
 classifier.</p>
 <dl class="field-list simple">
@@ -309,7 +309,7 @@ classifier.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.HistogramBinning.predict_proba">
-<code class="descname">predict_proba</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#HistogramBinning.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning.predict_proba" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict_proba</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#HistogramBinning.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning.predict_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary
 classifier.</p>
 <dl class="field-list simple">
@@ -327,7 +327,7 @@ classifier.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.HistogramBinning.set_params">
-<code class="descname">set_params</code><span class="sig-paren">(</span><em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning.set_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_params</code><span class="sig-paren">(</span><em class="sig-param">**params</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.HistogramBinning.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the parameters of this estimator.</p>
 <p>The method works on simple estimators as well as on nested objects
 (such as pipelines). The latter have parameters of the form

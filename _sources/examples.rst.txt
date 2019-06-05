@@ -29,7 +29,7 @@ classifier, which is not calibrated.
     p_calib, p_test, y_calib, y_test = sklearn.model_selection.train_test_split(X, y, test_size=9000, random_state=seed)
 
     # Train calibration method
-    gpc = pycalib.GPCalibration(n_classes=10)
+    gpc = pycalib.GPCalibration(n_classes=n_classes, random_state=seed)
     gpc.fit(p_calib, y_calib)
 
     # Generate calibrated probabilities
@@ -69,6 +69,6 @@ calibrate its posterior uncertainty using a multi-class calibration method.
     p_uncal = rf.predict_proba(X_test)
 
     # Predict and calibrate output
-    gpc = pycalib.GPCalibration(n_classes=10)
+    gpc = pycalib.GPCalibration(n_classes=10, random_state=seed)
     gpc.fit(rf.predict_proba(X_calib), y_calib)
     p_pred = gpc.predict_proba(p_uncal)

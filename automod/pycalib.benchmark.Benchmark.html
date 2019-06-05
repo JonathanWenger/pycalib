@@ -181,7 +181,7 @@
 <h1>Benchmark<a class="headerlink" href="#benchmark" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pycalib.benchmark.Benchmark">
-<em class="property">class </em><code class="descclassname">pycalib.benchmark.</code><code class="descname">Benchmark</code><span class="sig-paren">(</span><em>run_dir</em>, <em>cal_methods</em>, <em>cal_method_names</em>, <em>cross_validator</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#Benchmark"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.Benchmark" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pycalib.benchmark.</code><code class="sig-name descname">Benchmark</code><span class="sig-paren">(</span><em class="sig-param">run_dir</em>, <em class="sig-param">cal_methods</em>, <em class="sig-param">cal_method_names</em>, <em class="sig-param">cross_validator</em>, <em class="sig-param">random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#Benchmark"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.Benchmark" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A benchmarking class for calibration methods.</p>
 <dl class="field-list simple">
@@ -206,7 +206,7 @@ by <cite>np.random</cite>.</p></li>
 </dd>
 </dl>
 <p class="rubric">Methods Summary</p>
-<table class="longtable docutils align-center">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -226,7 +226,7 @@ by <cite>np.random</cite>.</p></li>
 <p class="rubric">Methods Documentation</p>
 <dl class="method">
 <dt id="pycalib.benchmark.Benchmark.data_gen">
-<code class="descname">data_gen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#Benchmark.data_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.Benchmark.data_gen" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">data_gen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#Benchmark.data_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.Benchmark.data_gen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the full dataset or a generator of datasets.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -238,9 +238,9 @@ by <cite>np.random</cite>.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="staticmethod">
+<dl class="method">
 <dt id="pycalib.benchmark.Benchmark.plot">
-<em class="property">static </em><code class="descname">plot</code><span class="sig-paren">(</span><em>out_file</em>, <em>results_file</em>, <em>score</em>, <em>methods</em>, <em>classifiers='all'</em>, <em>width=5.0</em>, <em>height=2.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#Benchmark.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.Benchmark.plot" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">out_file</em>, <em class="sig-param">results_file</em>, <em class="sig-param">score</em>, <em class="sig-param">methods</em>, <em class="sig-param">classifiers='all'</em>, <em class="sig-param">width=5.0</em>, <em class="sig-param">height=2.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#Benchmark.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.Benchmark.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot results from benchmark experiments as an error bar plot.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -259,7 +259,7 @@ by <cite>np.random</cite>.</p></li>
 
 <dl class="method">
 <dt id="pycalib.benchmark.Benchmark.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>n_jobs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#Benchmark.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.Benchmark.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">n_jobs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#Benchmark.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.Benchmark.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Train all models, evaluate on test data and save the results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

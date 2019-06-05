@@ -181,7 +181,7 @@
 <h1>SyntheticBeta<a class="headerlink" href="#syntheticbeta" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pycalib.benchmark.SyntheticBeta">
-<em class="property">class </em><code class="descclassname">pycalib.benchmark.</code><code class="descname">SyntheticBeta</code><span class="sig-paren">(</span><em>run_dir</em>, <em>cal_methods</em>, <em>cal_method_names</em>, <em>beta_params</em>, <em>miscal_functions</em>, <em>miscal_function_names</em>, <em>size</em>, <em>marginal_probs=None</em>, <em>n_splits=10</em>, <em>test_size=0.9</em>, <em>train_size=None</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#SyntheticBeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.SyntheticBeta" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pycalib.benchmark.</code><code class="sig-name descname">SyntheticBeta</code><span class="sig-paren">(</span><em class="sig-param">run_dir</em>, <em class="sig-param">cal_methods</em>, <em class="sig-param">cal_method_names</em>, <em class="sig-param">beta_params</em>, <em class="sig-param">miscal_functions</em>, <em class="sig-param">miscal_function_names</em>, <em class="sig-param">size</em>, <em class="sig-param">marginal_probs=None</em>, <em class="sig-param">n_splits=10</em>, <em class="sig-param">test_size=0.9</em>, <em class="sig-param">train_size=None</em>, <em class="sig-param">random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#SyntheticBeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.SyntheticBeta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pycalib.benchmark.Benchmark.html#pycalib.benchmark.Benchmark" title="pycalib.benchmark.Benchmark"><code class="xref py py-class docutils literal notranslate"><span class="pre">pycalib.benchmark.Benchmark</span></code></a></p>
 <p>Model evaluation using synthetic data sampled from a Beta distribution.</p>
 <p>Implements a data generation method returning a new evaluation data with maximum posterior probabilities sampled
@@ -212,7 +212,7 @@ by <cite>np.random</cite>.</p></li>
 </dd>
 </dl>
 <p class="rubric">Methods Summary</p>
-<table class="longtable docutils align-center">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -238,7 +238,7 @@ by <cite>np.random</cite>.</p></li>
 <p class="rubric">Methods Documentation</p>
 <dl class="method">
 <dt id="pycalib.benchmark.SyntheticBeta.data_gen">
-<code class="descname">data_gen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#SyntheticBeta.data_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.SyntheticBeta.data_gen" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">data_gen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#SyntheticBeta.data_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.SyntheticBeta.data_gen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the full dataset or a generator of datasets.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -252,7 +252,7 @@ by <cite>np.random</cite>.</p></li>
 
 <dl class="method">
 <dt id="pycalib.benchmark.SyntheticBeta.plot">
-<code class="descname">plot</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#SyntheticBeta.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.SyntheticBeta.plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#SyntheticBeta.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.SyntheticBeta.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots the result of the benchmark experiment.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -263,7 +263,7 @@ by <cite>np.random</cite>.</p></li>
 
 <dl class="method">
 <dt id="pycalib.benchmark.SyntheticBeta.plot_miscal_function">
-<code class="descname">plot_miscal_function</code><span class="sig-paren">(</span><em>function_names=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#SyntheticBeta.plot_miscal_function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.SyntheticBeta.plot_miscal_function" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot_miscal_function</code><span class="sig-paren">(</span><em class="sig-param">function_names=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#SyntheticBeta.plot_miscal_function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.SyntheticBeta.plot_miscal_function" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots the miscalibration functions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -277,7 +277,7 @@ by <cite>np.random</cite>.</p></li>
 
 <dl class="method">
 <dt id="pycalib.benchmark.SyntheticBeta.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>n_jobs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.benchmark.SyntheticBeta.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">n_jobs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.benchmark.SyntheticBeta.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Train all models, evaluate on test data and save the results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -288,9 +288,9 @@ by <cite>np.random</cite>.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="staticmethod">
+<dl class="method">
 <dt id="pycalib.benchmark.SyntheticBeta.sample_miscal_data">
-<em class="property">static </em><code class="descname">sample_miscal_data</code><span class="sig-paren">(</span><em>alpha</em>, <em>beta</em>, <em>miscal_func</em>, <em>miscal_func_name</em>, <em>size</em>, <em>marginal_probs</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#SyntheticBeta.sample_miscal_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.SyntheticBeta.sample_miscal_data" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">sample_miscal_data</code><span class="sig-paren">(</span><em class="sig-param">alpha</em>, <em class="sig-param">beta</em>, <em class="sig-param">miscal_func</em>, <em class="sig-param">miscal_func_name</em>, <em class="sig-param">size</em>, <em class="sig-param">marginal_probs</em>, <em class="sig-param">random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#SyntheticBeta.sample_miscal_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.SyntheticBeta.sample_miscal_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sample a synthetic data set based on the Beta distribution and a miscalibration function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

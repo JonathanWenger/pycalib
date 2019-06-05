@@ -181,7 +181,7 @@
 <h1>KITTIBinaryData<a class="headerlink" href="#kittibinarydata" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pycalib.benchmark.KITTIBinaryData">
-<em class="property">class </em><code class="descclassname">pycalib.benchmark.</code><code class="descname">KITTIBinaryData</code><span class="sig-paren">(</span><em>run_dir</em>, <em>data_dir</em>, <em>classifier_names</em>, <em>cal_methods</em>, <em>cal_method_names</em>, <em>n_splits=10</em>, <em>test_size=0.9</em>, <em>train_size=None</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#KITTIBinaryData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.KITTIBinaryData" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pycalib.benchmark.</code><code class="sig-name descname">KITTIBinaryData</code><span class="sig-paren">(</span><em class="sig-param">run_dir</em>, <em class="sig-param">data_dir</em>, <em class="sig-param">classifier_names</em>, <em class="sig-param">cal_methods</em>, <em class="sig-param">cal_method_names</em>, <em class="sig-param">n_splits=10</em>, <em class="sig-param">test_size=0.9</em>, <em class="sig-param">train_size=None</em>, <em class="sig-param">random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#KITTIBinaryData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.KITTIBinaryData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pycalib.benchmark.Benchmark.html#pycalib.benchmark.Benchmark" title="pycalib.benchmark.Benchmark"><code class="xref py py-class docutils literal notranslate"><span class="pre">pycalib.benchmark.Benchmark</span></code></a></p>
 <p>Model evaluation using the (binary) KITTI benchmark dataset.</p>
 <p>This class implements a data generation method returning a new evaluation data set for each scoring round.</p>
@@ -204,7 +204,7 @@ by <cite>np.random</cite>.</p></li>
 </dd>
 </dl>
 <p class="rubric">Methods Summary</p>
-<table class="longtable docutils align-center">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -225,9 +225,9 @@ by <cite>np.random</cite>.</p></li>
 </tbody>
 </table>
 <p class="rubric">Methods Documentation</p>
-<dl class="staticmethod">
+<dl class="method">
 <dt id="pycalib.benchmark.KITTIBinaryData.classify_val_data">
-<em class="property">static </em><code class="descname">classify_val_data</code><span class="sig-paren">(</span><em>file</em>, <em>clf_name</em>, <em>classifier</em>, <em>data_folder='kitti'</em>, <em>output_folder='clf_output'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#KITTIBinaryData.classify_val_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.KITTIBinaryData.classify_val_data" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">classify_val_data</code><span class="sig-paren">(</span><em class="sig-param">file</em>, <em class="sig-param">clf_name</em>, <em class="sig-param">classifier</em>, <em class="sig-param">data_folder='kitti'</em>, <em class="sig-param">output_folder='clf_output'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#KITTIBinaryData.classify_val_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.KITTIBinaryData.classify_val_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Classify the (binary) KITTI evaluation data set with a given model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -244,7 +244,7 @@ by <cite>np.random</cite>.</p></li>
 
 <dl class="method">
 <dt id="pycalib.benchmark.KITTIBinaryData.data_gen">
-<code class="descname">data_gen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#KITTIBinaryData.data_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.KITTIBinaryData.data_gen" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">data_gen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#KITTIBinaryData.data_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.KITTIBinaryData.data_gen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the full dataset or a generator of datasets.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -256,9 +256,9 @@ by <cite>np.random</cite>.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="staticmethod">
+<dl class="method">
 <dt id="pycalib.benchmark.KITTIBinaryData.plot">
-<em class="property">static </em><code class="descname">plot</code><span class="sig-paren">(</span><em>out_file</em>, <em>results_file</em>, <em>score</em>, <em>methods</em>, <em>classifiers='all'</em>, <em>width=5.0</em>, <em>height=2.5</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.benchmark.KITTIBinaryData.plot" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">out_file</em>, <em class="sig-param">results_file</em>, <em class="sig-param">score</em>, <em class="sig-param">methods</em>, <em class="sig-param">classifiers='all'</em>, <em class="sig-param">width=5.0</em>, <em class="sig-param">height=2.5</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.benchmark.KITTIBinaryData.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot results from benchmark experiments as an error bar plot.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -277,7 +277,7 @@ by <cite>np.random</cite>.</p></li>
 
 <dl class="method">
 <dt id="pycalib.benchmark.KITTIBinaryData.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>n_jobs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.benchmark.KITTIBinaryData.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">n_jobs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.benchmark.KITTIBinaryData.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Train all models, evaluate on test data and save the results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

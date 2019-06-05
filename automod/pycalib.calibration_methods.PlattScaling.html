@@ -184,7 +184,7 @@
 <h1>PlattScaling<a class="headerlink" href="#plattscaling" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pycalib.calibration_methods.PlattScaling">
-<em class="property">class </em><code class="descclassname">pycalib.calibration_methods.</code><code class="descname">PlattScaling</code><span class="sig-paren">(</span><em>regularization=1e-12</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#PlattScaling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pycalib.calibration_methods.</code><code class="sig-name descname">PlattScaling</code><span class="sig-paren">(</span><em class="sig-param">regularization=1e-12</em>, <em class="sig-param">random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#PlattScaling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pycalib.calibration_methods.CalibrationMethod.html#pycalib.calibration_methods.CalibrationMethod" title="pycalib.calibration_methods.CalibrationMethod"><code class="xref py py-class docutils literal notranslate"><span class="pre">pycalib.calibration_methods.CalibrationMethod</span></code></a></p>
 <p>Probability calibration using Platt scaling</p>
 <p>Platt scaling <a class="footnote-reference brackets" href="#id3" id="id1">1</a> <a class="footnote-reference brackets" href="#id4" id="id2">2</a> is a parametric method designed to output calibrated posterior probabilities for (non-probabilistic)
@@ -214,7 +214,7 @@ Machine learning 68, 267–276 (2007)</p>
 </dd>
 </dl>
 <p class="rubric">Methods Summary</p>
-<table class="longtable docutils align-center">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -243,7 +243,7 @@ Machine learning 68, 267–276 (2007)</p>
 <p class="rubric">Methods Documentation</p>
 <dl class="method">
 <dt id="pycalib.calibration_methods.PlattScaling.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>n_jobs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#PlattScaling.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em>, <em class="sig-param">n_jobs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#PlattScaling.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the calibration method based on the given uncalibrated class probabilities X and ground truth labels y.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -266,7 +266,7 @@ Machine learning 68, 267–276 (2007)</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.PlattScaling.get_params">
-<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling.get_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_params</code><span class="sig-paren">(</span><em class="sig-param">deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -284,7 +284,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.PlattScaling.plot">
-<code class="descname">plot</code><span class="sig-paren">(</span><em>filename, xlim=[0, 1], **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling.plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">filename, xlim=[0, 1], **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the calibration map.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -298,7 +298,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.PlattScaling.predict">
-<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling.predict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Predict the class of new samples after scaling. Predictions are identical to the ones from the uncalibrated
 classifier.</p>
 <dl class="field-list simple">
@@ -316,7 +316,7 @@ classifier.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.PlattScaling.predict_proba">
-<code class="descname">predict_proba</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#PlattScaling.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling.predict_proba" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict_proba</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#PlattScaling.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling.predict_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary
 classifier.</p>
 <dl class="field-list simple">
@@ -334,7 +334,7 @@ classifier.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.PlattScaling.set_params">
-<code class="descname">set_params</code><span class="sig-paren">(</span><em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling.set_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_params</code><span class="sig-paren">(</span><em class="sig-param">**params</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.PlattScaling.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the parameters of this estimator.</p>
 <p>The method works on simple estimators as well as on nested objects
 (such as pipelines). The latter have parameters of the form

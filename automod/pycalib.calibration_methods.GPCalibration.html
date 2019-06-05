@@ -185,7 +185,7 @@
 <h1>GPCalibration<a class="headerlink" href="#gpcalibration" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pycalib.calibration_methods.GPCalibration">
-<em class="property">class </em><code class="descclassname">pycalib.calibration_methods.</code><code class="descname">GPCalibration</code><span class="sig-paren">(</span><em>n_classes</em>, <em>logits=False</em>, <em>mean_function=None</em>, <em>kernel=None</em>, <em>likelihood=None</em>, <em>n_inducing_points=10</em>, <em>maxiter=1000</em>, <em>n_monte_carlo=100</em>, <em>max_samples_monte_carlo=10000000</em>, <em>session=None</em>, <em>random_state=1</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pycalib.calibration_methods.</code><code class="sig-name descname">GPCalibration</code><span class="sig-paren">(</span><em class="sig-param">n_classes</em>, <em class="sig-param">logits=False</em>, <em class="sig-param">mean_function=None</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">likelihood=None</em>, <em class="sig-param">n_inducing_points=10</em>, <em class="sig-param">maxiter=1000</em>, <em class="sig-param">n_monte_carlo=100</em>, <em class="sig-param">max_samples_monte_carlo=10000000</em>, <em class="sig-param">session=None</em>, <em class="sig-param">random_state=1</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pycalib.calibration_methods.CalibrationMethod.html#pycalib.calibration_methods.CalibrationMethod" title="pycalib.calibration_methods.CalibrationMethod"><code class="xref py py-class docutils literal notranslate"><span class="pre">pycalib.calibration_methods.CalibrationMethod</span></code></a></p>
 <p>Probability calibration using a latent Gaussian process</p>
 <p>Gaussian process calibration <a class="footnote-reference brackets" href="#id4" id="id1">1</a> is a non-parametric approach to calibrate posterior probabilities from an arbitrary
@@ -225,7 +225,7 @@ of Machine Learning Research 18, 1–6 (Apr. 2017)</p>
 </dd>
 </dl>
 <p class="rubric">Methods Summary</p>
-<table class="longtable docutils align-center">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -257,7 +257,7 @@ of Machine Learning Research 18, 1–6 (Apr. 2017)</p>
 <p class="rubric">Methods Documentation</p>
 <dl class="method">
 <dt id="pycalib.calibration_methods.GPCalibration.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the calibration method based on the given uncalibrated class probabilities X and ground truth labels y.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -277,7 +277,7 @@ of Machine Learning Research 18, 1–6 (Apr. 2017)</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.GPCalibration.get_params">
-<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.get_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_params</code><span class="sig-paren">(</span><em class="sig-param">deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -295,7 +295,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.GPCalibration.plot">
-<code class="descname">plot</code><span class="sig-paren">(</span><em>filename, xlim=[0, 1], **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">filename, xlim=[0, 1], **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the calibration map.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -309,7 +309,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.GPCalibration.plot_latent">
-<code class="descname">plot_latent</code><span class="sig-paren">(</span><em>filename</em>, <em>xlim=array([0</em>, <em>1])</em>, <em>plot_classes=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration.plot_latent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.plot_latent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot_latent</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">xlim=array([0</em>, <em class="sig-param">1])</em>, <em class="sig-param">plot_classes=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration.plot_latent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.plot_latent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the latent function of the calibration method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -325,7 +325,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.GPCalibration.predict">
-<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.predict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Predict the class of new samples after scaling. Predictions are identical to the ones from the uncalibrated
 classifier.</p>
 <dl class="field-list simple">
@@ -343,7 +343,7 @@ classifier.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.GPCalibration.predict_proba">
-<code class="descname">predict_proba</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.predict_proba" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict_proba</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.predict_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary
 classifier.</p>
 <dl class="field-list simple">
@@ -361,7 +361,7 @@ classifier.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.GPCalibration.set_params">
-<code class="descname">set_params</code><span class="sig-paren">(</span><em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.set_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_params</code><span class="sig-paren">(</span><em class="sig-param">**params</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the parameters of this estimator.</p>
 <p>The method works on simple estimators as well as on nested objects
 (such as pipelines). The latter have parameters of the form

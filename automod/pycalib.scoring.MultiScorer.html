@@ -177,7 +177,7 @@
 <h1>MultiScorer<a class="headerlink" href="#multiscorer" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pycalib.scoring.MultiScorer">
-<em class="property">class </em><code class="descclassname">pycalib.scoring.</code><code class="descname">MultiScorer</code><span class="sig-paren">(</span><em>metrics</em>, <em>plots</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#MultiScorer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.MultiScorer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pycalib.scoring.</code><code class="sig-name descname">MultiScorer</code><span class="sig-paren">(</span><em class="sig-param">metrics</em>, <em class="sig-param">plots</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#MultiScorer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.MultiScorer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Use this class to encapsulate and/or aggregate multiple scoring functions so that it can be passed as an argument
 for scoring in scikit’s cross_val_score function. Instances of this class are also callables, with signature as
@@ -190,7 +190,7 @@ adapted from Kyriakos Stylianopoulos’s implementation at <a class="footnote-re
 </dd>
 </dl>
 <p class="rubric">Methods Summary</p>
-<table class="longtable docutils align-center">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -210,7 +210,7 @@ adapted from Kyriakos Stylianopoulos’s implementation at <a class="footnote-re
 <p class="rubric">Methods Documentation</p>
 <dl class="method">
 <dt id="pycalib.scoring.MultiScorer.__call__">
-<code class="descname">__call__</code><span class="sig-paren">(</span><em>estimator</em>, <em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#MultiScorer.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.MultiScorer.__call__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">estimator</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#MultiScorer.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.MultiScorer.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>To be called by for evaluation from sklearn’s GridSearchCV or cross_val_score. Parameters are as they are
 defined in the respective documentation.</p>
 <dl class="field-list simple">
@@ -225,7 +225,7 @@ defined in the respective documentation.</p>
 
 <dl class="method">
 <dt id="pycalib.scoring.MultiScorer.get_metric_names">
-<code class="descname">get_metric_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#MultiScorer.get_metric_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.MultiScorer.get_metric_names" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_metric_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#MultiScorer.get_metric_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.MultiScorer.get_metric_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all the metric names as given when initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -239,7 +239,7 @@ defined in the respective documentation.</p>
 
 <dl class="method">
 <dt id="pycalib.scoring.MultiScorer.get_results">
-<code class="descname">get_results</code><span class="sig-paren">(</span><em>metric=None</em>, <em>fold='all'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#MultiScorer.get_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.MultiScorer.get_results" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_results</code><span class="sig-paren">(</span><em class="sig-param">metric=None</em>, <em class="sig-param">fold='all'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#MultiScorer.get_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.MultiScorer.get_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the results of a specific or all the metrics.</p>
 <p>This method should be called after the object itself has been called so that the metrics are applied.</p>
 <dl class="field-list simple">

@@ -185,7 +185,7 @@
 <h1>BayesianBinningQuantiles<a class="headerlink" href="#bayesianbinningquantiles" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pycalib.calibration_methods.BayesianBinningQuantiles">
-<em class="property">class </em><code class="descclassname">pycalib.calibration_methods.</code><code class="descname">BayesianBinningQuantiles</code><span class="sig-paren">(</span><em>C=10, input_range=[0, 1]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#BayesianBinningQuantiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pycalib.calibration_methods.</code><code class="sig-name descname">BayesianBinningQuantiles</code><span class="sig-paren">(</span><em class="sig-param">C=10, input_range=[0, 1]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#BayesianBinningQuantiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pycalib.calibration_methods.CalibrationMethod.html#pycalib.calibration_methods.CalibrationMethod" title="pycalib.calibration_methods.CalibrationMethod"><code class="xref py py-class docutils literal notranslate"><span class="pre">pycalib.calibration_methods.CalibrationMethod</span></code></a></p>
 <p>Probability calibration using Bayesian binning into quantiles</p>
 <p>Bayesian binning into quantiles <a class="footnote-reference brackets" href="#id2" id="id1">1</a> considers multiple equal frequency binning models and combines them through
@@ -208,7 +208,7 @@ in Proceedings of the Twenty-Ninth AAAI Conference on Artificial Intelligence, A
 </dd>
 </dl>
 <p class="rubric">Methods Summary</p>
-<table class="longtable docutils align-center">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -237,7 +237,7 @@ in Proceedings of the Twenty-Ninth AAAI Conference on Artificial Intelligence, A
 <p class="rubric">Methods Documentation</p>
 <dl class="method">
 <dt id="pycalib.calibration_methods.BayesianBinningQuantiles.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>n_jobs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#BayesianBinningQuantiles.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em>, <em class="sig-param">n_jobs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#BayesianBinningQuantiles.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the calibration method based on the given uncalibrated class probabilities X and ground truth labels y.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -260,7 +260,7 @@ in Proceedings of the Twenty-Ninth AAAI Conference on Artificial Intelligence, A
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.BayesianBinningQuantiles.get_params">
-<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles.get_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_params</code><span class="sig-paren">(</span><em class="sig-param">deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -278,7 +278,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.BayesianBinningQuantiles.plot">
-<code class="descname">plot</code><span class="sig-paren">(</span><em>filename, xlim=[0, 1], **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles.plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">filename, xlim=[0, 1], **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the calibration map.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -292,7 +292,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.BayesianBinningQuantiles.predict">
-<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles.predict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Predict the class of new samples after scaling. Predictions are identical to the ones from the uncalibrated
 classifier.</p>
 <dl class="field-list simple">
@@ -310,7 +310,7 @@ classifier.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.BayesianBinningQuantiles.predict_proba">
-<code class="descname">predict_proba</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#BayesianBinningQuantiles.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles.predict_proba" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict_proba</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#BayesianBinningQuantiles.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles.predict_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary
 classifier.</p>
 <dl class="field-list simple">
@@ -328,7 +328,7 @@ classifier.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.BayesianBinningQuantiles.set_params">
-<code class="descname">set_params</code><span class="sig-paren">(</span><em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles.set_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_params</code><span class="sig-paren">(</span><em class="sig-param">**params</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.BayesianBinningQuantiles.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the parameters of this estimator.</p>
 <p>The method works on simple estimators as well as on nested objects
 (such as pipelines). The latter have parameters of the form

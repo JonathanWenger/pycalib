@@ -185,14 +185,14 @@
 <h1>CalibrationMethod<a class="headerlink" href="#calibrationmethod" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pycalib.calibration_methods.CalibrationMethod">
-<em class="property">class </em><code class="descclassname">pycalib.calibration_methods.</code><code class="descname">CalibrationMethod</code><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#CalibrationMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pycalib.calibration_methods.</code><code class="sig-name descname">CalibrationMethod</code><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#CalibrationMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code></p>
 <p>A generic class for probability calibration</p>
 <p>A calibration method takes a set of posterior class probabilities and transform them into calibrated posterior
 probabilities. Calibrated in this sense means that the empirical frequency of a correct class prediction matches its
 predicted posterior probability.</p>
 <p class="rubric">Methods Summary</p>
-<table class="longtable docutils align-center">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -221,7 +221,7 @@ predicted posterior probability.</p>
 <p class="rubric">Methods Documentation</p>
 <dl class="method">
 <dt id="pycalib.calibration_methods.CalibrationMethod.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#CalibrationMethod.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#CalibrationMethod.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the calibration method based on the given uncalibrated class probabilities X and ground truth labels y.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -241,7 +241,7 @@ predicted posterior probability.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.CalibrationMethod.get_params">
-<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod.get_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_params</code><span class="sig-paren">(</span><em class="sig-param">deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -259,7 +259,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.CalibrationMethod.plot">
-<code class="descname">plot</code><span class="sig-paren">(</span><em>filename, xlim=[0, 1], **kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#CalibrationMethod.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod.plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">filename, xlim=[0, 1], **kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#CalibrationMethod.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the calibration map.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -273,7 +273,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.CalibrationMethod.predict">
-<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#CalibrationMethod.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod.predict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#CalibrationMethod.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Predict the class of new samples after scaling. Predictions are identical to the ones from the uncalibrated
 classifier.</p>
 <dl class="field-list simple">
@@ -291,7 +291,7 @@ classifier.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.CalibrationMethod.predict_proba">
-<code class="descname">predict_proba</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#CalibrationMethod.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod.predict_proba" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict_proba</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#CalibrationMethod.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod.predict_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary
 classifier.</p>
 <dl class="field-list simple">
@@ -309,7 +309,7 @@ classifier.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.CalibrationMethod.set_params">
-<code class="descname">set_params</code><span class="sig-paren">(</span><em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod.set_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_params</code><span class="sig-paren">(</span><em class="sig-param">**params</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.CalibrationMethod.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the parameters of this estimator.</p>
 <p>The method works on simple estimators as well as on nested objects
 (such as pipelines). The latter have parameters of the form

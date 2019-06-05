@@ -184,7 +184,7 @@
 <h1>OneVsRestCalibrator<a class="headerlink" href="#onevsrestcalibrator" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pycalib.calibration_methods.OneVsRestCalibrator">
-<em class="property">class </em><code class="descclassname">pycalib.calibration_methods.</code><code class="descname">OneVsRestCalibrator</code><span class="sig-paren">(</span><em>calibrator</em>, <em>n_jobs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#OneVsRestCalibrator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pycalib.calibration_methods.</code><code class="sig-name descname">OneVsRestCalibrator</code><span class="sig-paren">(</span><em class="sig-param">calibrator</em>, <em class="sig-param">n_jobs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#OneVsRestCalibrator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code></p>
 <p>One-vs-the-rest (OvR) multiclass strategy
 Also known as one-vs-all, this strategy consists in fitting one calibrator
@@ -203,7 +203,7 @@ for more details.</p></li>
 </dl>
 <dl class="attribute">
 <dt id="pycalib.calibration_methods.OneVsRestCalibrator.calibrators_">
-<code class="descname">calibrators_</code><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.calibrators_" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">calibrators_</code><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.calibrators_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimators used for predictions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -214,7 +214,7 @@ for more details.</p></li>
 
 <dl class="attribute">
 <dt id="pycalib.calibration_methods.OneVsRestCalibrator.classes_">
-<code class="descname">classes_</code><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.classes_" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">classes_</code><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.classes_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class labels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -225,7 +225,7 @@ for more details.</p></li>
 
 <dl class="attribute">
 <dt id="pycalib.calibration_methods.OneVsRestCalibrator.label_binarizer_">
-<code class="descname">label_binarizer_</code><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.label_binarizer_" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">label_binarizer_</code><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.label_binarizer_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Object used to transform multiclass labels to binary labels and
 vice-versa.</p>
 <dl class="field-list simple">
@@ -236,7 +236,7 @@ vice-versa.</p>
 </dd></dl>
 
 <p class="rubric">Attributes Summary</p>
-<table class="longtable docutils align-center">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -248,7 +248,7 @@ vice-versa.</p>
 </tbody>
 </table>
 <p class="rubric">Methods Summary</p>
-<table class="longtable docutils align-center">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -271,13 +271,13 @@ vice-versa.</p>
 <p class="rubric">Attributes Documentation</p>
 <dl class="attribute">
 <dt id="pycalib.calibration_methods.OneVsRestCalibrator.n_classes_">
-<code class="descname">n_classes_</code><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.n_classes_" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">n_classes_</code><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.n_classes_" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p class="rubric">Methods Documentation</p>
 <dl class="method">
 <dt id="pycalib.calibration_methods.OneVsRestCalibrator.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#OneVsRestCalibrator.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#OneVsRestCalibrator.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit underlying estimators.
 :param X: Calibration data.
 :type X: (sparse) array-like, shape = [n_samples, n_features]
@@ -295,7 +295,7 @@ vice-versa.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.OneVsRestCalibrator.get_params">
-<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.get_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_params</code><span class="sig-paren">(</span><em class="sig-param">deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -313,7 +313,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.OneVsRestCalibrator.predict_proba">
-<code class="descname">predict_proba</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#OneVsRestCalibrator.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.predict_proba" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict_proba</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#OneVsRestCalibrator.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.predict_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Probability estimates.</p>
 <p>The returned estimates for all classes are ordered by label of classes.</p>
 <dl class="field-list simple">
@@ -332,7 +332,7 @@ where classes are ordered as they are in <cite>self.classes_</cite>.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.OneVsRestCalibrator.set_params">
-<code class="descname">set_params</code><span class="sig-paren">(</span><em>**params</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.set_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_params</code><span class="sig-paren">(</span><em class="sig-param">**params</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.calibration_methods.OneVsRestCalibrator.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the parameters of this estimator.</p>
 <p>The method works on simple estimators as well as on nested objects
 (such as pipelines). The latter have parameters of the form
