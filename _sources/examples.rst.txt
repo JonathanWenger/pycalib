@@ -46,11 +46,12 @@ calibrate its posterior uncertainty using a multi-class calibration method.
     """
     This example demonstrates how to calibrate a random forest trained on the MNIST benchmark dataset using pycalib.
     """
+    # Package imports
     import numpy as np
     import sklearn
     import pycalib
 
-    # Seed
+    # Seed and data size
     seed = 0
     n_test = 10000
     n_calib = 1000
@@ -59,6 +60,8 @@ calibrate its posterior uncertainty using a multi-class calibration method.
     X, y = sklearn.datasets.fetch_openml('mnist_784', version=1, return_X_y=True, cache=True)
     X = X / 255.
     y = np.array(y, dtype=int)
+
+    # Split into train, calibration and test data
     X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size=n_test, random_state=seed)
     X_train, X_calib, y_train, y_calib = sklearn.model_selection.train_test_split(X_train, y_train, test_size=n_calib,
                                                                                   random_state=seed)
