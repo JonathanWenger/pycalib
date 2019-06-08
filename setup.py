@@ -19,5 +19,5 @@ setup(
     author_email='j.wenger@tum.de',
     url='https://github.com/JonathanWenger/pycalib',
     license=license,
-    packages=find_packages(exclude=('tests', 'docs', 'data', 'benchmark', 'figures'))
+    packages=find_packages(exclude=('tests', 'docs', 'data', 'figures'))
 )
