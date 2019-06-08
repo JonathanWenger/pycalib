@@ -169,7 +169,7 @@ classifier, which is not calibrated.</p>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">sklearn</span>
-<span class="kn">import</span> <span class="nn">pycalib</span>
+<span class="kn">import</span> <span class="nn">pycalib.benchmark</span> <span class="kn">as</span> <span class="nn">bm</span>
 
 <span class="c1"># Generate synthetic data</span>
 <span class="n">seed</span> <span class="o">=</span> <span class="mi">0</span>
@@ -177,7 +177,7 @@ classifier, which is not calibrated.</p>
     <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">3</span>
 
 <span class="n">n_classes</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">info_dict</span> <span class="o">=</span> <span class="n">pycalib</span><span class="o">.</span><span class="n">SyntheticBeta</span><span class="o">.</span><span class="n">sample_miscal_data</span><span class="p">(</span><span class="n">alpha</span><span class="o">=.</span><span class="mi">75</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">miscal_func</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">miscal_func_name</span><span class="o">=</span><span class="s2">&quot;power&quot;</span><span class="p">,</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">info_dict</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="n">SyntheticBeta</span><span class="o">.</span><span class="n">sample_miscal_data</span><span class="p">(</span><span class="n">alpha</span><span class="o">=.</span><span class="mi">75</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">miscal_func</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">miscal_func_name</span><span class="o">=</span><span class="s2">&quot;power&quot;</span><span class="p">,</span>
                                                            <span class="n">size</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">marginal_probs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_classes</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_classes</span><span class="p">,</span>
                                                            <span class="n">random_state</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
 
@@ -203,7 +203,8 @@ calibrate its posterior uncertainty using a multi-class calibration method.</p>
 <span class="c1"># Package imports</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">sklearn</span>
-<span class="kn">import</span> <span class="nn">pycalib</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">import</span> <span class="nn">pycalib.calibration_methods</span> <span class="kn">as</span> <span class="nn">calm</span>
 
 <span class="c1"># Seed and data size</span>
 <span class="n">seed</span> <span class="o">=</span> <span class="mi">0</span>
@@ -221,12 +222,12 @@ calibrate its posterior uncertainty using a multi-class calibration method.</p>
                                                                               <span class="n">random_state</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
 
 <span class="c1"># Train classifier</span>
-<span class="n">rf</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">ensemble</span><span class="o">.</span><span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
-<span class="n">rf</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+<span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">p_uncal</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 
 <span class="c1"># Predict and calibrate output</span>
-<span class="n">gpc</span> <span class="o">=</span> <span class="n">pycalib</span><span class="o">.</span><span class="n">GPCalibration</span><span class="p">(</span><span class="n">n_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+<span class="n">gpc</span> <span class="o">=</span> <span class="n">calm</span><span class="o">.</span><span class="n">GPCalibration</span><span class="p">(</span><span class="n">n_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
 <span class="n">gpc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_calib</span><span class="p">),</span> <span class="n">y_calib</span><span class="p">)</span>
 <span class="n">p_pred</span> <span class="o">=</span> <span class="n">gpc</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">p_uncal</span><span class="p">)</span>
 </pre></div>
