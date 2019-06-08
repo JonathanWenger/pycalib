@@ -13,7 +13,7 @@ classifier, which is not calibrated.
     """
     import numpy as np
     import sklearn
-    import pycalib
+    import pycalib.benchmark as bm
 
     # Generate synthetic data
     seed = 0
@@ -21,7 +21,7 @@ classifier, which is not calibrated.
         return x ** 3
 
     n_classes = 3
-    X, y, info_dict = pycalib.SyntheticBeta.sample_miscal_data(alpha=.75, beta=3, miscal_func=f, miscal_func_name="power",
+    X, y, info_dict = bm.SyntheticBeta.sample_miscal_data(alpha=.75, beta=3, miscal_func=f, miscal_func_name="power",
                                                                size=10000, marginal_probs=np.ones(n_classes) / n_classes,
                                                                random_state=seed)
 
@@ -49,7 +49,8 @@ calibrate its posterior uncertainty using a multi-class calibration method.
     # Package imports
     import numpy as np
     import sklearn
-    import pycalib
+    from sklearn.ensemble import RandomForestClassifier
+    import pycalib.calibration_methods as calm
 
     # Seed and data size
     seed = 0
@@ -67,11 +68,11 @@ calibrate its posterior uncertainty using a multi-class calibration method.
                                                                                   random_state=seed)
 
     # Train classifier
-    rf = sklearn.ensemble.RandomForestClassifier(random_state=seed)
-    rf.train(X_train, y_train)
+    rf = RandomForestClassifier(random_state=seed)
+    rf.fit(X_train, y_train)
     p_uncal = rf.predict_proba(X_test)
 
     # Predict and calibrate output
-    gpc = pycalib.GPCalibration(n_classes=10, random_state=seed)
+    gpc = calm.GPCalibration(n_classes=10, random_state=seed)
     gpc.fit(rf.predict_proba(X_calib), y_calib)
     p_pred = gpc.predict_proba(p_uncal)

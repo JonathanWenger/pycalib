@@ -1,8 +1,9 @@
-import numpy as np
-import pycalib.calibration_methods as calm
-import pycalib.benchmark as bm
-
 if __name__ == "__main__":
+
+    import numpy as np
+    import pycalib.calibration_methods as calm
+    import pycalib.benchmark as bm
+
     # Synthetic data
     def f(x):
         return x ** 3
