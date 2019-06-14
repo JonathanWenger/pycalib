@@ -56,15 +56,15 @@ If you use this code in your work, please cite the following paper.
 
 Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-parametric Calibration for Classification"_, ([PDF](https://arxiv.org/pdf/1906.04933.pdf))
 
-    @misc{wenger2019nonparametric,
-	    title={Non-Parametric Calibration for Classification},
-	    author={Jonathan Wenger and Hedvig Kjellström and Rudolph Triebel},
-	    year={2019},
-	    eprint={1906.04933},
-	    archivePrefix={arXiv},
-	    primaryClass={cs.LG},
-	    keywords={calibration, non-parametric, gaussian processes, classification},
-	    note = {{<a href="https://github.com/JonathanWenger/pycalib" target="_blank">[code]</a>}}
+	@Article{wenger2019nonparametric,
+	  author        = {Jonathan Wenger and Hedvig Kjellström and Rudolph Triebel},
+	  title         = {Non-Parametric Calibration for Classification},
+	  journal       = {arXiv preprint arXiv:1906.04933},
+	  year          = {2019},
+	  archiveprefix = {arXiv},
+	  eprint        = {1906.04933},
+	  keywords      = {calibration, non-parametric, gaussian processes, classification},
+	  url           = {https://github.com/JonathanWenger/pycalib},
 	}
 
 ## <a name="other"> License and Contact</a>
