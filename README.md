@@ -65,7 +65,7 @@ Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-parametric Calibr
 	    primaryClass={cs.LG},
 	    keywords={calibration, non-parametric, gaussian processes, classification},
 	    note = {{<a href="https://github.com/JonathanWenger/pycalib" target="_blank">[code]</a>}}
-		}
+	}
 
 ## <a name="other"> License and Contact</a>
 
