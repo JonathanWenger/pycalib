@@ -6,7 +6,7 @@
   <img src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="512"/>
 </p>
 
-This repository provides the implementation of our paper ["Non-parametric Calibration for Classification"](addlink) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel). All results presented in our work were produced with this code.
+This repository provides the implementation of our paper ["Non-parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel). All results presented in our work were produced with this code.
 
 * [Introduction](#introduction)
 * [Installation and Documentation](#usage)
@@ -46,7 +46,7 @@ A script will automatically download the MNIST dataset if an experiment is run o
 
 * ImageNet 2012
 
-Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be obtained from http://www.image-net.org.
+Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be obtained from the [ImageNet website](http://www.image-net.org).
 
 The repository includes scripts that replicate the experiments found in the paper in the `benchmark` and `figures` folders.
 
@@ -54,17 +54,18 @@ The repository includes scripts that replicate the experiments found in the pape
 ## <a name="paper">Publication</a>
 If you use this code in your work, please cite the following paper.
 
-Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-parametric Calibration for Classification"_, in ... ([pdf](addlink))
+Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-parametric Calibration for Classification"_, ([PDF](https://arxiv.org/pdf/1906.04933.pdf))
 
-
-    @InProceedings{wenger2019calibration,
-      author = "J. Wenger and H. Kjellström and R. Triebel",
-      title = "Non-parametric Calibration for Classification",
-      booktitle = "",
-      year = "2019",
-      keywords={calibration, non-parametric, gaussian processes, object classification},
-      note = {{<a href="https://github.com/JonathanWenger/pycalib" target="_blank">[code]</a>}},
-    }
+    @misc{wenger2019nonparametric,
+	    title={Non-Parametric Calibration for Classification},
+	    author={Jonathan Wenger and Hedvig Kjellström and Rudolph Triebel},
+	    year={2019},
+	    eprint={1906.04933},
+	    archivePrefix={arXiv},
+	    primaryClass={cs.LG},
+	    keywords={calibration, non-parametric, gaussian processes, classification},
+	    note = {{<a href="https://github.com/JonathanWenger/pycalib" target="_blank">[code]</a>}}
+		}
 
 ## <a name="other"> License and Contact</a>
 
