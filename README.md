@@ -32,19 +32,19 @@ For tips on getting started and how to use this package please refer to the [doc
 
 ## <a name="data">Datasets and Experiments</a>
 
-* PCam
+#### PCam
 
 Due to the size of the data, only a script replicating the experiments is provided. The data can be downloaded from the [PCam repository](https://github.com/basveeling/pcam).
 
-* KITTI
+#### KITTI
 
 The repository includes 64-dimensional features extracted from KITTI sequences compressed in a zip file (data/kitti_features.zip).
 
-* MNIST
+#### MNIST
 
 A script will automatically download the MNIST dataset if an experiment is run on it.
 
-* ImageNet 2012
+#### ImageNet 2012
 
 Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be obtained from the [ImageNet website](http://www.image-net.org).
 
@@ -54,7 +54,7 @@ The repository includes scripts that replicate the experiments found in the pape
 ## <a name="paper">Publication</a>
 If you use this code in your work, please cite the following paper.
 
-Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-parametric Calibration for Classification"_, ([PDF](https://arxiv.org/pdf/1906.04933.pdf))
+Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1906.04933.pdf))
 
 	@Article{wenger2019nonparametric,
 	  author        = {Jonathan Wenger and Hedvig Kjellström and Rudolph Triebel},
@@ -64,11 +64,11 @@ Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-parametric Calibr
 	  archiveprefix = {arXiv},
 	  eprint        = {1906.04933},
 	  keywords      = {calibration, non-parametric, gaussian processes, classification},
-	  url           = {https://github.com/JonathanWenger/pycalib},
+	  url           = {https://github.com/JonathanWenger/pycalib}
 	}
 
 ## <a name="other"> License and Contact</a>
 
-This work is released under the [MIT License].
+This work is released under the [MIT License](LICENSE).
 
 Contact **Jonathan Wenger** [:envelope:](mailto:j.wenger@tum.de) for questions and comments. Please submit an issue for reporting bugs.
