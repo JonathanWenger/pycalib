@@ -38,7 +38,7 @@ Due to the size of the data, only a script replicating the experiments is provid
 
 #### KITTI
 
-The repository includes 64-dimensional features extracted from KITTI sequences compressed in a zip file (data/kitti_features.zip).
+The repository includes 64-dimensional features extracted from KITTI sequences compressed in a zip file `data/kitti_features.zip`.
 
 #### MNIST
 
@@ -52,9 +52,9 @@ The repository includes scripts that replicate the experiments found in the pape
 
 
 ## <a name="publication">Publication</a>
-If you use this code in your work, please cite the following paper.
+If you use this code in your work, please cite the following paper:
 
-Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-Parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1906.04933.pdf))
+Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-Parametric Calibration for Classification"_. ([PDF](https://arxiv.org/pdf/1906.04933.pdf))
 
 	@Article{wenger2019nonparametric,
 	  author        = {Jonathan Wenger and Hedvig Kjellström and Rudolph Triebel},
