@@ -1,4 +1,4 @@
-# Non-parametric Calibration for Classification
+# Non-Parametric Calibration for Classification
 
 [![Build Status](https://travis-ci.com/JonathanWenger/pycalib.svg?branch=master)](https://travis-ci.com/JonathanWenger/pycalib)
 
@@ -6,13 +6,13 @@
   <img src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="512"/>
 </p>
 
-This repository provides the implementation of our paper ["Non-parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel). All results presented in our work were produced with this code.
+This repository provides the implementation of our paper ["Non-Parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel). All results presented in our work were produced with this code.
 
 * [Introduction](#introduction)
 * [Installation and Documentation](#usage)
 * [Datasets and Experiments](#data)
-* [Publication](#paper)
-* [License and Contact](#other)
+* [Publication](#publication)
+* [License and Contact](#contact)
 
 
 ## <a name="usage">Introduction</a>
@@ -51,10 +51,10 @@ Due to the size of the data, only a script replicating the experiments is provid
 The repository includes scripts that replicate the experiments found in the paper in the `benchmark` and `figures` folders.
 
 
-## <a name="paper">Publication</a>
+## <a name="publication">Publication</a>
 If you use this code in your work, please cite the following paper.
 
-Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1906.04933.pdf))
+Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-Parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1906.04933.pdf))
 
 	@Article{wenger2019nonparametric,
 	  author        = {Jonathan Wenger and Hedvig Kjellström and Rudolph Triebel},
@@ -67,8 +67,8 @@ Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-parametric Calibr
 	  url           = {https://github.com/JonathanWenger/pycalib}
 	}
 
-## <a name="other"> License and Contact</a>
+## <a name="contact"> License and Contact</a>
 
 This work is released under the [MIT License](LICENSE).
 
-Contact **Jonathan Wenger** [:envelope:](mailto:j.wenger@tum.de) for questions and comments. Please submit an issue for reporting bugs.
+Contact **Jonathan Wenger** [:envelope:](mailto:j.wenger@tum.de) for questions and comments. Please submit an [issue](https://github.com/JonathanWenger/pycalib/issues/new) to report bugs or request changes.
