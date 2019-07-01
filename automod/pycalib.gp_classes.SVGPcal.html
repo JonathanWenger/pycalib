@@ -179,7 +179,7 @@
 <h1>SVGPcal<a class="headerlink" href="#svgpcal" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pycalib.gp_classes.SVGPcal">
-<em class="property">class </em><code class="sig-prename descclassname">pycalib.gp_classes.</code><code class="sig-name descname">SVGPcal</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/gp_classes.html#SVGPcal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.gp_classes.SVGPcal" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pycalib.gp_classes.</code><code class="sig-name descname">SVGPcal</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">Y</em>, <em class="sig-param">kern</em>, <em class="sig-param">likelihood</em>, <em class="sig-param">feat=None</em>, <em class="sig-param">mean_function=None</em>, <em class="sig-param">num_latent=None</em>, <em class="sig-param">q_diag=False</em>, <em class="sig-param">whiten=True</em>, <em class="sig-param">minibatch_size=None</em>, <em class="sig-param">Z=None</em>, <em class="sig-param">num_data=None</em>, <em class="sig-param">q_mu=None</em>, <em class="sig-param">q_sqrt=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/gp_classes.html#SVGPcal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.gp_classes.SVGPcal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gpflow.models.model.GPModel</span></code></p>
 <p>Probability calibration using a sparse variational latent Gaussian process.</p>
 <p>This is the Sparse Variational GP <a class="footnote-reference brackets" href="#id2" id="id1">1</a> calibration model. It has a single one-dimensional GP as a latent function
@@ -197,14 +197,14 @@ Proceedings of AISTATS (2015)</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.children" title="pycalib.gp_classes.SVGPcal.children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">children</span></code></a></p></td>
-<td><p>Abstract property for getting pairs of names and children, respectively.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVGPcal.children</span></code></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.data_holders" title="pycalib.gp_classes.SVGPcal.data_holders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_holders</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.descendants" title="pycalib.gp_classes.SVGPcal.descendants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">descendants</span></code></a></p></td>
-<td><p>Scans full list of node descendants.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVGPcal.descendants</span></code></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.empty" title="pycalib.gp_classes.SVGPcal.empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty</span></code></a></p></td>
 <td><p></p></td>
@@ -212,8 +212,8 @@ Proceedings of AISTATS (2015)</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.feeds" title="pycalib.gp_classes.SVGPcal.feeds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feeds</span></code></a></p></td>
 <td><p>TensorFlow feed dictionary for passing to tf.Session.run()</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.full_name" title="pycalib.gp_classes.SVGPcal.full_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">full_name</span></code></a></p></td>
-<td><p>Backward compatibility with previous versions.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVGPcal.full_name</span></code></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.graph" title="pycalib.gp_classes.SVGPcal.graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code></a></p></td>
 <td><p>TensorFlow graph property.</p></td>
@@ -233,7 +233,7 @@ Proceedings of AISTATS (2015)</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.name" title="pycalib.gp_classes.SVGPcal.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
 <td><p>The name assigned to node at creation time.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.non_empty_params" title="pycalib.gp_classes.SVGPcal.non_empty_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">non_empty_params</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVGPcal.non_empty_params</span></code></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.objective" title="pycalib.gp_classes.SVGPcal.objective"><code class="xref py py-obj docutils literal notranslate"><span class="pre">objective</span></code></a></p></td>
@@ -314,8 +314,8 @@ Proceedings of AISTATS (2015)</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.compute_log_prior" title="pycalib.gp_classes.SVGPcal.compute_log_prior"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_log_prior</span></code></a>()</p></td>
 <td><p>Compute the log prior of the model.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.contains" title="pycalib.gp_classes.SVGPcal.contains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contains</span></code></a>(node)</p></td>
-<td><p>Checks either node already exist somewhere among descendants.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVGPcal.contains</span></code></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.enquire_graph" title="pycalib.gp_classes.SVGPcal.enquire_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enquire_graph</span></code></a>([graph])</p></td>
 <td><p>Verifies and returns relevant TensorFlow graph.</p></td>
@@ -359,8 +359,8 @@ Proceedings of AISTATS (2015)</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.read_values" title="pycalib.gp_classes.SVGPcal.read_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_values</span></code></a>([session])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.remove_child" title="pycalib.gp_classes.SVGPcal.remove_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_child</span></code></a>(name, child)</p></td>
-<td><p>Abstract method for removing an association between child and its name in parent’s specific storage.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVGPcal.remove_child</span></code></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.reset_name" title="pycalib.gp_classes.SVGPcal.reset_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_name</span></code></a>([name])</p></td>
 <td><p></p></td>
@@ -368,50 +368,28 @@ Proceedings of AISTATS (2015)</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.sample_feed_dict" title="pycalib.gp_classes.SVGPcal.sample_feed_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_feed_dict</span></code></a>(sample)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.set_child" title="pycalib.gp_classes.SVGPcal.set_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_child</span></code></a>(name, child)</p></td>
-<td><p>Set child.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVGPcal.set_child</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.set_parent" title="pycalib.gp_classes.SVGPcal.set_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_parent</span></code></a>([parent])</p></td>
-<td><p>Set parent.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVGPcal.set_parent</span></code></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.set_trainable" title="pycalib.gp_classes.SVGPcal.set_trainable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_trainable</span></code></a>(value)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.store_child" title="pycalib.gp_classes.SVGPcal.store_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">store_child</span></code></a>(name, child)</p></td>
-<td><p>Abstract method for saving association between child and its name in parent’s specific storage.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVGPcal.store_child</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SVGPcal.unset_child" title="pycalib.gp_classes.SVGPcal.unset_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unset_child</span></code></a>(name, child)</p></td>
-<td><p>Untie child from parent.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVGPcal.unset_child</span></code></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Attributes Documentation</p>
 <dl class="attribute">
-<dt id="pycalib.gp_classes.SVGPcal.children">
-<code class="sig-name descname">children</code><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.children" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract property for getting pairs of names and children, respectively.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary where keys are names and values are Parentable objects.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="pycalib.gp_classes.SVGPcal.data_holders">
 <code class="sig-name descname">data_holders</code><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.data_holders" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pycalib.gp_classes.SVGPcal.descendants">
-<code class="sig-name descname">descendants</code><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.descendants" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scans full list of node descendants.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Generator of nodes.</p>
-</dd>
-</dl>
-</dd></dl>
 
 <dl class="attribute">
 <dt id="pycalib.gp_classes.SVGPcal.empty">
@@ -427,13 +405,6 @@ Proceedings of AISTATS (2015)</p>
 <dd class="field-odd"><p>TensorFlow feed dictionary or None.</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pycalib.gp_classes.SVGPcal.full_name">
-<code class="sig-name descname">full_name</code><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.full_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Backward compatibility with previous versions.
-WARNING: WILL BE DEPRICATED SOON.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -494,11 +465,6 @@ as original name.</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="pycalib.gp_classes.SVGPcal.non_empty_params">
-<code class="sig-name descname">non_empty_params</code><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.non_empty_params" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pycalib.gp_classes.SVGPcal.objective">
@@ -670,17 +636,6 @@ used by node tensors.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pycalib.gp_classes.SVGPcal.contains">
-<code class="sig-name descname">contains</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.contains" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks either node already exist somewhere among descendants.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Boolean value.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
 <dt id="pycalib.gp_classes.SVGPcal.enquire_graph">
 <code class="sig-name descname">enquire_graph</code><span class="sig-paren">(</span><em class="sig-param">graph=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.enquire_graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verifies and returns relevant TensorFlow graph. If non-None graph were passed,
@@ -832,13 +787,6 @@ Xnew.</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pycalib.gp_classes.SVGPcal.remove_child">
-<code class="sig-name descname">remove_child</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">child</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.remove_child" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract method for removing an association between child and its name in
-parent’s specific storage.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="pycalib.gp_classes.SVGPcal.reset_name">
 <code class="sig-name descname">reset_name</code><span class="sig-paren">(</span><em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.reset_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -849,61 +797,9 @@ parent’s specific storage.</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pycalib.gp_classes.SVGPcal.set_child">
-<code class="sig-name descname">set_child</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">child</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.set_child" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set child.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – Child name.</p></li>
-<li><p><strong>child</strong> – Parentable object.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="pycalib.gp_classes.SVGPcal.set_parent">
-<code class="sig-name descname">set_parent</code><span class="sig-paren">(</span><em class="sig-param">parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.set_parent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set parent.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>parent</strong> – Parentable object.</p>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – Self-reference object passed.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – Non-Parentable object passed.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
 <dt id="pycalib.gp_classes.SVGPcal.set_trainable">
 <code class="sig-name descname">set_trainable</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.set_trainable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="method">
-<dt id="pycalib.gp_classes.SVGPcal.store_child">
-<code class="sig-name descname">store_child</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">child</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.store_child" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract method for saving association between child and its name in
-parent’s specific storage.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pycalib.gp_classes.SVGPcal.unset_child">
-<code class="sig-name descname">unset_child</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">child</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SVGPcal.unset_child" title="Permalink to this definition">¶</a></dt>
-<dd><p>Untie child from parent.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – Child name.</p></li>
-<li><p><strong>child</strong> – Parentable object.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
 
 </dd></dl>
 

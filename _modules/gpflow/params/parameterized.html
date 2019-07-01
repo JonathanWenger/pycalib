@@ -171,21 +171,19 @@
 <span class="c1"># limitations under the License.</span>
 
 
-<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
-<span class="kn">from</span> <span class="nn">..core.errors</span> <span class="k">import</span> <span class="n">GPflowError</span>
-<span class="kn">from</span> <span class="nn">..core.compilable</span> <span class="k">import</span> <span class="n">Build</span>
-<span class="kn">from</span> <span class="nn">..core.node</span> <span class="k">import</span> <span class="n">Node</span>
-
-<span class="kn">from</span> <span class="nn">..core.autoflow</span> <span class="k">import</span> <span class="n">AutoFlow</span>
-<span class="kn">from</span> <span class="nn">..core.tensor_converter</span> <span class="k">import</span> <span class="n">TensorConverter</span>
-
+<span class="kn">from</span> <span class="nn">.dataholders</span> <span class="k">import</span> <span class="n">DataHolder</span>
+<span class="kn">from</span> <span class="nn">.parameter</span> <span class="k">import</span> <span class="n">Parameter</span>
 <span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">misc</span>
 <span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">..core.autoflow</span> <span class="k">import</span> <span class="n">AutoFlow</span>
+<span class="kn">from</span> <span class="nn">..core.compilable</span> <span class="k">import</span> <span class="n">Build</span>
+<span class="kn">from</span> <span class="nn">..core.errors</span> <span class="k">import</span> <span class="n">GPflowError</span>
+<span class="kn">from</span> <span class="nn">..core.node</span> <span class="k">import</span> <span class="n">Node</span>
+<span class="kn">from</span> <span class="nn">..core.tensor_converter</span> <span class="k">import</span> <span class="n">TensorConverter</span>
 
-<span class="kn">from</span> <span class="nn">.parameter</span> <span class="k">import</span> <span class="n">Parameter</span>
-<span class="kn">from</span> <span class="nn">.dataholders</span> <span class="k">import</span> <span class="n">DataHolder</span>
 
 <span class="k">class</span> <span class="nc">Parameterized</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -239,15 +237,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_prior_tensor</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">children</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_children</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_param_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span>
         <span class="n">children</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">allowed</span><span class="p">(</span><span class="n">v</span><span class="p">)}</span>
         <span class="k">return</span> <span class="n">children</span>
 
-    <span class="k">def</span> <span class="nf">store_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_store_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
         <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">remove_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_remove_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
         <span class="nb">object</span><span class="o">.</span><span class="fm">__delattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -257,7 +255,7 @@
                 <span class="k">yield</span> <span class="n">param</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">non_empty_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_non_empty_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">Parameterized</span><span class="p">)</span> <span class="ow">and</span> <span class="n">param</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
                 <span class="k">continue</span>
@@ -317,6 +315,7 @@
                 <span class="n">tensors</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">initializables</span>
                 <span class="k">if</span> <span class="n">tensors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">inits</span> <span class="o">+=</span> <span class="n">tensors</span>
+
         <span class="n">inits</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">get_initializables</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">inits</span><span class="p">)</span>
         <span class="n">get_initializables</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_holders</span><span class="p">,</span> <span class="n">inits</span><span class="p">)</span>
@@ -329,6 +328,7 @@
                 <span class="n">param_feeds</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">initializable_feeds</span>
                 <span class="k">if</span> <span class="n">param_feeds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">feeds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">param_feeds</span><span class="p">)</span>
+
         <span class="n">feeds</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">get_initializable_feeds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">feeds</span><span class="p">)</span>
         <span class="n">get_initializable_feeds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_holders</span><span class="p">,</span> <span class="n">feeds</span><span class="p">)</span>
@@ -401,7 +401,7 @@
     <span class="k">def</span> <span class="nf">is_built</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">Graph</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;TensorFlow graph expected for checking build status.&#39;</span><span class="p">)</span>
-        <span class="n">statuses</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">param</span><span class="o">.</span><span class="n">is_built</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">non_empty_params</span><span class="p">])</span>
+        <span class="n">statuses</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">param</span><span class="o">.</span><span class="n">is_built</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_non_empty_params</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">Build</span><span class="o">.</span><span class="n">NOT_COMPATIBLE_GRAPH</span> <span class="ow">in</span> <span class="n">statuses</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Build</span><span class="o">.</span><span class="n">NOT_COMPATIBLE_GRAPH</span>
         <span class="k">elif</span> <span class="n">Build</span><span class="o">.</span><span class="n">NO</span> <span class="ow">in</span> <span class="n">statuses</span><span class="p">:</span>
@@ -477,15 +477,15 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;&quot;</span><span class="si">{0}</span><span class="s1">&quot; type cannot be assigned to &quot;</span><span class="si">{1}</span><span class="s1">&quot;.&#39;</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">name</span><span class="p">))</span>
-    
+
     <span class="k">def</span> <span class="nf">_replace_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unset_child</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">old</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unset_child</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">old</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_node</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">new</span><span class="p">)</span>
-    
+
     <span class="k">def</span> <span class="nf">_set_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">empty</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_built_coherence</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Build</span><span class="o">.</span><span class="n">YES</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GPflowError</span><span class="p">(</span><span class="s1">&#39;Tensors for this object are already built and cannot be modified.&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_child</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_child</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="n">attr</span> <span class="o">=</span> <span class="n">misc</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
@@ -512,20 +512,12 @@
             <span class="k">return</span>
 
         <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-    
+
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">as_pandas_table</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_pandas_table</span><span class="p">()</span><span class="o">.</span><span class="n">_repr_html_</span><span class="p">()</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">fixed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;`fixed` property is no longer supported. Please use `trainable` instead.&quot;</span><span class="p">)</span>
-
-    <span class="nd">@fixed</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">fixed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;`fixed` property is no longer supported. Please use `trainable` instead.&quot;</span><span class="p">)</span>
 </pre></div>
 
            </div>

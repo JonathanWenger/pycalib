@@ -183,37 +183,37 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataHolder</span></code>(*args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataHolder</span></code>(value[, dtype, fix_shape, name])</p></td>
 <td><p>DataHolder is similar to the Parameter with only difference that default values for <cite>fix_shape</cite> and <cite>trainable</cite> options are opposite to the Parameter’s and it does not have prior and transform options.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">GPModel</span></code>(*args, **kwargs)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">GPModel</span></code>(X, Y, kern, likelihood, mean_function)</p></td>
 <td><p>A base class for Gaussian process models, that is, those of the form</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.gp_classes.Log.html#pycalib.gp_classes.Log" title="pycalib.gp_classes.Log"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Log</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.gp_classes.Log.html#pycalib.gp_classes.Log" title="pycalib.gp_classes.Log"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Log</span></code></a>()</p></td>
 <td><p>Natural logarithm prior mean function.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeanFunction</span></code>(*args, **kwargs)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeanFunction</span></code>([name])</p></td>
 <td><p>The base mean function class.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Minibatch</span></code>(*args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Minibatch</span></code>(value[, batch_size, shuffle, …])</p></td>
 <td><p>Minibatch is a special case of data holders.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.gp_classes.MultiCal.html#pycalib.gp_classes.MultiCal" title="pycalib.gp_classes.MultiCal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MultiCal</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.gp_classes.MultiCal.html#pycalib.gp_classes.MultiCal" title="pycalib.gp_classes.MultiCal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MultiCal</span></code></a>(num_classes[, invlink, …])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Parameter</span></code>(*args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Parameter</span></code>(value[, transform, prior, …])</p></td>
 <td><p>Parameter class is a cornerstone of the GPflow package.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Parameterized</span></code>(*args, **kwargs)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Parameterized</span></code>([name])</p></td>
 <td><p>Parameterized object represents a set of computations over children nodes and one of the main purposes is to store these children node like objects.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.gp_classes.SVGPcal.html#pycalib.gp_classes.SVGPcal" title="pycalib.gp_classes.SVGPcal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVGPcal</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.gp_classes.SVGPcal.html#pycalib.gp_classes.SVGPcal" title="pycalib.gp_classes.SVGPcal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVGPcal</span></code></a>(X, Y, kern, likelihood[, feat, …])</p></td>
 <td><p>Probability calibration using a sparse variational latent Gaussian process.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.gp_classes.ScalarMult.html#pycalib.gp_classes.ScalarMult" title="pycalib.gp_classes.ScalarMult"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScalarMult</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.gp_classes.ScalarMult.html#pycalib.gp_classes.ScalarMult" title="pycalib.gp_classes.ScalarMult"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScalarMult</span></code></a>([alpha])</p></td>
 <td><p>Scalar multiplication mean function.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.gp_classes.SoftArgMax.html#pycalib.gp_classes.SoftArgMax" title="pycalib.gp_classes.SoftArgMax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoftArgMax</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.gp_classes.SoftArgMax.html#pycalib.gp_classes.SoftArgMax" title="pycalib.gp_classes.SoftArgMax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoftArgMax</span></code></a>(num_classes, **kwargs)</p></td>
 <td><p>This class implements the multi-class softargmax inverse-link function.</p></td>
 </tr>
 </tbody>

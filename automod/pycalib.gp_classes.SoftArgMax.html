@@ -180,7 +180,7 @@
 <h1>SoftArgMax<a class="headerlink" href="#softargmax" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pycalib.gp_classes.SoftArgMax">
-<em class="property">class </em><code class="sig-prename descclassname">pycalib.gp_classes.</code><code class="sig-name descname">SoftArgMax</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/gp_classes.html#SoftArgMax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pycalib.gp_classes.</code><code class="sig-name descname">SoftArgMax</code><span class="sig-paren">(</span><em class="sig-param">num_classes</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/gp_classes.html#SoftArgMax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gpflow.params.parameterized.Parameterized</span></code></p>
 <p>This class implements the multi-class softargmax inverse-link function. Given a vector <span class="math notranslate nohighlight">\(f=[f_1, f_2, ... f_k]\)</span>,
 then result of the mapping is <span class="math notranslate nohighlight">\(y = [y_1 ... y_k]\)</span>, where
@@ -192,14 +192,14 @@ then result of the mapping is <span class="math notranslate nohighlight">\(y = [
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.children" title="pycalib.gp_classes.SoftArgMax.children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">children</span></code></a></p></td>
-<td><p>Abstract property for getting pairs of names and children, respectively.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoftArgMax.children</span></code></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.data_holders" title="pycalib.gp_classes.SoftArgMax.data_holders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_holders</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.descendants" title="pycalib.gp_classes.SoftArgMax.descendants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">descendants</span></code></a></p></td>
-<td><p>Scans full list of node descendants.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoftArgMax.descendants</span></code></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.empty" title="pycalib.gp_classes.SoftArgMax.empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty</span></code></a></p></td>
 <td><p></p></td>
@@ -207,8 +207,8 @@ then result of the mapping is <span class="math notranslate nohighlight">\(y = [
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.feeds" title="pycalib.gp_classes.SoftArgMax.feeds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feeds</span></code></a></p></td>
 <td><p>TensorFlow feed dictionary for passing to tf.Session.run()</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.full_name" title="pycalib.gp_classes.SoftArgMax.full_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">full_name</span></code></a></p></td>
-<td><p>Backward compatibility with previous versions.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoftArgMax.full_name</span></code></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.graph" title="pycalib.gp_classes.SoftArgMax.graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code></a></p></td>
 <td><p>TensorFlow graph property.</p></td>
@@ -225,7 +225,7 @@ then result of the mapping is <span class="math notranslate nohighlight">\(y = [
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.name" title="pycalib.gp_classes.SoftArgMax.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
 <td><p>The name assigned to node at creation time.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.non_empty_params" title="pycalib.gp_classes.SoftArgMax.non_empty_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">non_empty_params</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoftArgMax.non_empty_params</span></code></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.parameters" title="pycalib.gp_classes.SoftArgMax.parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parameters</span></code></a></p></td>
@@ -294,8 +294,8 @@ then result of the mapping is <span class="math notranslate nohighlight">\(y = [
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.compile" title="pycalib.gp_classes.SoftArgMax.compile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compile</span></code></a>([session])</p></td>
 <td><p>Compile is two phase operation: at first it calls <cite>build</cite> method and then intializes the node for passed session.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.contains" title="pycalib.gp_classes.SoftArgMax.contains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contains</span></code></a>(node)</p></td>
-<td><p>Checks either node already exist somewhere among descendants.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoftArgMax.contains</span></code></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.enquire_graph" title="pycalib.gp_classes.SoftArgMax.enquire_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enquire_graph</span></code></a>([graph])</p></td>
 <td><p>Verifies and returns relevant TensorFlow graph.</p></td>
@@ -321,56 +321,34 @@ then result of the mapping is <span class="math notranslate nohighlight">\(y = [
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.read_values" title="pycalib.gp_classes.SoftArgMax.read_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_values</span></code></a>([session])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.remove_child" title="pycalib.gp_classes.SoftArgMax.remove_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_child</span></code></a>(name, child)</p></td>
-<td><p>Abstract method for removing an association between child and its name in parent’s specific storage.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoftArgMax.remove_child</span></code></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.reset_name" title="pycalib.gp_classes.SoftArgMax.reset_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_name</span></code></a>([name])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.set_child" title="pycalib.gp_classes.SoftArgMax.set_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_child</span></code></a>(name, child)</p></td>
-<td><p>Set child.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoftArgMax.set_child</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.set_parent" title="pycalib.gp_classes.SoftArgMax.set_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_parent</span></code></a>([parent])</p></td>
-<td><p>Set parent.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoftArgMax.set_parent</span></code></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.set_trainable" title="pycalib.gp_classes.SoftArgMax.set_trainable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_trainable</span></code></a>(value)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.store_child" title="pycalib.gp_classes.SoftArgMax.store_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">store_child</span></code></a>(name, child)</p></td>
-<td><p>Abstract method for saving association between child and its name in parent’s specific storage.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoftArgMax.store_child</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.SoftArgMax.unset_child" title="pycalib.gp_classes.SoftArgMax.unset_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unset_child</span></code></a>(name, child)</p></td>
-<td><p>Untie child from parent.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoftArgMax.unset_child</span></code></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Attributes Documentation</p>
 <dl class="attribute">
-<dt id="pycalib.gp_classes.SoftArgMax.children">
-<code class="sig-name descname">children</code><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.children" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract property for getting pairs of names and children, respectively.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary where keys are names and values are Parentable objects.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="pycalib.gp_classes.SoftArgMax.data_holders">
 <code class="sig-name descname">data_holders</code><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.data_holders" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pycalib.gp_classes.SoftArgMax.descendants">
-<code class="sig-name descname">descendants</code><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.descendants" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scans full list of node descendants.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Generator of nodes.</p>
-</dd>
-</dl>
-</dd></dl>
 
 <dl class="attribute">
 <dt id="pycalib.gp_classes.SoftArgMax.empty">
@@ -386,13 +364,6 @@ then result of the mapping is <span class="math notranslate nohighlight">\(y = [
 <dd class="field-odd"><p>TensorFlow feed dictionary or None.</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pycalib.gp_classes.SoftArgMax.full_name">
-<code class="sig-name descname">full_name</code><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.full_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Backward compatibility with previous versions.
-WARNING: WILL BE DEPRICATED SOON.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -448,11 +419,6 @@ as original name.</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="pycalib.gp_classes.SoftArgMax.non_empty_params">
-<code class="sig-name descname">non_empty_params</code><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.non_empty_params" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pycalib.gp_classes.SoftArgMax.parameters">
@@ -603,17 +569,6 @@ used by node tensors.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pycalib.gp_classes.SoftArgMax.contains">
-<code class="sig-name descname">contains</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.contains" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks either node already exist somewhere among descendants.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Boolean value.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
 <dt id="pycalib.gp_classes.SoftArgMax.enquire_graph">
 <code class="sig-name descname">enquire_graph</code><span class="sig-paren">(</span><em class="sig-param">graph=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.enquire_graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verifies and returns relevant TensorFlow graph. If non-None graph were passed,
@@ -720,73 +675,14 @@ used graph in node.</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pycalib.gp_classes.SoftArgMax.remove_child">
-<code class="sig-name descname">remove_child</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">child</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.remove_child" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract method for removing an association between child and its name in
-parent’s specific storage.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="pycalib.gp_classes.SoftArgMax.reset_name">
 <code class="sig-name descname">reset_name</code><span class="sig-paren">(</span><em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.reset_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pycalib.gp_classes.SoftArgMax.set_child">
-<code class="sig-name descname">set_child</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">child</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.set_child" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set child.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – Child name.</p></li>
-<li><p><strong>child</strong> – Parentable object.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="pycalib.gp_classes.SoftArgMax.set_parent">
-<code class="sig-name descname">set_parent</code><span class="sig-paren">(</span><em class="sig-param">parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.set_parent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set parent.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>parent</strong> – Parentable object.</p>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – Self-reference object passed.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – Non-Parentable object passed.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
 <dt id="pycalib.gp_classes.SoftArgMax.set_trainable">
 <code class="sig-name descname">set_trainable</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.set_trainable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="method">
-<dt id="pycalib.gp_classes.SoftArgMax.store_child">
-<code class="sig-name descname">store_child</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">child</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.store_child" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract method for saving association between child and its name in
-parent’s specific storage.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pycalib.gp_classes.SoftArgMax.unset_child">
-<code class="sig-name descname">unset_child</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">child</em><span class="sig-paren">)</span><a class="headerlink" href="#pycalib.gp_classes.SoftArgMax.unset_child" title="Permalink to this definition">¶</a></dt>
-<dd><p>Untie child from parent.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – Child name.</p></li>
-<li><p><strong>child</strong> – Parentable object.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
 
 </dd></dl>
 
