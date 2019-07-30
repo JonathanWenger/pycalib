@@ -251,16 +251,32 @@ class TemperatureScaling(CalibrationMethod):
         P = E / np.sum(E, axis=1).reshape(-1, 1)
         return P
 
-    def plot_latent(self, filename, xlim=np.array([0, 1]), **kwargs):
+    def latent(self, z):
+        """
+        Evaluate the latent function Tz of temperature scaling.
+
+        Parameters
+        ----------
+        z : array-like, shape=(n_evaluations,)
+            Input confidence for which to evaluate the latent function.
+
+        Returns
+        -------
+        f : array-like, shape=(n_evaluations,)
+            Values of the latent function at z.
+        """
+        return self.T * z
+
+    def plot_latent(self, z, filename, **kwargs):
         """
         Plot the latent function of the calibration method.
 
         Parameters
         ----------
+        z : array-like, shape=(n_evaluations,)
+            Input confidence to plot latent function for.
         filename :
             Filename / -path where to save output.
-        xlim : array-like, shape=(2,), default=[0,1]
-            Limits of the x-axis of the plot.
         kwargs
             Additional arguments passed on to matplotlib.pyplot.subplots.
 
@@ -268,15 +284,14 @@ class TemperatureScaling(CalibrationMethod):
         -------
 
         """
-        x = np.linspace(start=xlim[0], stop=xlim[1], num=1000)
-
         # Plot latent function
         fig, axes = pycalib.texfig.subplots(nrows=1, ncols=1, sharex=True, **kwargs)
-        axes.plot(x, self.T * x, label="latent function")
+        axes.plot(z, self.T * z, label="latent function")
         axes.set_ylabel("$Tz$")
         axes.set_xlabel("$z$")
         fig.align_labels()
 
+        # Save plot to file
         pycalib.texfig.savefig(filename)
 
 
@@ -1052,16 +1067,40 @@ class GPCalibration(CalibrationMethod):
 
                 return np.concatenate(p_pred_list, axis=0)
 
-    def plot_latent(self, filename, xlim=np.array([0, 1]), plot_classes=True, **kwargs):
+    def latent(self, z):
+        """
+        Evaluate the latent function f(z) of the GP calibration method.
+
+        Parameters
+        ----------
+        z : array-like, shape=(n_evaluations,)
+            Input confidence for which to evaluate the latent function.
+
+        Returns
+        -------
+        f : array-like, shape=(n_evaluations,)
+            Values of the latent function at z.
+        f_var : array-like, shape=(n_evaluations,)
+            Variance of the latent function at z.
+        """
+        # Evaluate latent GP
+        with self.session.as_default(), self.session.graph.as_default():
+            f, var = self.model.predict_f(z.reshape(-1, 1))
+            latent = f.eval().flatten()
+            latent_var = var.eval().flatten()
+
+        return latent, latent_var
+
+    def plot_latent(self, z, filename, plot_classes=True, **kwargs):
         """
         Plot the latent function of the calibration method.
 
         Parameters
         ----------
+        z : array-like, shape=(n_evaluations,)
+            Input confidence to plot latent function for.
         filename :
             Filename / -path where to save output.
-        xlim : array-like, shape=(2,), default=[0,1]
-            Limits of the x-axis of the plot.
         plot_classes : bool, default=True
             Should classes also be plotted?
         kwargs
@@ -1071,34 +1110,33 @@ class GPCalibration(CalibrationMethod):
         -------
 
         """
-        x = np.linspace(start=xlim[0], stop=xlim[1], num=1000)
+        # Evaluate latent GP
         with self.session.as_default(), self.session.graph.as_default():
-            # Evaluate latent GP
-            f, var = self.model.predict_f(x.reshape(-1, 1))
+            f, var = self.model.predict_f(z.reshape(-1, 1))
             latent = f.eval().flatten()
             latent_var = var.eval().flatten()
-            X = self.model.X.value
+            Z = self.model.X.value
 
         # Plot latent GP
-
         if plot_classes:
             fig, axes = pycalib.texfig.subplots(nrows=2, ncols=1, sharex=True, **kwargs)
-            axes[0].plot(x, latent, label="GP mean")
-            axes[0].fill_between(x, latent - 2 * np.sqrt(latent_var), latent + 2 * np.sqrt(latent_var), alpha=.2)
+            axes[0].plot(z, latent, label="GP mean")
+            axes[0].fill_between(z, latent - 2 * np.sqrt(latent_var), latent + 2 * np.sqrt(latent_var), alpha=.2)
             axes[0].set_ylabel("$f(z)$")
-            axes[1].plot(X.reshape((np.size(X),)),
-                         np.matlib.repmat(np.arange(0, self.n_classes), np.shape(X)[0], 1).reshape((np.size(X),)), 'kx',
+            axes[1].plot(Z.reshape((np.size(Z),)),
+                         np.matlib.repmat(np.arange(0, self.n_classes), np.shape(Z)[0], 1).reshape((np.size(Z),)), 'kx',
                          markersize=5)
             axes[1].set_ylabel("class")
             axes[1].set_xlabel("$z$")
             fig.align_labels()
         else:
             fig, axes = pycalib.texfig.subplots(nrows=1, ncols=1, sharex=True, **kwargs)
-            axes.plot(x, latent, label="GP mean")
-            axes.fill_between(x, latent - 2 * np.sqrt(latent_var), latent + 2 * np.sqrt(latent_var), alpha=.2)
+            axes.plot(z, latent, label="GP mean")
+            axes.fill_between(z, latent - 2 * np.sqrt(latent_var), latent + 2 * np.sqrt(latent_var), alpha=.2)
             axes.set_xlabel("$z$")
             axes.set_ylabel("$f(z)$")
 
+        # Save plot to file
         pycalib.texfig.savefig(filename)
 
 
