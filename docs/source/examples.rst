@@ -14,6 +14,7 @@ classifier, which is not calibrated.
     import numpy as np
     import sklearn
     import pycalib.benchmark as bm
+    import pycalib.calibration_methods as calm
 
     # Generate synthetic data
     seed = 0
@@ -29,7 +30,7 @@ classifier, which is not calibrated.
     p_calib, p_test, y_calib, y_test = sklearn.model_selection.train_test_split(X, y, test_size=9000, random_state=seed)
 
     # Train calibration method
-    gpc = pycalib.GPCalibration(n_classes=n_classes, random_state=seed)
+    gpc = calm.GPCalibration(n_classes=n_classes, random_state=seed)
     gpc.fit(p_calib, y_calib)
 
     # Generate calibrated probabilities
