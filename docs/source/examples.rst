@@ -49,7 +49,7 @@ calibrate its posterior uncertainty using a multi-class calibration method.
     """
     # Package imports
     import numpy as np
-    import sklearn
+    from sklearn import datasets, model_selection
     from sklearn.ensemble import RandomForestClassifier
     import pycalib.calibration_methods as calm
 
@@ -59,14 +59,14 @@ calibrate its posterior uncertainty using a multi-class calibration method.
     n_calib = 1000
 
     # Download MNIST data
-    X, y = sklearn.datasets.fetch_openml('mnist_784', version=1, return_X_y=True, cache=True)
+    X, y = datasets.fetch_openml('mnist_784', version=1, return_X_y=True, cache=True)
     X = X / 255.
     y = np.array(y, dtype=int)
 
     # Split into train, calibration and test data
-    X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size=n_test, random_state=seed)
-    X_train, X_calib, y_train, y_calib = sklearn.model_selection.train_test_split(X_train, y_train, test_size=n_calib,
-                                                                                  random_state=seed)
+    X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=n_test, random_state=seed)
+    X_train, X_calib, y_train, y_calib = model_selection.train_test_split(X_train, y_train, test_size=n_calib,
+                                                                          random_state=seed)
 
     # Train classifier
     rf = RandomForestClassifier(random_state=seed)
