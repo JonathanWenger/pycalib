@@ -30,7 +30,8 @@ setup(
         'scipy>=1.3.0',
         'tensorflow>=1.12.2',
         'torch>=0.4.1',
-        'pretrainedmodels>=0.7.4'
+        'pretrainedmodels>=0.7.4',
+        'skgarden'
     ],
     dependency_links=['https://github.com/scikit-garden/scikit-garden.git#egg=skgarden']
 )
