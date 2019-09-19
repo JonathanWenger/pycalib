@@ -196,7 +196,7 @@ class ActiveLearningExperiment(object):
             query_unc = self.query_criterion(p_pred_batch)
             # Find samples with higher query uncertainty than the threshold
             active_sample_ids = np.where(query_unc > self.uncertainty_thresh)[0] + i
-            print(query_unc)
+            #print(query_unc) #TODO: remove me
 
             # Train on queried samples
             if do_calibration and next_calib_point_ind < len(self.calib_points):
