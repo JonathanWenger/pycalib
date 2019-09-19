@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>average_confidence &mdash; pycalib  documentation</title>
+  <title>ratio_over_underconfidence &mdash; pycalib  documentation</title>
   
 
   
@@ -37,8 +37,8 @@
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="brier_score" href="pycalib.scoring.brier_score.html" />
-    <link rel="prev" title="accuracy" href="pycalib.scoring.accuracy.html" /> 
+    <link rel="next" title="recall" href="pycalib.scoring.recall.html" />
+    <link rel="prev" title="precision" href="pycalib.scoring.precision.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -96,14 +96,14 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../scoring.html">pycalib.scoring Module</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="../scoring.html#functions">Functions</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.accuracy.html">accuracy</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">average_confidence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.average_confidence.html">average_confidence</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.brier_score.html">brier_score</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.error.html">error</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.expected_calibration_error.html">expected_calibration_error</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.odds_correctness.html">odds_correctness</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.overconfidence.html">overconfidence</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.precision.html">precision</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.ratio_over_underconfidence.html">ratio_over_underconfidence</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">ratio_over_underconfidence</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.recall.html">recall</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.sharpness.html">sharpness</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pycalib.scoring.underconfidence.html">underconfidence</a></li>
@@ -166,13 +166,13 @@
         
           <li><a href="../scoring.html">pycalib.scoring Module</a> &raquo;</li>
         
-      <li>average_confidence</li>
+      <li>ratio_over_underconfidence</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/automod/pycalib.scoring.average_confidence.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/automod/pycalib.scoring.ratio_over_underconfidence.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -185,21 +185,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="average-confidence">
-<h1>average_confidence<a class="headerlink" href="#average-confidence" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="ratio-over-underconfidence">
+<h1>ratio_over_underconfidence<a class="headerlink" href="#ratio-over-underconfidence" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="pycalib.scoring.average_confidence">
-<code class="sig-prename descclassname">pycalib.scoring.</code><code class="sig-name descname">average_confidence</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">p_pred</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#average_confidence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.average_confidence" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes the average confidence in the prediction</p>
+<dt id="pycalib.scoring.ratio_over_underconfidence">
+<code class="sig-prename descclassname">pycalib.scoring.</code><code class="sig-name descname">ratio_over_underconfidence</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">p_pred</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/scoring.html#ratio_over_underconfidence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.scoring.ratio_over_underconfidence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the ratio of over- and underconfidence of a classifier.</p>
+<p>Computes the empirical ratio of over- and underconfidence of a classifier on a test sample.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>y</strong> (<em>array-like</em>) – Ground truth labels. Here a dummy variable for cross validation.</p></li>
-<li><p><strong>p_pred</strong> (<em>array-like</em>) – Array of confidence estimates.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – Ground truth labels</p></li>
+<li><p><strong>p_pred</strong> (<em>array-like</em>) – Array of confidence estimates</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>avg_conf</strong> – Average confidence in prediction.</p>
+<dd class="field-even"><p>Ratio of over- and underconfidence</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></p>
@@ -217,10 +218,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pycalib.scoring.brier_score.html" class="btn btn-neutral float-right" title="brier_score" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pycalib.scoring.recall.html" class="btn btn-neutral float-right" title="recall" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pycalib.scoring.accuracy.html" class="btn btn-neutral float-left" title="accuracy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pycalib.scoring.precision.html" class="btn btn-neutral float-left" title="precision" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

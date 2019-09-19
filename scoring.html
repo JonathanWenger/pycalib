@@ -100,8 +100,10 @@
 <li class="toctree-l4"><a class="reference internal" href="automod/pycalib.scoring.brier_score.html">brier_score</a></li>
 <li class="toctree-l4"><a class="reference internal" href="automod/pycalib.scoring.error.html">error</a></li>
 <li class="toctree-l4"><a class="reference internal" href="automod/pycalib.scoring.expected_calibration_error.html">expected_calibration_error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="automod/pycalib.scoring.odds_correctness.html">odds_correctness</a></li>
 <li class="toctree-l4"><a class="reference internal" href="automod/pycalib.scoring.overconfidence.html">overconfidence</a></li>
 <li class="toctree-l4"><a class="reference internal" href="automod/pycalib.scoring.precision.html">precision</a></li>
+<li class="toctree-l4"><a class="reference internal" href="automod/pycalib.scoring.ratio_over_underconfidence.html">ratio_over_underconfidence</a></li>
 <li class="toctree-l4"><a class="reference internal" href="automod/pycalib.scoring.recall.html">recall</a></li>
 <li class="toctree-l4"><a class="reference internal" href="automod/pycalib.scoring.sharpness.html">sharpness</a></li>
 <li class="toctree-l4"><a class="reference internal" href="automod/pycalib.scoring.underconfidence.html">underconfidence</a></li>
@@ -209,11 +211,17 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.scoring.expected_calibration_error.html#pycalib.scoring.expected_calibration_error" title="pycalib.scoring.expected_calibration_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expected_calibration_error</span></code></a>(y, p_pred[, …])</p></td>
 <td><p>Computes the expected calibration error ECE_p.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.scoring.overconfidence.html#pycalib.scoring.overconfidence" title="pycalib.scoring.overconfidence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overconfidence</span></code></a>(y, p_pred)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.scoring.odds_correctness.html#pycalib.scoring.odds_correctness" title="pycalib.scoring.odds_correctness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">odds_correctness</span></code></a>(y, p_pred)</p></td>
+<td><p>Computes the odds of making a correct prediction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.scoring.overconfidence.html#pycalib.scoring.overconfidence" title="pycalib.scoring.overconfidence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overconfidence</span></code></a>(y, p_pred)</p></td>
 <td><p>Computes the overconfidence of a classifier.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.scoring.precision.html#pycalib.scoring.precision" title="pycalib.scoring.precision"><code class="xref py py-obj docutils literal notranslate"><span class="pre">precision</span></code></a>(y, p_pred, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.scoring.precision.html#pycalib.scoring.precision" title="pycalib.scoring.precision"><code class="xref py py-obj docutils literal notranslate"><span class="pre">precision</span></code></a>(y, p_pred, **kwargs)</p></td>
 <td><p>Computes the precision.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.scoring.ratio_over_underconfidence.html#pycalib.scoring.ratio_over_underconfidence" title="pycalib.scoring.ratio_over_underconfidence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ratio_over_underconfidence</span></code></a>(y, p_pred)</p></td>
+<td><p>Computes the ratio of over- and underconfidence of a classifier.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.scoring.recall.html#pycalib.scoring.recall" title="pycalib.scoring.recall"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recall</span></code></a>(y, p_pred, **kwargs)</p></td>
 <td><p>Computes the recall.</p></td>
