@@ -52,9 +52,9 @@ def query_margin(p_pred):
     return margin
 
 
-def query_entropy(p_pred):
+def query_norm_entropy(p_pred):
     """
-    Calculates the entropy of the prediction probabilities.
+    Calculates the normalized entropy of the prediction probabilities. The output is normalized to [0,1].
 
     Parameters
     ----------
@@ -63,10 +63,10 @@ def query_entropy(p_pred):
 
     Returns
     -------
-    Entropy of the predicted probabilities.
+    Normalized entropy of the predicted probabilities.
 
     """
-    return np.transpose(entropy(np.transpose(p_pred)))
+    return np.transpose(entropy(np.transpose(p_pred))) / np.log(p_pred.shape[1])
 
 
 class ActiveLearningExperiment(object):
@@ -115,12 +115,14 @@ class ActiveLearningExperiment(object):
             # "precision": (sc.precision, {"labels": self.classes, "average": "weighted"}),
             # "recall": (sc.recall, {"labels": self.classes, "average": "weighted"}),
             "log-loss": (sklearn.metrics.log_loss, {"labels": self.classes}),
-            "ECE": (sc.expected_calibration_error, {"p": 1}),
+            "$\\text{ECE}_1$": (sc.expected_calibration_error, {"p": 1}),
             "MCE": (sc.expected_calibration_error, {"p": np.inf}),
             "sharpness": (sc.sharpness, {}),
             "overconfidence": (sc.overconfidence, {}),
             "underconfidence": (sc.underconfidence, {}),
-            "avg_confidence": (sc.average_confidence, {}),
+            "$\\frac{o(f)}{u(f)}$": (sc.ratio_over_underconfidence, {}),
+            "$\\frac{\\text{accuracy}}{\\text{error}}$": (sc.odds_correctness, {}),
+            "$avg. confidence": (sc.average_confidence, {}),
         }
         self.result_df = pd.DataFrame()
 
@@ -192,7 +194,9 @@ class ActiveLearningExperiment(object):
 
             # Evaluate query criterion
             query_unc = self.query_criterion(p_pred_batch)
+            # Find samples with higher query uncertainty than the threshold
             active_sample_ids = np.where(query_unc > self.uncertainty_thresh)[0] + i
+            print(query_unc)
 
             # Train on queried samples
             if do_calibration and next_calib_point_ind < len(self.calib_points):
@@ -217,6 +221,7 @@ class ActiveLearningExperiment(object):
                 except sklearn.exceptions.NotFittedError:
                     pass
                 query_unc = self.query_criterion(p_pred_remain)
+                # Select samples with higher query uncertainty than the threshold
                 calib_sample_ids = np.where(query_unc > self.uncertainty_thresh)[0][0:self.calib_size] + \
                                    self.calib_points[next_calib_point_ind]
 
@@ -274,7 +279,8 @@ class ActiveLearningExperiment(object):
                                             y_train_shuffled=y_train,
                                             classifier=sklearn.clone(self.classifier),
                                             calibration_method=sklearn.clone(self.calibration_method),
-                                            pretrain_ind=range(self.pretrain_size), do_calibration=False)
+                                            pretrain_ind=range(self.pretrain_size),
+                                            do_calibration=False)
 
             # Active learning with calibration
             pretrain_ind = range(np.min(np.concatenate((np.array([self.pretrain_size]), np.array(self.calib_points)))))
@@ -341,7 +347,7 @@ class ActiveLearningExperiment(object):
         df = df.fillna("")
         return df
 
-    def plot(self, file, metrics_list, width= 6.5, height=1.7, scatter=False, confidence=True):
+    def plot(self, file, metrics_list, width= None, height=None, scatter=False, confidence=True):
         """
         Plots the given list of metrics for the active learning experiment.
 
@@ -359,10 +365,19 @@ class ActiveLearningExperiment(object):
         n_subplots = len(metrics_list)
 
         # Generate curves for the given metrics
-        fig, axes = texfig.subplots(ncols=n_subplots, width=6.5, ratio=height*1.0/width, w_pad=1)
+        if width is None:
+            width = 3.25*n_subplots
+        if height is None:
+            height = 1.7
+        fig, axes = texfig.subplots(ncols=n_subplots, width=width, ratio=height*1.0/width, w_pad=1)
         cmap = get_cmap("tab10")  # https://matplotlib.org/gallery/color/colormap_reference.html
 
+        # Allow for one metric only
+        if n_subplots == 1:
+            axes = [axes]
+
         for ax_ind, metric_name in enumerate(metrics_list):
+
             # Plot calibration ranges
             for cp in self.calib_points:
                 axes[ax_ind].axvspan(cp, cp + self.calib_size, alpha=0.3, color='gray', linewidth=0.0)

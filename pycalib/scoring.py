@@ -43,6 +43,24 @@ def error(y, p_pred):
     return 1 - accuracy(y=y, p_pred=p_pred)
 
 
+def odds_correctness(y, p_pred):
+    """
+    Computes the odds of making a correct prediction.
+
+    Parameters
+    ----------
+    y : array-like
+        Ground truth labels.
+    p_pred : array-like
+        Array of confidence estimates.
+
+    Returns
+    -------
+    odds : float
+    """
+    return accuracy(y=y, p_pred=p_pred) / error(y=y, p_pred=p_pred)
+
+
 def expected_calibration_error(y, p_pred, n_bins=100, n_classes=None, p=1):
     """
     Computes the expected calibration error ECE_p.
@@ -185,6 +203,27 @@ def underconfidence(y, p_pred):
     p_max = np.max(p_pred, axis=1)
 
     return np.average(1 - p_max[y_pred == y])
+
+
+def ratio_over_underconfidence(y, p_pred):
+    """
+    Computes the ratio of over- and underconfidence of a classifier.
+
+    Computes the empirical ratio of over- and underconfidence of a classifier on a test sample.
+
+    Parameters
+    ----------
+    y : array-like
+        Ground truth labels
+    p_pred : array-like
+        Array of confidence estimates
+
+    Returns
+    -------
+    float
+        Ratio of over- and underconfidence
+    """
+    return overconfidence(y=y, p_pred=p_pred) / underconfidence(y = y, p_pred=p_pred)
 
 
 def average_confidence(y, p_pred):
