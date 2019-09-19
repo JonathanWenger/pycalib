@@ -1044,7 +1044,7 @@ class GPCalibration(CalibrationMethod):
 
         with self.session.as_default(), self.session.graph.as_default():
             # Seed for Monte_Carlo
-            tf.random.set_random_seed(self.random_state)
+            tf.set_random_seed(self.random_state)
 
             if X.ndim == 1 or np.shape(X)[1] != self.n_classes:
                 raise ValueError("Calibration data must have shape (n_samples, n_classes).")

@@ -5,6 +5,7 @@ import numpy as np
 # Package imports
 import pycalib.calibration_methods as cm
 
+
 # General
 @pytest.fixture(scope='module')
 def sample_size():
@@ -81,7 +82,6 @@ def test_hist_binning_bin_size(p_cal_binary, y_cal_binary, binning_mode):
 # Bayesian Binning into Quantiles
 
 def test_bin_with_size_zero():
-
     # Data
     p_cal = .5 * np.ones([100, 2])
     y_cal = np.hstack([np.ones([50]), np.zeros([50])])
@@ -95,6 +95,7 @@ def test_bin_with_size_zero():
 
     # Check for NaNs
     assert not np.any(np.isnan(p_pred)), "Calibrated probabilities are NaN."
+
 
 # GP calibration
 
@@ -114,7 +115,5 @@ def test_output_size_missing_classes():
     platt.fit(X_cal, y_cal)
 
     # Test output size
-    assert np.shape(platt.predict_proba(X_cal))[1] == n_classes, "Predicted probabilities do not match number of classes."
-
-
-
+    assert np.shape(platt.predict_proba(X_cal))[
+               1] == n_classes, "Predicted probabilities do not match number of classes."

@@ -13,7 +13,7 @@ if __name__ == "__main__":
     random_state = 0
 
     # Load KITTI data
-    data_dir = "/Users/jwenger/Documents/university/theses/master's thesis/code/pycalib/data/kitti"
+    data_dir = "/home/j/Documents/research/nonparametric_calibration/pycalib/data/kitti"
     files = ['kitti_all_train.data',
              'kitti_all_train.labels',
              'kitti_all_test.data',
@@ -25,7 +25,6 @@ if __name__ == "__main__":
 
     # Setup
     n_classes = len(np.unique(np.hstack([y_train, y_test])))
-    calib_method_name = "GPcalib"
 
     mf = MondrianForestClassifier(n_estimators=10,
                                   min_samples_split=2,
@@ -39,13 +38,13 @@ if __name__ == "__main__":
                                          y_train=y_train,
                                          X_test=X_test,
                                          y_test=y_test,
-                                         query_criterion=al.query_entropy,
+                                         query_criterion=al.query_norm_entropy,
                                          uncertainty_thresh=0.5,
                                          pretrain_size=1000,
-                                         calibration_method=calib.GPCalibration(n_classes=n_classes, maxiter=1000,
-                                                                                n_inducing_points=10, verbose=False,
-                                                                                random_state=random_state),
-                                         # calibration_method=calib.TemperatureScaling(),
+                                         # calibration_method=calib.GPCalibration(n_classes=n_classes, maxiter=1000,
+                                         #                                        n_inducing_points=10, verbose=False,
+                                         #                                        random_state=random_state),
+                                         calibration_method=calib.TemperatureScaling(),
                                          calib_size=200,
                                          calib_points=[1000, 2000, 3000, 4000],
                                          batch_size=250)
@@ -53,15 +52,15 @@ if __name__ == "__main__":
     result_df = al_exp.run(n_cv=10, random_state=random_state)
 
     # Save to file
-    dir = "/Users/jwenger/Documents/university/theses/master's thesis/code/pycalib/pycalib/figures/active_learning"
+    dir = "/home/j/Documents/research/nonparametric_calibration/pycalib/figures/active_learning/"
     al_exp.save_result(file=dir)
 
     al_exp.result_df = al_exp.load_result(file=dir + "/active_learning_results.csv")
 
     # Plot
-    plot_dict = {"AL_ECE_error": ["ECE", "error"],
-                 "AL_over_underconfidence": ["overconfidence", "underconfidence"],
-                 # "AL_ECE_sharpness": ["ECE", "sharpness"]
+    plot_dict = {"AL_ECE_error": ["$\\text{ECE}_1$", "error"],
+                 "AL_ratio_over_underconfidence": ["$\\frac{o(f)}{u(f)}$", "$\\frac{\\text{accuracy}}{\\text{error}}$"],
+                 "AL_over_underconfidence": ["overconfidence", "underconfidence"]
                  }
 
     for filename, metrics_list in plot_dict.items():
