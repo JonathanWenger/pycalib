@@ -23,7 +23,7 @@ if __name__ == "__main__":
     X_test = np.loadtxt(os.path.join(data_dir, files[2]), np.float64, skiprows=1)
     y_test = np.loadtxt(os.path.join(data_dir, files[3]), np.int32, skiprows=1)
 
-    # Training and active learning parameters
+    # Setup
     n_classes = len(np.unique(np.hstack([y_train, y_test])))
     calib_method_name = "GPcalib"
 
