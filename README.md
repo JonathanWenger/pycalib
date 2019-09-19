@@ -56,9 +56,9 @@ The repository includes scripts that replicate the experiments found in the pape
 
 
 ## <a name="publication">Publication</a>
-If you use this code in your work, please cite the following paper:
+If you use this repository in your research, please cite the following paper:
 
-Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-Parametric Calibration for Classification"_. ([PDF](https://arxiv.org/pdf/1906.04933.pdf))
+_"Non-Parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1906.04933.pdf)), Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel
 
 	@Article{wenger2019nonparametric,
 	  author        = {Jonathan Wenger and Hedvig Kjellström and Rudolph Triebel},
@@ -75,4 +75,4 @@ Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel, _"Non-Parametric Calibr
 
 This work is released under the [MIT License](LICENSE).
 
-Contact **Jonathan Wenger** [:envelope:](mailto:j.wenger@tum.de) for questions and comments. Please submit an [issue](https://github.com/JonathanWenger/pycalib/issues/new) to report bugs or request changes.
+Please submit an [issue](https://github.com/JonathanWenger/pycalib/issues/new) to report bugs or request changes. Contact **Jonathan Wenger** [:envelope:](mailto:jonathan.wenger@uni-tuebingen.de) for any questions or comments. 

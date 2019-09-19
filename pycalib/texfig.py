@@ -27,6 +27,8 @@ mpl.rcParams.update({
         # put LaTeX preamble declarations here
         r"\usepackage[utf8x]{inputenc}",
         r"\usepackage[T1]{fontenc}",
+        r"\usepackage{amsmath}",
+        r"\usepackage{bm}"
         # macros defined here will be available in plots, e.g.:
         r"\newcommand{\vect}[1]{#1}",
         # You can use dummy implementations, since your  LaTeX document

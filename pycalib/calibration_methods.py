@@ -287,8 +287,8 @@ class TemperatureScaling(CalibrationMethod):
         # Plot latent function
         fig, axes = pycalib.texfig.subplots(nrows=1, ncols=1, sharex=True, **kwargs)
         axes.plot(z, self.T * z, label="latent function")
-        axes.set_ylabel("$Tz$")
-        axes.set_xlabel("$z$")
+        axes.set_ylabel("$T\\bm{z}$")
+        axes.set_xlabel("$\\bm{z}_k$")
         fig.align_labels()
 
         # Save plot to file
@@ -1122,19 +1122,19 @@ class GPCalibration(CalibrationMethod):
             fig, axes = pycalib.texfig.subplots(nrows=2, ncols=1, sharex=True, **kwargs)
             axes[0].plot(z, latent, label="GP mean")
             axes[0].fill_between(z, latent - 2 * np.sqrt(latent_var), latent + 2 * np.sqrt(latent_var), alpha=.2)
-            axes[0].set_ylabel("$f(z)$")
+            axes[0].set_ylabel("$g(\\bm{z}_k)$")
             axes[1].plot(Z.reshape((np.size(Z),)),
                          np.matlib.repmat(np.arange(0, self.n_classes), np.shape(Z)[0], 1).reshape((np.size(Z),)), 'kx',
                          markersize=5)
             axes[1].set_ylabel("class")
-            axes[1].set_xlabel("$z$")
+            axes[1].set_xlabel("$\\bm{z}_k$")
             fig.align_labels()
         else:
             fig, axes = pycalib.texfig.subplots(nrows=1, ncols=1, sharex=True, **kwargs)
             axes.plot(z, latent, label="GP mean")
             axes.fill_between(z, latent - 2 * np.sqrt(latent_var), latent + 2 * np.sqrt(latent_var), alpha=.2)
-            axes.set_xlabel("$z$")
-            axes.set_ylabel("$f(z)$")
+            axes.set_xlabel("$\\bm{z}_k$")
+            axes.set_ylabel("$g(\\bm{z}_k)$")
 
         # Save plot to file
         pycalib.texfig.savefig(filename)

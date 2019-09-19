@@ -22,7 +22,7 @@ if __name__ == "__main__":
     gpc.fit(Z, y)
 
     # Plot
-    file = "/Users/jwenger/Documents/research/projects/nonparametric_calibration/code/" + \
+    file = "/home/j/Documents/research/nonparametric_calibration/" + \
            "pycalib/figures/gpcalib_illustration/latent_process_test"
     gpc.plot_latent(
         z=np.linspace(start=.001, stop=1, num=1000),
