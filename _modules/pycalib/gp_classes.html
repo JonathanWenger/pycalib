@@ -157,6 +157,13 @@
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">import</span> <span class="nn">gpflow</span>
 
+<span class="c1"># Turn off tensorflow deprecation warnings</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">tensorflow.python.util</span> <span class="k">import</span> <span class="n">module_wrapper</span> <span class="k">as</span> <span class="n">deprecation</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">tensorflow.python.util</span> <span class="k">import</span> <span class="n">deprecation_wrapper</span> <span class="k">as</span> <span class="n">deprecation</span>
+<span class="n">deprecation</span><span class="o">.</span><span class="n">_PER_MODULE_WARNING_LIMIT</span> <span class="o">=</span> <span class="mi">0</span>
+
 <span class="c1"># gpflow imports</span>
 <span class="kn">from</span> <span class="nn">gpflow.mean_functions</span> <span class="k">import</span> <span class="n">MeanFunction</span>
 <span class="kn">from</span> <span class="nn">gpflow</span> <span class="k">import</span> <span class="n">features</span>
