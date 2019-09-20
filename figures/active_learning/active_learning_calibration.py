@@ -47,11 +47,11 @@ if __name__ == "__main__":
                                          calib_points=[100, 1100, 2100, 3100, 4100],
                                          batch_size=250)
 
-    result_df = al_exp.run(n_cv=100, random_state=random_state)
+    #result_df = al_exp.run(n_cv=100, random_state=random_state)
 
     # Save to file
     dir = "/home/j/Documents/research/nonparametric_calibration/pycalib/figures/active_learning/"
-    al_exp.save_result(file=dir)
+    #al_exp.save_result(file=dir)
 
     al_exp.result_df = al_exp.load_result(file=dir + "/active_learning_results.csv")
 
@@ -62,4 +62,4 @@ if __name__ == "__main__":
                  }
 
     for filename, metrics_list in plot_dict.items():
-        al_exp.plot(file=os.path.join(dir, filename), metrics_list=metrics_list, scatter=False, confidence=True)
+        al_exp.plot(file=os.path.join(dir, filename), metrics_list=metrics_list, scatter=True, confidence=False)
