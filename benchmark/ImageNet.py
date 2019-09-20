@@ -15,14 +15,18 @@ if __name__ == "__main__":
         'resnet50', 'resnet152',
         'densenet121', 'densenet201',
         'inceptionv4',
-        'se_resnext50_32x4d', 'se_resnext101_32x4d'
+        'se_resnext50_32x4d', 'se_resnext101_32x4d',
+        'polynet',
+        "senet154",
+        'pnasnet5large',
+        'nasnetalarge'
     ]
 
     # Setup
-    file = "/Users/jwenger/Documents/research/projects/nonparametric_calibration/code/pycalib/data/imagenet/"
+    file = "/home/j/Documents/research/nonparametric_calibration/pycalib/data/imagenet/"
     val_folder = "val"
     output_folder = "clf_output"
-    classify_images = False
+    classify_images = True
 
     if classify_images:
         for clf_name in clf_names:
@@ -46,9 +50,9 @@ if __name__ == "__main__":
 
     cal_methods_logits = {
         "Uncal": calm.NoCalibration(logits=True),
-        # "GPcalib_lin": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10,
-        #                                   mean_function=meanfunc, logits=True, verbose=False,
-        #                                   random_state=random_state),
+        "GPcalib_lin": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10,
+                                          mean_function=meanfunc, logits=True, verbose=False,
+                                          random_state=random_state),
         "Temp": calm.TemperatureScaling()
     }
 
