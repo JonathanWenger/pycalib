@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     # Plot
     file = "/home/j/Documents/research/nonparametric_calibration/" + \
-           "pycalib/figures/gpcalib_illustration/latent_process_test"
+           "pycalib/figures/gpcalib_illustration/latent_process"
     gpc.plot_latent(
         z=np.linspace(start=.001, stop=1, num=1000),
         filename=file,

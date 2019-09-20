@@ -5,8 +5,6 @@ import numpy as np
 from skgarden import MondrianForestClassifier
 import pycalib.calibration_methods as calib
 import pycalib.active_learning as al
-import gpflow
-import pycalib
 
 if __name__ == "__main__":
     # Setup
@@ -39,7 +37,7 @@ if __name__ == "__main__":
                                          X_test=X_test,
                                          y_test=y_test,
                                          query_criterion=al.query_norm_entropy,
-                                         uncertainty_thresh=0.2,
+                                         uncertainty_thresh=0.25,
                                          pretrain_size=100,
                                          calibration_method=calib.GPCalibration(n_classes=n_classes, maxiter=1000,
                                                                                 n_inducing_points=10, verbose=False,
@@ -49,7 +47,7 @@ if __name__ == "__main__":
                                          calib_points=[100, 1100, 2100, 3100, 4100],
                                          batch_size=250)
 
-    result_df = al_exp.run(n_cv=10, random_state=random_state)
+    result_df = al_exp.run(n_cv=100, random_state=random_state)
 
     # Save to file
     dir = "/home/j/Documents/research/nonparametric_calibration/pycalib/figures/active_learning/"
@@ -64,4 +62,4 @@ if __name__ == "__main__":
                  }
 
     for filename, metrics_list in plot_dict.items():
-        al_exp.plot(file=os.path.join(dir, filename), metrics_list=metrics_list, scatter=True, confidence=False)
+        al_exp.plot(file=os.path.join(dir, filename), metrics_list=metrics_list, scatter=False, confidence=True)

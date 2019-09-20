@@ -3,6 +3,13 @@ import numpy as np
 import tensorflow as tf
 import gpflow
 
+# Turn off tensorflow deprecation warnings
+try:
+    from tensorflow.python.util import module_wrapper as deprecation
+except ImportError:
+    from tensorflow.python.util import deprecation_wrapper as deprecation
+deprecation._PER_MODULE_WARNING_LIMIT = 0
+
 # gpflow imports
 from gpflow.mean_functions import MeanFunction
 from gpflow import features

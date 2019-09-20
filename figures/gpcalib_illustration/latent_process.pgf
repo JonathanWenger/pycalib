@@ -2243,7 +2243,7 @@
 \definecolor{textcolor}{rgb}{0.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{textcolor}%
 \pgfsetfillcolor{textcolor}%
-\pgftext[x=0.138889in,y=1.534417in,,bottom,rotate=90.000000]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle g(\bm{z}_k)\)}%
+\pgftext[x=0.138889in,y=1.534417in,,bottom,rotate=90.000000]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont GP \(\displaystyle g(\bm{z}_k)\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfpathrectangle{\pgfqpoint{0.469136in}{1.068833in}}{\pgfqpoint{3.530864in}{0.931167in}}%
@@ -2540,7 +2540,7 @@
 \definecolor{textcolor}{rgb}{0.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{textcolor}%
 \pgfsetfillcolor{textcolor}%
-\pgftext[x=2.234568in,y=0.123333in,,top]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle \bm{z}_k\)}%
+\pgftext[x=2.234568in,y=0.123333in,,top]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont confidence \(\displaystyle \bm{z}_k\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -2596,7 +2596,7 @@
 \definecolor{textcolor}{rgb}{0.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{textcolor}%
 \pgfsetfillcolor{textcolor}%
-\pgftext[x=0.138889in,y=0.709833in,,bottom,rotate=90.000000]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont class}%
+\pgftext[x=0.138889in,y=0.709833in,,bottom,rotate=90.000000]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont class \(\displaystyle k\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfpathrectangle{\pgfqpoint{0.469136in}{0.399444in}}{\pgfqpoint{3.530864in}{0.620778in}}%
