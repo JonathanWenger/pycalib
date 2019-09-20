@@ -175,7 +175,6 @@ class TemperatureScaling(CalibrationMethod):
         if T_init <= 0:
             raise ValueError("Temperature not greater than 0.")
         self.T_init = T_init
-        self.T = T_init
         self.verbose = verbose
 
     def fit(self, X, y):
@@ -265,6 +264,7 @@ class TemperatureScaling(CalibrationMethod):
         f : array-like, shape=(n_evaluations,)
             Values of the latent function at z.
         """
+        check_is_fitted(self, "T")
         return self.T * z
 
     def plot_latent(self, z, filename, **kwargs):
@@ -284,6 +284,8 @@ class TemperatureScaling(CalibrationMethod):
         -------
 
         """
+        check_is_fitted(self, "T")
+
         # Plot latent function
         fig, axes = pycalib.texfig.subplots(nrows=1, ncols=1, sharex=True, **kwargs)
         axes.plot(z, self.T * z, label="latent function")
