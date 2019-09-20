@@ -26,7 +26,7 @@ if __name__ == "__main__":
     file = "/home/j/Documents/research/nonparametric_calibration/pycalib/data/imagenet/"
     val_folder = "val"
     output_folder = "clf_output"
-    classify_images = True
+    classify_images = False
 
     if classify_images:
         for clf_name in clf_names:

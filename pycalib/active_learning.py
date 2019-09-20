@@ -169,10 +169,11 @@ class ActiveLearningExperiment(object):
 
             # Predict on test set
             p_pred_test = classifier.predict_proba(self.X_test)
-            try:
-                p_pred_test = calibration_method.predict_proba(p_pred_test)
-            except sklearn.exceptions.NotFittedError:
-                pass
+            if do_calibration:
+                try:
+                    p_pred_test = calibration_method.predict_proba(p_pred_test)
+                except sklearn.exceptions.NotFittedError:
+                    pass
 
             # Evaluate metrics
             for key in self.metrics.keys():
@@ -187,16 +188,19 @@ class ActiveLearningExperiment(object):
             # Predict on batch
             ind_end = np.minimum(i + self.batch_size, np.shape(X_train_shuffled)[0])
             p_pred_batch = classifier.predict_proba(X_train_shuffled[i:ind_end])
-            try:
-                p_pred_batch = calibration_method.predict_proba(p_pred_batch)
-            except sklearn.exceptions.NotFittedError:
-                pass
+            if do_calibration:
+                try:
+                    p_pred_batch = calibration_method.predict_proba(p_pred_batch)
+                except sklearn.exceptions.NotFittedError:
+                    pass
 
             # Evaluate query criterion
             query_unc = self.query_criterion(p_pred_batch)
             # Find samples with higher query uncertainty than the threshold
             active_sample_ids = np.where(query_unc > self.uncertainty_thresh)[0] + i
             #print(query_unc) #TODO: remove me
+            print(p_pred_batch)
+            print(query_unc)
 
             # Train on queried samples
             if do_calibration and next_calib_point_ind < len(self.calib_points):
