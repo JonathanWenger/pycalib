@@ -73,6 +73,9 @@ if __name__ == "__main__":
     cal_methods = {
         "Uncal": calm.NoCalibration(),
         "GPcalib": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10, random_state=random_state),
+        "GPcalib_lin": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10,
+                                          mean_function=meanfunc, logits=False, verbose=False,
+                                          random_state=random_state),
         # "Temp": calm.TemperatureScaling(),
         "Isotonic": calm.IsotonicRegression(),
         "Beta": calm.BetaCalibration(),
