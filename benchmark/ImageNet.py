@@ -53,6 +53,8 @@ if __name__ == "__main__":
         "GPcalib_lin": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10,
                                           mean_function=meanfunc, logits=True, verbose=False,
                                           random_state=random_state),
+        "GPcalib": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10,
+                                      logits=True, random_state=random_state),
         "Temp": calm.TemperatureScaling()
     }
 
