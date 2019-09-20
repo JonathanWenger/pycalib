@@ -24,6 +24,7 @@ setup(
         'numpy>=1.15.4',
         'pandas>=0.23.4',
         'scikit-learn>=0.20.1',
+        'xgboost>=0.82',
         'scipy>=1.3.0',
         'tensorflow>=1.12.2',
         'torch>=0.4.1',
