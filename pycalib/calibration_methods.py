@@ -30,6 +30,13 @@ import gpflow
 from pycalib import gp_classes
 import tensorflow as tf
 
+# Turn off tensorflow deprecation warnings
+try:
+    from tensorflow.python.util import module_wrapper as deprecation
+except ImportError:
+    from tensorflow.python.util import deprecation_wrapper as deprecation
+deprecation._PER_MODULE_WARNING_LIMIT = 0
+
 # Plotting
 import pycalib.texfig
 
@@ -1124,19 +1131,19 @@ class GPCalibration(CalibrationMethod):
             fig, axes = pycalib.texfig.subplots(nrows=2, ncols=1, sharex=True, **kwargs)
             axes[0].plot(z, latent, label="GP mean")
             axes[0].fill_between(z, latent - 2 * np.sqrt(latent_var), latent + 2 * np.sqrt(latent_var), alpha=.2)
-            axes[0].set_ylabel("$g(\\bm{z}_k)$")
+            axes[0].set_ylabel("GP $g(\\bm{z}_k)$")
             axes[1].plot(Z.reshape((np.size(Z),)),
                          np.matlib.repmat(np.arange(0, self.n_classes), np.shape(Z)[0], 1).reshape((np.size(Z),)), 'kx',
                          markersize=5)
-            axes[1].set_ylabel("class")
-            axes[1].set_xlabel("$\\bm{z}_k$")
+            axes[1].set_ylabel("class $k$")
+            axes[1].set_xlabel("confidence $\\bm{z}_k$")
             fig.align_labels()
         else:
             fig, axes = pycalib.texfig.subplots(nrows=1, ncols=1, sharex=True, **kwargs)
             axes.plot(z, latent, label="GP mean")
             axes.fill_between(z, latent - 2 * np.sqrt(latent_var), latent + 2 * np.sqrt(latent_var), alpha=.2)
-            axes.set_xlabel("$\\bm{z}_k$")
-            axes.set_ylabel("$g(\\bm{z}_k)$")
+            axes.set_xlabel("GP $g(\\bm{z}_k)$")
+            axes.set_ylabel("confidence $\\bm{z}_k$")
 
         # Save plot to file
         pycalib.texfig.savefig(filename)
