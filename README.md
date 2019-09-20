@@ -17,7 +17,10 @@ This repository provides the implementation of our paper ["Non-Parametric Calibr
 
 ## <a name="usage">Introduction</a>
 
-Many popular classification models in computer vision and robotics are often not calibrated, meaning their predicted uncertainties do not match the  probability of classifying correctly. This repository provides a new multi-class and model-agnostic approach to calibration, based on Gaussian processes, which have a number of desirable properties making them suitable as a calibration tool, such as the ability to incorporate prior knowledge.
+Many popular classification models in computer vision and robotics are often not calibrated, meaning their predicted 
+uncertainties do not match the  probability of classifying correctly. This repository provides a new multi-class and 
+model-agnostic approach to calibration, based on Gaussian processes, which have a number of desirable properties making 
+them suitable as a calibration tool, such as the ability to incorporate prior knowledge.
 
 <p align="center">
   <img src="figures/gpcalib_illustration/diagram_calibration.png" alt="diagram_calibration" width="512"/>
@@ -38,11 +41,13 @@ For tips on getting started and how to use this package please refer to the [doc
 
 #### PCam
 
-Due to the size of the data, only a script replicating the experiments is provided. The data can be downloaded from the [PCam repository](https://github.com/basveeling/pcam).
+Due to the size of the data, only a script replicating the experiments is provided. The data can be downloaded from the 
+[PCam repository](https://github.com/basveeling/pcam).
 
 #### KITTI
 
-The repository includes 64-dimensional features extracted from KITTI sequences compressed in a zip file `data/kitti_features.zip`.
+The repository includes 64-dimensional features extracted from KITTI sequences compressed in a zip file 
+`data/kitti_features.zip`.
 
 #### MNIST
 
@@ -50,9 +55,11 @@ A script will automatically download the MNIST dataset if an experiment is run o
 
 #### ImageNet 2012
 
-Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be obtained from the [ImageNet website](http://www.image-net.org).
+Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be 
+obtained from the [ImageNet website](http://www.image-net.org).
 
-The repository includes scripts that replicate the experiments found in the paper in the `benchmark` and `figures` folders.
+The repository includes scripts that replicate the experiments found in the paper in the `benchmark` and `figures` 
+folders.
 
 
 ## <a name="publication">Publication</a>
@@ -75,4 +82,5 @@ _"Non-Parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1
 
 This work is released under the [MIT License](LICENSE).
 
-Please submit an [issue](https://github.com/JonathanWenger/pycalib/issues/new) to report bugs or request changes. Contact **Jonathan Wenger** [:envelope:](mailto:jonathan.wenger@uni-tuebingen.de) for any questions or comments. 
+Please submit an [issue](https://github.com/JonathanWenger/pycalib/issues/new) to report bugs or request changes. 
+Contact **Jonathan Wenger** [:envelope:](mailto:jonathan.wenger@uni-tuebingen.de) for any questions or comments. 

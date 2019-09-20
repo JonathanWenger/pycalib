@@ -49,7 +49,7 @@ if __name__ == "__main__":
     }
 
     # Setup
-    file = "/Users/jwenger/Documents/research/projects/nonparametric_calibration/code/pycalib/data/pcam/"
+    file = "/home/j/Documents/research/nonparametric_calibration/pycalib/data/pcam/"
     output_folder = "clf_output"
     classify_images = False
 
@@ -73,20 +73,20 @@ if __name__ == "__main__":
     with gpflow.defer_build():
         meanfunc = pycalib.gp_classes.ScalarMult()
         meanfunc.alpha.transform = gpflow.transforms.positive
-        k1 = gpflow.kernels.RBF(input_dim=1, lengthscales=0.1, variance=1)
-        k2 = gpflow.kernels.White(1, variance=0.01)
-        k = k1 + k2
     cal_methods = {
         "Uncal": calm.NoCalibration(),
-        "GPcalib": calm.GPCalibration(n_classes=2, maxiter=1000, n_inducing_points=10, random_state=random_state),
-        "GPcalib_lin": calm.GPCalibration(n_classes=2, maxiter=1000, mean_function=meanfunc, kernel=k,
-                                          n_inducing_points=10, random_state=random_state),
+        "GPcalib": calm.GPCalibration(n_classes=2, maxiter=1000, n_inducing_points=10, logits=False,
+                                      random_state=random_state),
+        "GPcalib_lin": calm.GPCalibration(n_classes=2, maxiter=1000, mean_function=meanfunc,
+                                          n_inducing_points=10, logits=False,
+                                          random_state=random_state),
         "Platt": calm.PlattScaling(random_state=random_state),
         "Isotonic": calm.IsotonicRegression(),
         "Beta": calm.BetaCalibration(),
         "BBQ": calm.BayesianBinningQuantiles(),
         "Temp": calm.TemperatureScaling()
     }
+
 
     # Create benchmark object
     pcam_benchmark = pycalib.benchmark.PCamData(run_dir=run_dir, data_dir=data_dir,
