@@ -51,7 +51,7 @@ if __name__ == "__main__":
     # Setup
     file = "/home/j/Documents/research/nonparametric_calibration/pycalib/data/pcam/"
     output_folder = "clf_output"
-    classify_images = False
+    classify_images = True
 
     if classify_images:
         for clf_name, clf in clf_dict.items():

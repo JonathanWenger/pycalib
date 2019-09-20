@@ -51,7 +51,7 @@ if __name__ == "__main__":
     # Setup
     file = "/home/j/Documents/research/nonparametric_calibration/pycalib/data/mnist/"
     output_folder = "clf_output"
-    classify_images = False
+    classify_images = True
 
     if classify_images:
         for clf_name, clf in clf_dict.items():
@@ -75,9 +75,9 @@ if __name__ == "__main__":
         meanfunc.alpha.transform = gpflow.transforms.positive
     cal_methods = {
         "Uncal": calm.NoCalibration(),
-        "GPcalib": calm.GPCalibration(n_classes=2, maxiter=1000, n_inducing_points=10, logits=False,
+        "GPcalib": calm.GPCalibration(n_classes=10, maxiter=1000, n_inducing_points=10, logits=False,
                                       random_state=random_state),
-        "GPcalib_lin": calm.GPCalibration(n_classes=2, maxiter=1000, mean_function=meanfunc,
+        "GPcalib_lin": calm.GPCalibration(n_classes=10, maxiter=1000, mean_function=meanfunc,
                                           n_inducing_points=10, logits=False,
                                           random_state=random_state),
         "Platt": calm.PlattScaling(random_state=random_state),
