@@ -428,19 +428,3 @@ class ActiveLearningExperiment(object):
         # Save plot to file
         texfig.savefig(os.path.join(file))
         plt.close("all")
-
-
-    def plot_ratio_over_underconfidence(self, file, width= None, height=None, scatter=False, confidence=True):
-        """
-        Plots the ratio of .
-
-        Parameters
-        ----------
-        file : str
-            Filename of resulting plot.
-        metrics_list : list
-            List of names of metrics to plot.
-        Returns
-        -------
-
-        """
