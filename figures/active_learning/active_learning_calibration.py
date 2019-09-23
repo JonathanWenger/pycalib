@@ -38,20 +38,20 @@ if __name__ == "__main__":
                                          y_test=y_test,
                                          query_criterion=al.query_norm_entropy,
                                          uncertainty_thresh=0.25,
-                                         pretrain_size=100,
+                                         pretrain_size=250,
                                          calibration_method=calib.GPCalibration(n_classes=n_classes, maxiter=1000,
                                                                                 n_inducing_points=10, verbose=False,
                                                                                 random_state=random_state),
                                          # calibration_method=calib.TemperatureScaling(),
                                          calib_size=100,
-                                         calib_points=[100, 1100, 2100, 3100, 4100],
+                                         calib_points=[250, 1250, 2250, 3250, 4250],
                                          batch_size=250)
 
-    #result_df = al_exp.run(n_cv=100, random_state=random_state)
+    result_df = al_exp.run(n_cv=100, random_state=random_state)
 
     # Save to file
     dir = "/home/j/Documents/research/nonparametric_calibration/pycalib/figures/active_learning/"
-    #al_exp.save_result(file=dir)
+    al_exp.save_result(file=dir)
 
     al_exp.result_df = al_exp.load_result(file=dir + "/active_learning_results.csv")
 
