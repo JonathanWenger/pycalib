@@ -149,6 +149,7 @@ class Benchmark(object):
                     "accuracy": (sc.accuracy, {}),
                     "log-loss": (sklearn.metrics.log_loss, {"labels": labels}),
                     "ECE": (sc.expected_calibration_error, {"p": 1}),
+                    "ECE_15bins": (sc.expected_calibration_error, {"p": 1, "n_bins": 15}),
                     "MCE": (sc.expected_calibration_error, {"p": np.inf}),
                     "sharpness": (sc.sharpness, {}),
                     "overconfidence": (sc.overconfidence, {}),
@@ -1136,7 +1137,9 @@ class ImageNetData(Benchmark):
                 "n_classes": np.shape(X)[1],
                 "size": np.shape(X)[0],
                 "calib_size": calib_size_tmp,
-                "test_size": test_size_tmp}
+                "test_size": test_size_tmp,
+                "logits": self.use_logits
+            }
 
             # Return (as generator)
             yield X, y, info_dict
