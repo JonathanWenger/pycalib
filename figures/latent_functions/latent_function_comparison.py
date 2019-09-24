@@ -54,12 +54,8 @@ if __name__ == "__main__":
             ts.fit(Z_cal, y_cal)
 
             if use_logits:
-                with gpflow.defer_build():
-                    meanfunc = pycalib.gp_classes.ScalarMult()
-                    meanfunc.alpha.transform = gpflow.transforms.positive
-
                 gpc = calm.GPCalibration(n_classes=n_classes, maxiter=300, n_inducing_points=10,
-                                         mean_function=meanfunc, logits=use_logits, verbose=True,
+                                         logits=use_logits, verbose=True,
                                          random_state=random_state)
             else:
                 gpc = calm.GPCalibration(n_classes=n_classes, maxiter=300, n_inducing_points=10,
@@ -84,7 +80,7 @@ if __name__ == "__main__":
             if use_logits:
                 logit_str = "_logits"
             folder_path = "/home/j/Documents/research/projects/nonparametric_calibration/" + \
-                          "pycalib/figures/latent_functions/plots"
+                          "pycalib/figures/latent_functions/plots/"
             if not os.path.exists(folder_path):
                 os.makedirs(folder_path)
             filename = folder_path + info_dict['Dataset'] + "_" + info_dict['Model'] + logit_str
