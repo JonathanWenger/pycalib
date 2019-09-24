@@ -204,8 +204,7 @@ class TemperatureScaling(CalibrationMethod):
         # Define objective function (NLL / cross entropy)
         def objective(T):
             # Calibrate with given T
-            E = np.exp(X / T)
-            P = E / np.sum(E, axis=1).reshape(-1, 1)
+            P = scipy.special.softmax(X / T, axis=1)
 
             # Compute negative log-likelihood
             P_y = P[np.array(np.arange(0, X.shape[0])), y]
@@ -215,13 +214,11 @@ class TemperatureScaling(CalibrationMethod):
 
         # Derivative of the objective with respect to the temperature T
         def gradient(T):
-            # Temperature scaled softmax
-            E = np.exp(X / T)
+            # Weighted exponential terms
+            E_prime = np.exp(X / T) * (X - X[np.array(np.arange(0, X.shape[0])), y].reshape(-1, 1))
 
             # Gradient
-            dT_i = (np.sum(E * (X - X[np.array(np.arange(0, X.shape[0])), y].reshape(-1, 1)), axis=1)) \
-                   / np.sum(E, axis=1)
-            grad = - dT_i.sum() / T ** 2
+            grad = - np.exp(np.log(E_prime) - np.log(T**2) - scipy.special.logsumexp(X / T)).sum()
             return grad
 
         # Optimize
