@@ -122,7 +122,9 @@ class ActiveLearningExperiment(object):
             "underconfidence": (sc.underconfidence, {}),
             "$\\frac{o(f)}{u(f)}$": (sc.ratio_over_underconfidence, {}),
             "$\\frac{\\text{accuracy}}{\\text{error}}$": (sc.odds_correctness, {}),
-            "$avg. confidence": (sc.average_confidence, {}),
+            "$\\abs{o(f) \\mathbb{P}(\\hat{y} \\neq y) -u(f) \\mathbb{P}(\\hat{y} = y)}$": (
+                sc.weighted_abs_conf_difference(), {}),
+            "$avg. confidence": (sc.average_confidence, {})
         }
         self.result_df = pd.DataFrame()
 
@@ -348,7 +350,7 @@ class ActiveLearningExperiment(object):
         df = df.fillna("")
         return df
 
-    def plot(self, file, metrics_list, width= None, height=None, scatter=False, confidence=True):
+    def plot(self, file, metrics_list, width=None, height=None, scatter=False, confidence=True):
         """
         Plots the given list of metrics for the active learning experiment.
 
@@ -367,10 +369,10 @@ class ActiveLearningExperiment(object):
 
         # Generate curves for the given metrics
         if width is None:
-            width = 3.25*n_subplots
+            width = 3.25 * n_subplots
         if height is None:
             height = 1.7
-        fig, axes = texfig.subplots(ncols=n_subplots, width=width, ratio=height*1.0/width, w_pad=1)
+        fig, axes = texfig.subplots(ncols=n_subplots, width=width, ratio=height * 1.0 / width, w_pad=1)
         cmap = get_cmap("tab10")  # https://matplotlib.org/gallery/color/colormap_reference.html
 
         # Allow for one metric only

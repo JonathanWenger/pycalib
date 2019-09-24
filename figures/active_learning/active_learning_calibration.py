@@ -11,7 +11,7 @@ if __name__ == "__main__":
     random_state = 0
 
     # Load KITTI data
-    data_dir = "/home/j/Documents/research/nonparametric_calibration/pycalib/data/kitti"
+    data_dir = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/kitti"
     files = ['kitti_all_train.data',
              'kitti_all_train.labels',
              'kitti_all_test.data',
@@ -50,7 +50,7 @@ if __name__ == "__main__":
     result_df = al_exp.run(n_cv=10, random_state=random_state)
 
     # Save to file
-    dir = "/home/j/Documents/research/nonparametric_calibration/pycalib/figures/active_learning/"
+    dir = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/figures/active_learning/"
     al_exp.save_result(file=dir)
 
     al_exp.result_df = al_exp.load_result(file=dir + "/active_learning_results.csv")

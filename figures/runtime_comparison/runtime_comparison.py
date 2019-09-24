@@ -18,7 +18,7 @@ if __name__ == "__main__":
     random_state = 1
     use_logits = True
     n_classes = 1000
-    file = "/Users/jwenger/Documents/research/projects/nonparametric_calibration/code/pycalib/data/imagenet/"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/code/pycalib/data/imagenet/"
     output_folder = "clf_output"
     data_dir = os.path.join(file, output_folder)
     run_dir = os.path.join(file, "calibration")
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
     results_df = pd.DataFrame(results_list)
     results_df.to_csv(
-        "/Users/jwenger/Documents/research/projects/nonparametric_calibration/code/" +
+        "/home/j/Documents/research/projects/nonparametric_calibration/code/" +
         "pycalib/figures/runtime_comparison/runtime_results_imagenet.csv")
 
     ################ MNIST
@@ -94,7 +94,7 @@ if __name__ == "__main__":
         "random_forest",
         "1layer_NN"
     ]
-    file = "/Users/jwenger/Documents/research/projects/nonparametric_calibration/code/pycalib/data/mnist/"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/code/pycalib/data/mnist/"
     output_folder = "clf_output"
     data_dir = os.path.join(file, output_folder)
     run_dir = os.path.join(file, "calibration")
@@ -149,13 +149,13 @@ if __name__ == "__main__":
     # Save results
     results_df = pd.DataFrame(results_list)
     results_df.to_csv(
-        "/Users/jwenger/Documents/research/projects/nonparametric_calibration/code/" +
+        "/home/j/Documents/research/projects/nonparametric_calibration/code/" +
         "pycalib/figures/runtime_comparison/runtime_results_MNIST.csv")
 
     ###### Plot
 
     # Load data
-    results_df = pd.read_csv("/Users/jwenger/Documents/research/projects/nonparametric_calibration/code/" +
+    results_df = pd.read_csv("/home/j/Documents/research/projects/nonparametric_calibration/code/" +
                              "pycalib/figures/runtime_comparison/runtime_results_MNIST.csv", index_col=0)
 
     plot_classifier = "1layer_NN"
@@ -188,5 +188,5 @@ if __name__ == "__main__":
             tick.set_rotation(45)
 
     # Save plot to file
-    texfig.savefig("/Users/jwenger/Documents/research/projects/nonparametric_calibration/code/" +
+    texfig.savefig("/home/j/Documents/research/projects/nonparametric_calibration/code/" +
                    "pycalib/figures/runtime_comparison/runtime_results_MNIST")
