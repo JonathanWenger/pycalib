@@ -47,7 +47,7 @@ if __name__ == "__main__":
                                          calib_points=[250, 1250, 2250, 3250, 4250],
                                          batch_size=250)
 
-    result_df = al_exp.run(n_cv=100, random_state=random_state)
+    result_df = al_exp.run(n_cv=10, random_state=random_state)
 
     # Save to file
     dir = "/home/j/Documents/research/nonparametric_calibration/pycalib/figures/active_learning/"
