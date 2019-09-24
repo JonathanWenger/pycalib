@@ -11,7 +11,7 @@ if __name__ == "__main__":
     # ImageNet data
     random_state = 1
     n_classes = 1000
-    file = "/Users/jwenger/Documents/research/projects/nonparametric_calibration/code/pycalib/data/imagenet/"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/imagenet/"
     output_folder = "clf_output"
     data_dir = os.path.join(file, output_folder)
     run_dir = os.path.join(file, "calibration")
@@ -19,10 +19,13 @@ if __name__ == "__main__":
     clf_names = [
         # 'alexnet', 'vgg19',
         # 'resnet50', 'resnet152',
-        # 'densenet121', 'densenet201',
-        # 'inceptionv4',
-        # 'se_resnext50_32x4d',
-        'se_resnext101_32x4d'
+        # 'densenet121',
+        'densenet201',
+        'inceptionv4',
+        'se_resnext50_32x4d',
+        'se_resnext101_32x4d',
+        'polynet',
+        'pnasnet5large'
     ]
 
     for use_logits in [True, False]:
@@ -80,8 +83,11 @@ if __name__ == "__main__":
             logit_str = "_probs"
             if use_logits:
                 logit_str = "_logits"
-            filename = "/Users/jwenger/Documents/research/projects/nonparametric_calibration/code/" + \
-                       "pycalib/figures/latent_functions/" + info_dict['Dataset'] + "_" + info_dict['Model'] + logit_str
+            folder_path = "/home/j/Documents/research/projects/nonparametric_calibration/" + \
+                          "pycalib/figures/latent_functions/plots"
+            if not os.path.exists(folder_path):
+                os.makedirs(folder_path)
+            filename = folder_path + info_dict['Dataset'] + "_" + info_dict['Model'] + logit_str
 
             fig, axes = texfig.subplots(nrows=1, ncols=1, width=3, ratio=.8, sharex=True)
 

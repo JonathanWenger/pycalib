@@ -22,7 +22,7 @@ if __name__ == "__main__":
     seed = 1
 
     # Output folder
-    dir_out = "/Users/jwenger/Documents/research/projects/nonparametric_calibration/code/pycalib/data/synthetic_data/calibration"
+    dir_out = "/home/j/Documents/research/projects/nonparametric_calibration/code/pycalib/data/synthetic_data/calibration"
     if not os.path.exists(dir_out):
         os.makedirs(dir_out)
 

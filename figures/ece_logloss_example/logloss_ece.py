@@ -16,7 +16,7 @@ import pycalib.calibration_methods as calm
 if __name__ == "__main__":
     # Seed and Initialization
     random_state = 42
-    dir_path = "/Users/jwenger/Documents/university/theses/master's thesis/code/pycalib/pycalib/figures/ece_logloss_example"
+    dir_path = "/home/j/Documents/university/theses/master's thesis/code/pycalib/pycalib/figures/ece_logloss_example"
     reliability_path = os.path.join(dir_path, "reliability_diagrams")
     os.makedirs(dir_path, exist_ok=True)
     os.makedirs(reliability_path, exist_ok=True)
