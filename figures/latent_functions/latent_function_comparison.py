@@ -54,11 +54,11 @@ if __name__ == "__main__":
             ts.fit(Z_cal, y_cal)
 
             if use_logits:
-                gpc = calm.GPCalibration(n_classes=n_classes, maxiter=300, n_inducing_points=10,
+                gpc = calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
                                          logits=use_logits, verbose=True,
                                          random_state=random_state)
             else:
-                gpc = calm.GPCalibration(n_classes=n_classes, maxiter=300, n_inducing_points=10,
+                gpc = calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
                                          logits=use_logits, verbose=True,
                                          random_state=random_state)
             gpc.fit(Z_cal, y_cal)
