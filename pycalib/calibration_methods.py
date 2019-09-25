@@ -214,11 +214,13 @@ class TemperatureScaling(CalibrationMethod):
 
         # Derivative of the objective with respect to the temperature T
         def gradient(T):
-            # Weighted exponential terms
-            E_prime = np.exp(X / T) * (X - X[np.array(np.arange(0, X.shape[0])), y].reshape(-1, 1))
+            # Exponential terms
+            E = np.exp(X / T)
 
             # Gradient
-            grad = - np.exp(np.log(E_prime) - np.log(T**2) - scipy.special.logsumexp(X / T)).sum()
+            dT_i = (np.sum(E * (X - X[np.array(np.arange(0, X.shape[0])), y].reshape(-1, 1)), axis=1)) \
+                   / np.sum(E, axis=1)
+            grad = - dT_i.sum() / T ** 2
             return grad
 
         # Optimize
@@ -250,9 +252,7 @@ class TemperatureScaling(CalibrationMethod):
         check_is_fitted(self, "T")
 
         # Transform with scaled softmax
-        E = np.exp(X / self.T)
-        P = E / np.sum(E, axis=1).reshape(-1, 1)
-        return P
+        return scipy.special.softmax(X / self.T, axis=1)
 
     def latent(self, z):
         """
