@@ -25,7 +25,7 @@ import pretrainedmodels
 import pretrainedmodels.utils
 
 # Package imports
-import pycalib.calibration_methods as calib
+import pycalib.calibration_methods as calm
 import pycalib.texfig as texfig
 import pycalib.scoring as sc
 import pycalib.plotting
@@ -69,7 +69,7 @@ class Benchmark(object):
         if not isinstance(cal_method_names, (tuple, list)):
             cal_method_names = [cal_method_names]
         for m in cal_methods:
-            assert isinstance(m, calib.CalibrationMethod), "Method is not a subclass of CalibrationMethod."
+            assert isinstance(m, calm.CalibrationMethod), "Method is not a subclass of CalibrationMethod."
         self.cal_methods = cal_methods
         self.cal_method_names = cal_method_names
         assert len(self.cal_methods) == len(self.cal_method_names)
@@ -169,6 +169,7 @@ class Benchmark(object):
                                                  "show_ece": True, "title": None, })
                     })
 
+                # TODO: add timing methodology for cross validation
                 # Run cross validation for current cal_method specification
                 ms.cross_val_score(estimator=cal_method,
                                    X=X, y=y,
