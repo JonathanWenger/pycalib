@@ -179,7 +179,7 @@
 <span class="kn">import</span> <span class="nn">pretrainedmodels.utils</span>
 
 <span class="c1"># Package imports</span>
-<span class="kn">import</span> <span class="nn">pycalib.calibration_methods</span> <span class="k">as</span> <span class="nn">calib</span>
+<span class="kn">import</span> <span class="nn">pycalib.calibration_methods</span> <span class="k">as</span> <span class="nn">calm</span>
 <span class="kn">import</span> <span class="nn">pycalib.texfig</span> <span class="k">as</span> <span class="nn">texfig</span>
 <span class="kn">import</span> <span class="nn">pycalib.scoring</span> <span class="k">as</span> <span class="nn">sc</span>
 <span class="kn">import</span> <span class="nn">pycalib.plotting</span>
@@ -223,7 +223,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cal_method_names</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
             <span class="n">cal_method_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">cal_method_names</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">cal_methods</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">calib</span><span class="o">.</span><span class="n">CalibrationMethod</span><span class="p">),</span> <span class="s2">&quot;Method is not a subclass of CalibrationMethod.&quot;</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">calm</span><span class="o">.</span><span class="n">CalibrationMethod</span><span class="p">),</span> <span class="s2">&quot;Method is not a subclass of CalibrationMethod.&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cal_methods</span> <span class="o">=</span> <span class="n">cal_methods</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cal_method_names</span> <span class="o">=</span> <span class="n">cal_method_names</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cal_methods</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cal_method_names</span><span class="p">)</span>
@@ -323,6 +323,7 @@
                                                  <span class="s2">&quot;show_ece&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="p">})</span>
                     <span class="p">})</span>
 
+                <span class="c1"># TODO: add timing methodology for cross validation</span>
                 <span class="c1"># Run cross validation for current cal_method specification</span>
                 <span class="n">ms</span><span class="o">.</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">cal_method</span><span class="p">,</span>
                                    <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
