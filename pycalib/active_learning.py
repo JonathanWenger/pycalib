@@ -123,7 +123,7 @@ class ActiveLearningExperiment(object):
             "$\\frac{o(f)}{u(f)}$": (sc.ratio_over_underconfidence, {}),
             "$\\frac{\\text{accuracy}}{\\text{error}}$": (sc.odds_correctness, {}),
             "$\\abs{o(f) \\mathbb{P}(\\hat{y} \\neq y) -u(f) \\mathbb{P}(\\hat{y} = y)}$": (
-                sc.weighted_abs_conf_difference(), {}),
+                sc.weighted_abs_conf_difference, {}),
             "$avg. confidence": (sc.average_confidence, {})
         }
         self.result_df = pd.DataFrame()
