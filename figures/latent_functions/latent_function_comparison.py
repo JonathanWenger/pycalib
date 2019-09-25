@@ -19,7 +19,7 @@ if __name__ == "__main__":
     clf_names = [
         # 'alexnet', 'vgg19',
         # 'resnet50', 'resnet152',
-        # 'densenet121',
+        'densenet121',
         'densenet201',
         'inceptionv4',
         'se_resnext50_32x4d',
@@ -53,14 +53,9 @@ if __name__ == "__main__":
             ts = calm.TemperatureScaling()
             ts.fit(Z_cal, y_cal)
 
-            if use_logits:
-                gpc = calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
-                                         logits=use_logits, verbose=True,
-                                         random_state=random_state)
-            else:
-                gpc = calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
-                                         logits=use_logits, verbose=True,
-                                         random_state=random_state)
+            gpc = calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
+                                     logits=use_logits, verbose=True,
+                                     random_state=random_state)
             gpc.fit(Z_cal, y_cal)
 
             # Compute calibration error
@@ -75,7 +70,7 @@ if __name__ == "__main__":
             ts_latent = ts.latent(z)
             gpc_latent, gpc_latent_var = gpc.latent(z)
 
-            # Plot
+            # Filepath and plot axes
             logit_str = "_probs"
             if use_logits:
                 logit_str = "_logits"
@@ -87,56 +82,62 @@ if __name__ == "__main__":
 
             fig, axes = texfig.subplots(nrows=1, ncols=1, width=3, ratio=.8, sharex=True)
 
-            axes.plot(z, gpc_latent, label="GPcalib, $\\textup{ECE}_1" + "={:.4f}$".format(ECE_gpc), color='tab:blue',
-                      zorder=10)
-            axes.fill_between(z, gpc_latent - 2 * np.sqrt(gpc_latent_var), gpc_latent + 2 * np.sqrt(gpc_latent_var),
-                              color='tab:blue', alpha=.2, zorder=9)
-
             if use_logits:
-                # Plot shifted latent function (invariance of softmax to additive constants)
-                n_intercepts = 5
+                # Compute y-intercepts by minimizing L2 distance between latent functions and identity
+                y_intercept_ts = 0.5 * (1 - ts.T) * (np.max(z) + np.min(z))
+                y_intercept_gpcalib = np.mean(gpc_latent - z)
+
+                # Plot shifted latent function: GPcalib
+                axes.plot(z, gpc_latent + y_intercept_gpcalib, label="GPcalib: $\\textup{ECE}_1" + "={:.4f}$".format(ECE_gpc),
+                          color='tab:blue',
+                          zorder=10)
+                axes.fill_between(z, gpc_latent + y_intercept_gpcalib - 2 * np.sqrt(gpc_latent_var),
+                                  gpc_latent + y_intercept_gpcalib + 2 * np.sqrt(gpc_latent_var),
+                                  color='tab:blue', alpha=.2, zorder=9)
+
+                # Plot shifted latent function: temperature scaling
+                axes.plot(z, ts_latent + y_intercept_ts, '-', color='tab:orange',
+                          label="Temp: $\\textup{ECE}_1" + "={:.4f}$".format(ECE_ts),
+                          zorder=3)
+
                 xlims = np.array([np.min(z), np.max(z)])
                 ylims = np.array([np.min(gpc_latent), np.max(gpc_latent)])
-                slope = ts.T
-                intercepts = np.linspace(ylims[0], ylims[1], num=n_intercepts)
 
                 # Plot latent function of no calibration
                 axes.plot(np.clip(xlims, min(ylims), max(ylims)),
                           np.clip(xlims, min(ylims), max(ylims)), '-', color='tab:gray', zorder=3,
-                          label="Uncal, $\\textup{ECE}_1" + "={:.4f}$".format(ECE_nocal))
+                          label="Uncal: $\\textup{ECE}_1" + "={:.4f}$".format(ECE_nocal))
 
-                intercepts = np.linspace(ylims[0] - 0.5 * (ylims[1] - ylims[0]),
-                                         ylims[0] + 0.5 * (ylims[1] - ylims[0]),
-                                         num=n_intercepts) - slope * xlims[0]
-                for i, intercept in enumerate(intercepts):
-                    x_vals = np.clip(xlims,
-                                     (min(ylims) - intercept) / slope,
-                                     (max(ylims) - intercept) / slope)
-                    y_vals = intercept + slope * x_vals
-                    if i == 0:
-                        axes.plot(x_vals, y_vals, '-', color='tab:orange',
-                                  label="TempScal, $\\textup{ECE}_1" + "={:.4f}$".format(ECE_ts),
-                                  zorder=3)
-                    else:
-                        axes.plot(x_vals, y_vals, '-', color='tab:orange', zorder=3)
-            else:
-                # Plot latent function corresponding to no calibration
-                axes.plot(z, np.log(z), '-', color='tab:gray', zorder=3,
-                          label="Uncal, $\\textup{ECE}_1" + "={:.4f}$".format(ECE_nocal))
-
-            # Plot annotation
-            handles, labels = axes.get_legend_handles_labels()
-
-            if use_logits:
+                # Plot annotation
+                handles, labels = axes.get_legend_handles_labels()
                 axes.set_xlabel("logit")
+                axes.set_xlim(xlims[0], xlims[1])
+                axes.set_ylim(ylims[0], ylims[1])
                 handles = [handles[1], handles[0], handles[2]]
                 labels = [labels[1], labels[0], labels[2]]
+
             else:
+                # Plot GPcalib latent function
+                axes.plot(z, gpc_latent, label="GPcalib: $\\textup{ECE}_1" + "={:.4f}$".format(ECE_gpc),
+                          color='tab:blue',
+                          zorder=10)
+                axes.fill_between(z, gpc_latent - 2 * np.sqrt(gpc_latent_var), gpc_latent + 2 * np.sqrt(gpc_latent_var),
+                                  color='tab:blue', alpha=.2, zorder=9)
+
+                # Plot latent function corresponding to no calibration
+                axes.plot(z, np.log(z), '-', color='tab:gray', zorder=3,
+                          label="Uncal: $\\textup{ECE}_1" + "={:.4f}$".format(ECE_nocal))
+
+                # Plot annotation
+                handles, labels = axes.get_legend_handles_labels()
                 axes.set_xlabel("probability score")
+                axes.set_xlim(0, 1)
+                axes.set_ylim(np.log(np.min(z)), np.log(np.max(z)))
                 handles = [handles[1], handles[0]]
                 labels = [labels[1], labels[0]]
-            axes.set_ylabel("latent function")
 
+            # Plot annotation and legend
+            axes.set_ylabel("latent function")
             axes.legend(handles, labels, loc="lower right", prop={'size': 9})
 
             # Save plot to file
