@@ -38,13 +38,13 @@ if __name__ == "__main__":
                                          y_test=y_test,
                                          query_criterion=al.query_norm_entropy,
                                          uncertainty_thresh=0.25,
-                                         pretrain_size=250,
+                                         pretrain_size=500,
                                          calibration_method=calib.GPCalibration(n_classes=n_classes, maxiter=1000,
                                                                                 n_inducing_points=10, verbose=False,
                                                                                 random_state=random_state),
                                          # calibration_method=calib.TemperatureScaling(),
-                                         calib_size=100,
-                                         calib_points=[250, 1250, 2250, 3250, 4250],
+                                         calib_size=250,
+                                         calib_points=[500, 1500, 2000, 2500, 3000],
                                          batch_size=250)
 
     result_df = al_exp.run(n_cv=10, random_state=random_state)
