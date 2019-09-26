@@ -65,6 +65,14 @@ def test_constant_accuracy(p_cal_binary, y_cal_binary):
     acc_ts = np.mean(np.equal(np.argmax(p_ts, axis=1), y_cal_binary))
     assert acc == acc_ts, "Accuracy of calibrated probabilities does not match accuracy of calibration set."
 
+def test_temperature_positive(p_cal_binary, y_cal_binary):
+    # Temperature Scaling
+    ts = calm.TemperatureScaling()
+    ts.fit(p_cal_binary, y_cal_binary)
+
+    # Positive temperature
+    assert ts.T > 0, "Temperature is not positive."
+
 
 # Histogram Binning
 
@@ -108,7 +116,7 @@ def test_inference_mean_approximation(p_cal_binary, y_cal_binary):
     p_gpc = gpc.predict_proba(p_cal_binary, mean_approximation=True)
 
     # Check for NaNs in predictions
-    assert np.any(np.isnan(p_gpc, axis=1))
+    assert not np.any(np.isnan(p_gpc)), "Calibrated probabilities of the mean approximation are NaN."
 
 # OneVsAll calibration
 
