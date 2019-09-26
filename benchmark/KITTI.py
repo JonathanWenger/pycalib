@@ -49,7 +49,7 @@ if __name__ == "__main__":
     }
 
     # Setup
-    file = "/home/j/Documents/research/project/nonparametric_calibration/pycalib/data/kitti/"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/kitti/"
     output_folder = "clf_output"
     classify_images = True
 
