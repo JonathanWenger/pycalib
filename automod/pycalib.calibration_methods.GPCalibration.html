@@ -246,7 +246,7 @@ of Machine Learning Research 18, 1–6 (Apr. 2017)</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.predict" title="pycalib.calibration_methods.GPCalibration.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a>(X)</p></td>
 <td><p>Predict the class of new samples after scaling.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.predict_proba" title="pycalib.calibration_methods.GPCalibration.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a>(X)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.predict_proba" title="pycalib.calibration_methods.GPCalibration.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a>(X[, mean_approximation])</p></td>
 <td><p>Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary classifier.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.set_params" title="pycalib.calibration_methods.GPCalibration.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**params)</p></td>
@@ -343,7 +343,7 @@ classifier.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.GPCalibration.predict_proba">
-<code class="sig-name descname">predict_proba</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.predict_proba" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict_proba</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">mean_approximation=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.predict_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary
 classifier.</p>
 <dl class="field-list simple">
