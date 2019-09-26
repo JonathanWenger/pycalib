@@ -3,7 +3,7 @@ import pytest
 import numpy as np
 
 # Package imports
-import pycalib.calibration_methods as cm
+import pycalib.calibration_methods as calm
 
 
 # General
@@ -57,7 +57,7 @@ def test_constant_accuracy(p_cal_binary, y_cal_binary):
     acc = np.mean(np.equal(np.argmax(p_cal_binary, axis=1), y_cal_binary))
 
     # Temperature Scaling
-    ts = cm.TemperatureScaling()
+    ts = calm.TemperatureScaling()
     ts.fit(p_cal_binary, y_cal_binary)
 
     # Test constant accuracy on calibration set
@@ -74,7 +74,7 @@ def test_constant_accuracy(p_cal_binary, y_cal_binary):
 ])
 def test_hist_binning_bin_size(p_cal_binary, y_cal_binary, binning_mode):
     n_bins = 2
-    hb = cm.HistogramBinning(mode=binning_mode, n_bins=n_bins)
+    hb = calm.HistogramBinning(mode=binning_mode, n_bins=n_bins)
     hb.fit(p_cal_binary, y_cal_binary)
     assert len(hb.binning) == n_bins + 1, "Number of bins does not match input."
 
@@ -87,7 +87,7 @@ def test_bin_with_size_zero():
     y_cal = np.hstack([np.ones([50]), np.zeros([50])])
 
     # Fit calibration model
-    bbq = cm.BayesianBinningQuantiles()
+    bbq = calm.BayesianBinningQuantiles()
     bbq.fit(X=p_cal, y=y_cal)
 
     # Predict
@@ -98,6 +98,17 @@ def test_bin_with_size_zero():
 
 
 # GP calibration
+
+def test_inference_mean_approximation(p_cal_binary, y_cal_binary):
+    # GP calibration
+    gpc = calm.GPCalibration(n_classes=2, logits=False, random_state=42)
+    gpc.fit(p_cal_binary, y_cal_binary)
+
+    # Inference: mean approximation
+    p_gpc = gpc.predict_proba(p_cal_binary, mean_approximation=True)
+
+    # Check for NaNs in predictions
+    assert np.any(np.isnan(p_gpc, axis=1))
 
 # OneVsAll calibration
 
@@ -111,7 +122,7 @@ def test_output_size_missing_classes():
     y_cal = np.random.choice(range(n_classes), n_calibration)
 
     # Arbitrary Choice of binary calibration method
-    platt = cm.PlattScaling()
+    platt = calm.PlattScaling()
     platt.fit(X_cal, y_cal)
 
     # Test output size
