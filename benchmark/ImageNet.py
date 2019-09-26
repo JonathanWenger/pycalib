@@ -23,7 +23,7 @@ if __name__ == "__main__":
     ]
 
     # Setup
-    file = "/home/j/Documents/research/project/nonparametric_calibration/pycalib/data/imagenet/"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/imagenet/"
     val_folder = "val"
     output_folder = "clf_output"
     classify_images = False

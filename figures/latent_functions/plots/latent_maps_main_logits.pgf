@@ -6961,7 +6961,7 @@
 \definecolor{textcolor}{rgb}{0.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{textcolor}%
 \pgfsetfillcolor{textcolor}%
-\pgftext[x=5.970808in,y=1.631000in,,base]{\color{textcolor}\rmfamily\fontsize{12.000000}{14.400000}\selectfont PNASNET-5-Large}%
+\pgftext[x=5.970808in,y=1.631000in,,base]{\color{textcolor}\rmfamily\fontsize{12.000000}{14.400000}\selectfont PNASNet-5-Large}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%

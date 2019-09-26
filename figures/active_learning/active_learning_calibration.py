@@ -43,9 +43,9 @@ if __name__ == "__main__":
                                                                                 n_inducing_points=10, verbose=False,
                                                                                 random_state=random_state),
                                          # calibration_method=calib.TemperatureScaling(),
-                                         calib_size=250,
-                                         calib_points=[500, 1500, 2500, 3500],
-                                         batch_size=250)
+                                         calib_size=500,
+                                         calib_points=[500],
+                                         batch_size=125)
 
     result_df = al_exp.run(n_cv=10, random_state=random_state)
 

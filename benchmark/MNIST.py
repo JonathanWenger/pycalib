@@ -49,9 +49,9 @@ if __name__ == "__main__":
     }
 
     # Setup
-    file = "/home/j/Documents/research/project/nonparametric_calibration/pycalib/data/mnist/"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/mnist/"
     output_folder = "clf_output"
-    classify_images = True
+    classify_images = False
 
     if classify_images:
         for clf_name, clf in clf_dict.items():
