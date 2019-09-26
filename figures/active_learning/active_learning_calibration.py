@@ -8,7 +8,7 @@ import pycalib.active_learning as al
 
 if __name__ == "__main__":
     # Setup
-    random_state = 0
+    random_state = 1
 
     # Load KITTI data
     data_dir = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/kitti"
@@ -43,9 +43,9 @@ if __name__ == "__main__":
                                                                                 n_inducing_points=10, verbose=False,
                                                                                 random_state=random_state),
                                          # calibration_method=calib.TemperatureScaling(),
-                                         calib_size=500,
-                                         calib_points=[500],
-                                         batch_size=125)
+                                         calib_size=250,
+                                         calib_points=[500, 2000, 3500],
+                                         batch_size=250)
 
     result_df = al_exp.run(n_cv=10, random_state=random_state)
 

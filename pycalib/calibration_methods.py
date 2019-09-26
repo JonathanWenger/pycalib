@@ -1031,7 +1031,7 @@ class GPCalibration(CalibrationMethod):
 
         return self
 
-    def predict_proba(self, X):
+    def predict_proba(self, X, mean_approximation=False):
         """
         Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary
         classifier.
@@ -1048,30 +1048,39 @@ class GPCalibration(CalibrationMethod):
         """
         check_is_fitted(self, "model")
 
-        with self.session.as_default(), self.session.graph.as_default():
-            # Seed for Monte_Carlo
-            tf.set_random_seed(self.random_state)
+        if not mean_approximation:
+            with self.session.as_default(), self.session.graph.as_default():
+                # Seed for Monte_Carlo
+                tf.set_random_seed(self.random_state)
 
-            if X.ndim == 1 or np.shape(X)[1] != self.n_classes:
-                raise ValueError("Calibration data must have shape (n_samples, n_classes).")
-            else:
-                # Predict in batches to keep memory usage in Monte-Carlo sampling low
-                n_data = np.shape(X)[0]
-                samples_monte_carlo = self.n_classes * self.n_monte_carlo * n_data
-                if samples_monte_carlo >= self.max_samples_monte_carlo:
-                    n_pred_batches = np.divmod(samples_monte_carlo, self.max_samples_monte_carlo)[0]
+                if X.ndim == 1 or np.shape(X)[1] != self.n_classes:
+                    raise ValueError("Calibration data must have shape (n_samples, n_classes).")
                 else:
-                    n_pred_batches = 1
+                    # Predict in batches to keep memory usage in Monte-Carlo sampling low
+                    n_data = np.shape(X)[0]
+                    samples_monte_carlo = self.n_classes * self.n_monte_carlo * n_data
+                    if samples_monte_carlo >= self.max_samples_monte_carlo:
+                        n_pred_batches = np.divmod(samples_monte_carlo, self.max_samples_monte_carlo)[0]
+                    else:
+                        n_pred_batches = 1
 
-                p_pred_list = []
-                for i in range(n_pred_batches):
-                    if self.verbose:
-                        print("Predicting batch {}/{}.".format(i + 1, n_pred_batches))
-                    ind_range = np.arange(start=self.max_samples_monte_carlo * i,
-                                          stop=np.minimum(self.max_samples_monte_carlo * (i + 1), n_data))
-                    p_pred_list.append(tf.exp(self.model.predict_full_density(Xnew=X[ind_range, :])).eval())
+                    p_pred_list = []
+                    for i in range(n_pred_batches):
+                        if self.verbose:
+                            print("Predicting batch {}/{}.".format(i + 1, n_pred_batches))
+                        ind_range = np.arange(start=self.max_samples_monte_carlo * i,
+                                              stop=np.minimum(self.max_samples_monte_carlo * (i + 1), n_data))
+                        p_pred_list.append(tf.exp(self.model.predict_full_density(Xnew=X[ind_range, :])).eval())
 
-                return np.concatenate(p_pred_list, axis=0)
+                    return np.concatenate(p_pred_list, axis=0)
+        else:
+            # Evaluate latent GP
+            with self.session.as_default(), self.session.graph.as_default():
+                f, _ = self.model.predict_f(X_onedim=X.reshape(-1,1))
+                latent = f.eval().reshape(np.shape(X))
+
+            # Return softargmax of fitted GP at input
+            return scipy.special.softmax(latent, axis=1)
 
     def latent(self, z):
         """
