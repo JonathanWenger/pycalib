@@ -122,7 +122,8 @@ class Benchmark(object):
             print("\n\n=== Model {}: {}/{}, Total Time: {:.0f}:{:02.0f}:{:02.0f} ===\n".format(cal_method_name,
                                                                                                self.cal_method_names.index(
                                                                                                    cal_method_name) + 1,
-                                                                                               len(self.cal_methods), h, m,
+                                                                                               len(self.cal_methods), h,
+                                                                                               m,
                                                                                                s))
             print("Running {} {}-fold CV in {}".format(cal_method_name, self.cross_validator.n_splits, method_dir))
 
@@ -169,18 +170,16 @@ class Benchmark(object):
                                                  "show_ece": True, "title": None, })
                     })
 
-                # TODO: add timing methodology for cross validation
                 # Run cross validation for current cal_method specification
-                ms.cross_val_score(estimator=cal_method,
-                                   X=X, y=y,
-                                   scoring=scorer,
-                                   cv=self.cross_validator,
-                                   n_jobs=n_jobs,
-                                   pre_dispatch="1*n_jobs",
-                                   verbose=0)
+                cv_results = ms.cross_validate(estimator=cal_method, X=X, y=y,
+                                               scoring={'score': scorer}, cv=self.cross_validator,
+                                               n_jobs=n_jobs,
+                                               pre_dispatch="1*n_jobs",
+                                               verbose=0)
 
                 # TODO: right now this prevents n_jobs != 1
                 model_scores_dict = scorer.get_results(fold="all")
+                model_scores_dict["fit_time"] = cv_results['fit_time']
 
                 # Convert result to data frame and add to cal_method scores data frame
                 model_scores_tmp = pd.DataFrame(model_scores_dict)
@@ -206,11 +205,13 @@ class Benchmark(object):
 
             # Save cal_method specific CV results to file
             tmp_time = time.strftime("%Y%m%d-%Hh%Mm%Ss")
-            model_scores.to_csv(path_or_buf=os.path.join(method_dir, "cv_scores_{}_{}.csv".format(cal_method_name, tmp_time)))
+            model_scores.to_csv(
+                path_or_buf=os.path.join(method_dir, "cv_scores_{}_{}.csv".format(cal_method_name, tmp_time)))
             # Save summary statistics
             mi = model_scores.columns
             model_scores.columns = pd.Index([e[0] + "_" + e[1] for e in mi.tolist()])
-            scores.to_csv(path_or_buf=os.path.join(method_dir, "cv_scores_{}_{}_summ.csv".format(cal_method_name, tmp_time)))
+            scores.to_csv(
+                path_or_buf=os.path.join(method_dir, "cv_scores_{}_{}_summ.csv".format(cal_method_name, tmp_time)))
 
         # Save summary statistics of all models to file
         mi = scores.columns
@@ -253,7 +254,7 @@ class Benchmark(object):
         cmap = get_cmap("tab10")  # https://matplotlib.org/gallery/color/colormap_reference.html
 
         # Create figure
-        fig, axes = texfig.subplots(width=width, ratio=height/width)
+        fig, axes = texfig.subplots(width=width, ratio=height / width)
         x_base = np.arange(len(classifiers)) + 1
         x = np.array([x_base - .2, x_base, x_base + .2])
 
@@ -332,7 +333,8 @@ class SyntheticBeta(Benchmark):
                              random_state=sklearn.utils.check_random_state(random_state))
 
         # Run super class constructor
-        super().__init__(run_dir=run_dir, cal_methods=cal_methods, cal_method_names=cal_method_names, cross_validator=cv,
+        super().__init__(run_dir=run_dir, cal_methods=cal_methods, cal_method_names=cal_method_names,
+                         cross_validator=cv,
                          random_state=random_state)
 
         # Check synthetic data parameters
@@ -632,7 +634,8 @@ class KITTIBinaryData(Benchmark):
         self.classifier_names = classifier_names
 
         # Run super class constructor
-        super().__init__(run_dir=run_dir, cal_methods=cal_methods, cal_method_names=cal_method_names, cross_validator=cv,
+        super().__init__(run_dir=run_dir, cal_methods=cal_methods, cal_method_names=cal_method_names,
+                         cross_validator=cv,
                          random_state=random_state)
 
     @staticmethod
@@ -764,7 +767,8 @@ class PCamData(Benchmark):
         self.classifier_names = classifier_names
 
         # Run super class constructor
-        super().__init__(run_dir=run_dir, cal_methods=cal_methods, cal_method_names=cal_method_names, cross_validator=cv,
+        super().__init__(run_dir=run_dir, cal_methods=cal_methods, cal_method_names=cal_method_names,
+                         cross_validator=cv,
                          random_state=random_state)
 
     @staticmethod
@@ -900,7 +904,8 @@ class MNISTData(Benchmark):
         self.classifier_names = classifier_names
 
         # Run super class constructor
-        super().__init__(run_dir=run_dir, cal_methods=cal_methods, cal_method_names=cal_method_names, cross_validator=cv,
+        super().__init__(run_dir=run_dir, cal_methods=cal_methods, cal_method_names=cal_method_names,
+                         cross_validator=cv,
                          random_state=random_state)
 
     @staticmethod
@@ -1021,7 +1026,8 @@ class ImageNetData(Benchmark):
         self.use_logits = use_logits
 
         # Run super class constructor
-        super().__init__(run_dir=run_dir, cal_methods=cal_methods, cal_method_names=cal_method_names, cross_validator=cv,
+        super().__init__(run_dir=run_dir, cal_methods=cal_methods, cal_method_names=cal_method_names,
+                         cross_validator=cv,
                          random_state=random_state)
 
     @staticmethod
