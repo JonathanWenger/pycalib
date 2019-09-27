@@ -185,7 +185,7 @@
 <h1>GPCalibration<a class="headerlink" href="#gpcalibration" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pycalib.calibration_methods.GPCalibration">
-<em class="property">class </em><code class="sig-prename descclassname">pycalib.calibration_methods.</code><code class="sig-name descname">GPCalibration</code><span class="sig-paren">(</span><em class="sig-param">n_classes</em>, <em class="sig-param">logits=False</em>, <em class="sig-param">mean_function=None</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">likelihood=None</em>, <em class="sig-param">n_inducing_points=10</em>, <em class="sig-param">maxiter=1000</em>, <em class="sig-param">n_monte_carlo=100</em>, <em class="sig-param">max_samples_monte_carlo=10000000</em>, <em class="sig-param">session=None</em>, <em class="sig-param">random_state=1</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pycalib.calibration_methods.</code><code class="sig-name descname">GPCalibration</code><span class="sig-paren">(</span><em class="sig-param">n_classes</em>, <em class="sig-param">logits=False</em>, <em class="sig-param">mean_function=None</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">likelihood=None</em>, <em class="sig-param">n_inducing_points=10</em>, <em class="sig-param">maxiter=1000</em>, <em class="sig-param">n_monte_carlo=100</em>, <em class="sig-param">max_samples_monte_carlo=10000000</em>, <em class="sig-param">inf_mean_approx=False</em>, <em class="sig-param">session=None</em>, <em class="sig-param">random_state=1</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pycalib.calibration_methods.CalibrationMethod.html#pycalib.calibration_methods.CalibrationMethod" title="pycalib.calibration_methods.CalibrationMethod"><code class="xref py py-class docutils literal notranslate"><span class="pre">pycalib.calibration_methods.CalibrationMethod</span></code></a></p>
 <p>Probability calibration using a latent Gaussian process</p>
 <p>Gaussian process calibration <a class="footnote-reference brackets" href="#id4" id="id1">1</a> is a non-parametric approach to calibrate posterior probabilities from an arbitrary
@@ -204,6 +204,8 @@ classifier based on a hold-out data set. Inference is performed using a sparse v
 <li><p><strong>n_monte_carlo</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default=100</em>) – Number of Monte Carlo samples for the inference procedure.</p></li>
 <li><p><strong>max_samples_monte_carlo</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default=10**7</em>) – Maximum number of Monte Carlo samples to draw in one batch when predicting. Setting this value too large can
 cause memory issues.</p></li>
+<li><p><strong>inf_mean_approx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, when inferring calibrated probabilities, only the mean of the latent Gaussian process is taken into
+account, not its covariance.</p></li>
 <li><p><strong>session</strong> (<em>tf.Session</em><em>, </em><em>default=None</em>) – <cite>tensorflow</cite> session to use.</p></li>
 <li><p><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default=0</em>) – Random seed for reproducibility. Needed for Monte-Carlo sampling routine.</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Print information on optimization routine.</p></li>
@@ -246,7 +248,7 @@ of Machine Learning Research 18, 1–6 (Apr. 2017)</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.predict" title="pycalib.calibration_methods.GPCalibration.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a>(X)</p></td>
 <td><p>Predict the class of new samples after scaling.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.predict_proba" title="pycalib.calibration_methods.GPCalibration.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a>(X[, mean_approximation])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.predict_proba" title="pycalib.calibration_methods.GPCalibration.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a>(X[, mean_approx])</p></td>
 <td><p>Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary classifier.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.set_params" title="pycalib.calibration_methods.GPCalibration.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**params)</p></td>
@@ -343,12 +345,16 @@ classifier.</p>
 
 <dl class="method">
 <dt id="pycalib.calibration_methods.GPCalibration.predict_proba">
-<code class="sig-name descname">predict_proba</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">mean_approximation=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.predict_proba" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict_proba</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">mean_approx=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.predict_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary
 classifier.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape=</em><em>(</em><em>n_samples</em><em>, </em><em>n_classes</em><em>)</em>) – The uncalibrated posterior probabilities.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape=</em><em>(</em><em>n_samples</em><em>, </em><em>n_classes</em><em>)</em>) – The uncalibrated posterior probabilities.</p></li>
+<li><p><strong>mean_approx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, inference is performed using only the mean of the latent Gaussian process, not its covariance.
+Note, if <cite>self.inference_mean_approximation==True</cite>, then the logical value of this option is not considered.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>P</strong> – The predicted probabilities.</p>
