@@ -1,3 +1,5 @@
+import time
+
 import numpy as np
 import copy
 import matplotlib.pyplot as plt
@@ -342,7 +344,7 @@ class MultiScorer:
     for scoring in scikit's cross_val_score function. Instances of this class are also callables, with signature as
     needed by `cross_val_score`. Evaluating multiple scoring function in this way versus scikit learns native way in the
     `cross_validate` function avoids the unnecessary overhead of predicting anew for each scorer. This class is slightly
-    adapted from Kyriakos Stylianopoulos's implementation at [1]_.
+    adapted from Kyriakos Stylianopoulos's implementation [1]_.
 
     .. [1] https://github.com/StKyr/multiscorer
     """
@@ -370,6 +372,7 @@ class MultiScorer:
 
         for metric in metrics.keys():
             self.results[metric] = []
+        self.results["cal_time"] = []
 
     def __call__(self, estimator, X, y):
         """
@@ -384,29 +387,33 @@ class MultiScorer:
         self.n_folds += 1
 
         # Predict probabilities
+        start_time = time.time()
         p_pred = estimator.predict_proba(X)
+        cal_time = time.time() - start_time
 
         # Compute metrics
         for key in self.metrics.keys():
             # Evaluate metric and save
             metric, kwargs = self.metrics[key]
             self.results[key].append(metric(y, p_pred, **kwargs))
+        self.results["cal_time"].append(cal_time)
 
-        # Generate plots
-        for key in self.plots.keys():
-            # Evaluate plots and save
-            plot_fun, kwargs = self.plots[key]
-            # Plots in CV runs
-            # TODO: make this safe for no filename argument
-            kwargs_copy = copy.deepcopy(kwargs)
-            kwargs_copy["filename"] = kwargs.get("filename", "") + "_" + str(self.n_folds)
-            plot_fun(y=y, p_pred=p_pred, **kwargs_copy)
-            # TODO: plot latent function
-        plt.close("all")
+        # # Generate plots
+        # for key in self.plots.keys():
+        #     # Evaluate plots and save
+        #     plot_fun, kwargs = self.plots[key]
+        #     # Plots in CV runs
+        #     # TODO: make this safe for no filename argument
+        #     kwargs_copy = copy.deepcopy(kwargs)
+        #     kwargs_copy["filename"] = kwargs.get("filename", "") + "_" + str(self.n_folds)
+        #     plot_fun(y=y, p_pred=p_pred, **kwargs_copy)
+        #     # TODO: plot latent function
+        # plt.close("all")
 
         # Set evaluation to true
         self._called = True
 
+        # Return dummy value
         return 0.5
 
     def get_metric_names(self):
