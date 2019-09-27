@@ -113,7 +113,7 @@ def test_inference_mean_approximation(p_cal_binary, y_cal_binary):
     gpc.fit(p_cal_binary, y_cal_binary)
 
     # Inference: mean approximation
-    p_gpc = gpc.predict_proba(p_cal_binary, mean_approximation=True)
+    p_gpc = gpc.predict_proba(p_cal_binary, mean_approx=True)
 
     # Check for NaNs in predictions
     assert not np.any(np.isnan(p_gpc)), "Calibrated probabilities of the mean approximation are NaN."

@@ -896,6 +896,9 @@ class GPCalibration(CalibrationMethod):
     max_samples_monte_carlo : int, default=10**7
         Maximum number of Monte Carlo samples to draw in one batch when predicting. Setting this value too large can
         cause memory issues.
+    inf_mean_approx : bool, default=False
+        If True, when inferring calibrated probabilities, only the mean of the latent Gaussian process is taken into
+        account, not its covariance.
     session : tf.Session, default=None
         `tensorflow` session to use.
     random_state : int, default=0
@@ -922,6 +925,7 @@ class GPCalibration(CalibrationMethod):
                  maxiter=1000,
                  n_monte_carlo=100,
                  max_samples_monte_carlo=10 ** 7,
+                 inf_mean_approx=False,
                  session=None,
                  random_state=1,
                  verbose=False):
@@ -940,6 +944,7 @@ class GPCalibration(CalibrationMethod):
         self.max_samples_monte_carlo = max_samples_monte_carlo
         self.n_inducing_points = n_inducing_points
         self.maxiter = maxiter
+        self.inf_mean_approx = inf_mean_approx
         self.random_state = random_state
         np.random.seed(self.random_state)  # Set seed for optimization of hyperparameters
 
@@ -1031,7 +1036,7 @@ class GPCalibration(CalibrationMethod):
 
         return self
 
-    def predict_proba(self, X, mean_approximation=False):
+    def predict_proba(self, X, mean_approx=False):
         """
         Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary
         classifier.
@@ -1040,6 +1045,9 @@ class GPCalibration(CalibrationMethod):
         ----------
         X : array-like, shape=(n_samples, n_classes)
             The uncalibrated posterior probabilities.
+        mean_approx : bool, default=False
+            If True, inference is performed using only the mean of the latent Gaussian process, not its covariance.
+            Note, if `self.inference_mean_approximation==True`, then the logical value of this option is not considered.
 
         Returns
         -------
@@ -1048,7 +1056,17 @@ class GPCalibration(CalibrationMethod):
         """
         check_is_fitted(self, "model")
 
-        if not mean_approximation:
+        if mean_approx or self.inf_mean_approx:
+
+            # Evaluate latent GP
+            with self.session.as_default(), self.session.graph.as_default():
+                f, _ = self.model.predict_f(X_onedim=X.reshape(-1, 1))
+                latent = f.eval().reshape(np.shape(X))
+
+            # Return softargmax of fitted GP at input
+            return scipy.special.softmax(latent, axis=1)
+        else:
+
             with self.session.as_default(), self.session.graph.as_default():
                 # Seed for Monte_Carlo
                 tf.set_random_seed(self.random_state)
@@ -1073,14 +1091,6 @@ class GPCalibration(CalibrationMethod):
                         p_pred_list.append(tf.exp(self.model.predict_full_density(Xnew=X[ind_range, :])).eval())
 
                     return np.concatenate(p_pred_list, axis=0)
-        else:
-            # Evaluate latent GP
-            with self.session.as_default(), self.session.graph.as_default():
-                f, _ = self.model.predict_f(X_onedim=X.reshape(-1,1))
-                latent = f.eval().reshape(np.shape(X))
-
-            # Return softargmax of fitted GP at input
-            return scipy.special.softmax(latent, axis=1)
 
     def latent(self, z):
         """
