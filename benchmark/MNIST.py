@@ -80,6 +80,8 @@ if __name__ == "__main__":
         "GPcalib_lin": calm.GPCalibration(n_classes=10, maxiter=1000, mean_function=meanfunc,
                                           n_inducing_points=10, logits=False,
                                           random_state=random_state),
+        "GPcalib_approx": calm.GPCalibration(n_classes=10, maxiter=1000, n_inducing_points=10,
+                                             logits=False, random_state=random_state, inf_mean_approx=True),
         "Platt": calm.PlattScaling(random_state=random_state),
         "Isotonic": calm.IsotonicRegression(),
         "Beta": calm.BetaCalibration(),
