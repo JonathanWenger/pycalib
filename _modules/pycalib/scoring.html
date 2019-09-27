@@ -152,7 +152,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for pycalib.scoring</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
@@ -496,7 +498,7 @@
 <span class="sd">    for scoring in scikit&#39;s cross_val_score function. Instances of this class are also callables, with signature as</span>
 <span class="sd">    needed by `cross_val_score`. Evaluating multiple scoring function in this way versus scikit learns native way in the</span>
 <span class="sd">    `cross_validate` function avoids the unnecessary overhead of predicting anew for each scorer. This class is slightly</span>
-<span class="sd">    adapted from Kyriakos Stylianopoulos&#39;s implementation at [1]_.</span>
+<span class="sd">    adapted from Kyriakos Stylianopoulos&#39;s implementation [1]_.</span>
 
 <span class="sd">    .. [1] https://github.com/StKyr/multiscorer</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -524,6 +526,7 @@
 
         <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">metric</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;cal_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="MultiScorer.__call__"><a class="viewcode-back" href="../../automod/pycalib.scoring.MultiScorer.html#pycalib.scoring.MultiScorer.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -538,29 +541,33 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">n_folds</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="c1"># Predict probabilities</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">p_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">cal_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
 
         <span class="c1"># Compute metrics</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="c1"># Evaluate metric and save</span>
             <span class="n">metric</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">metric</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">p_pred</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;cal_time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cal_time</span><span class="p">)</span>
 
-        <span class="c1"># Generate plots</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="c1"># Evaluate plots and save</span>
-            <span class="n">plot_fun</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plots</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-            <span class="c1"># Plots in CV runs</span>
-            <span class="c1"># TODO: make this safe for no filename argument</span>
-            <span class="n">kwargs_copy</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="n">kwargs_copy</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;filename&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_folds</span><span class="p">)</span>
-            <span class="n">plot_fun</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">p_pred</span><span class="o">=</span><span class="n">p_pred</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs_copy</span><span class="p">)</span>
-            <span class="c1"># TODO: plot latent function</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+        <span class="c1"># # Generate plots</span>
+        <span class="c1"># for key in self.plots.keys():</span>
+        <span class="c1">#     # Evaluate plots and save</span>
+        <span class="c1">#     plot_fun, kwargs = self.plots[key]</span>
+        <span class="c1">#     # Plots in CV runs</span>
+        <span class="c1">#     # TODO: make this safe for no filename argument</span>
+        <span class="c1">#     kwargs_copy = copy.deepcopy(kwargs)</span>
+        <span class="c1">#     kwargs_copy[&quot;filename&quot;] = kwargs.get(&quot;filename&quot;, &quot;&quot;) + &quot;_&quot; + str(self.n_folds)</span>
+        <span class="c1">#     plot_fun(y=y, p_pred=p_pred, **kwargs_copy)</span>
+        <span class="c1">#     # TODO: plot latent function</span>
+        <span class="c1"># plt.close(&quot;all&quot;)</span>
 
         <span class="c1"># Set evaluation to true</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_called</span> <span class="o">=</span> <span class="kc">True</span>
 
+        <span class="c1"># Return dummy value</span>
         <span class="k">return</span> <span class="mf">0.5</span></div>
 
 <div class="viewcode-block" id="MultiScorer.get_metric_names"><a class="viewcode-back" href="../../automod/pycalib.scoring.MultiScorer.html#pycalib.scoring.MultiScorer.get_metric_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_metric_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
