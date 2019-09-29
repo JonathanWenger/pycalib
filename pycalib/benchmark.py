@@ -983,6 +983,175 @@ class MNISTData(Benchmark):
             yield X, y, info_dict
 
 
+class CIFARData(Benchmark):
+    """
+    Model evaluation using the benchmark vision dataset CIFAR-100.
+
+    Implements a data generation method returning a new evaluation data set for each scoring round.
+
+    Parameters
+    ----------
+    run_dir : str
+        Directory to run benchmarking in and save output and logs to.
+    data_dir : str
+        Directory containing calibration data obtained from CIFAR-100 classification.
+    classifier_names : list
+        Names of classifiers to be calibrated. Classification results on CIFAR-100 must be contained in `data_dir`.
+    cal_methods : list
+        Calibration methods to benchmark.
+    cal_method_names : list
+        Names of calibration methods.
+    use_logits : bool, default=False
+        Should the calibration methods be used with classification probabilities or logits.
+    n_splits : int, default=10
+        Number of splits for cross validation.
+    test_size : float, default=0.9
+        Size of test set.
+    train_size : float, default=None
+        Size of calibration set.
+    random_state : int, RandomState instance or None, optional (default=None)
+        If `int`, `random_state` is the seed used by the random number generator;
+        If `RandomState` instance, `random_state` is the random number generator;
+        If `None`, the random number generator is the RandomState instance used
+        by `np.random`.
+    """
+
+    def __init__(self, run_dir, data_dir, classifier_names, cal_methods, cal_method_names, use_logits=False,
+                 n_splits=10, test_size=9000, train_size=None, random_state=None):
+        # Create cross validator which splits the data randomly based on test or train size
+        cv = ms.ShuffleSplit(n_splits=n_splits, test_size=test_size, train_size=train_size,
+                             random_state=sklearn.utils.check_random_state(random_state))
+        self.data_dir = data_dir
+        self.classifier_names = classifier_names
+        self.use_logits = use_logits
+
+        # Run super class constructor
+        super().__init__(run_dir=run_dir, cal_methods=cal_methods, cal_method_names=cal_method_names,
+                         cross_validator=cv,
+                         random_state=random_state)
+
+    @staticmethod
+    def classify_val_data(file, clf_name, n_classes=100, file_ending="JPEG",
+                          validation_folder='val', output_folder='clf_output'):
+        """
+        Classify the CIFAR-100 evaluation data set with a given model.
+
+        Parameters
+        ----------
+        file : str
+            Directory containing CIFAR-100 evaluation data. Folder 'val' under `file` is searched for images.
+            Output from the model is saved in the given directory.
+        clf_name : str
+            Name of classifier (CNN architecture) to classify data with.
+        n_classes : int, default=100
+            Number of classes of pretrained model on CIFAR-100.
+        file_ending : str, default="JPEG"
+            File suffix of images to classify.
+        validation_folder : str, default='val'
+            Folder where validation images are contained. Images must be contained in folder named after their class.
+        output_folder : str, default='clf_output'
+            Folder where output is stored.
+
+        Returns
+        -------
+
+        """
+        # Load pretrained model
+        # TODO: model = pretrainedmodels.__dict__[clf_name](num_classes=n_classes, pretrained='imagenet')
+
+        # Data loading
+        valdir = os.path.join(file, validation_folder)
+        load_img = pretrainedmodels.utils.LoadImage()
+        filenames = glob.glob(os.path.join(valdir, "**/*." + file_ending), recursive=True)
+
+        # Image transformation
+        #TODO: tf_img = pretrainedmodels.utils.TransformImage(model)
+
+        # Classify images
+        n_images = len(filenames)
+        all_logits = np.zeros([n_images, n_classes])
+        all_y_y_pred = np.zeros([n_images, 2], dtype=int)
+
+        with torch.no_grad():
+            # Switch to evaluation mode
+            model.eval()
+
+            start_time = time.time()
+            for i, path_img in enumerate(filenames):
+                # Compute model output
+                input_img = load_img(path_img)
+                input_tensor = tf_img(input_img)  # 3x400x225 -> 3x299x299 size may differ
+                input_tensor = input_tensor.unsqueeze(0)  # 3x299x299 -> 1x3x299x299
+                X = torch.autograd.Variable(input_tensor, requires_grad=False)
+                logits = model(X)
+
+                # Find class based on folder structure
+                y = int(re.search(os.path.join(valdir, '(.+?)/.*'), path_img).group(1))
+
+                # Collect model output
+                all_logits[i, :] = logits.data.numpy()
+                all_y_y_pred[i, :] = np.column_stack([y, np.argmax(logits.data.numpy(), axis=1)])
+
+                # Print information on progress
+                m, s = divmod(time.time() - start_time, 60)
+                h, m = divmod(m, 60)
+                print("Classifying image: {}/{:.0f}. {:.2f}% complete. Time elapsed: {:.0f}:{:02.0f}:{:02.0f}".format(
+                    i + 1,
+                    n_images,
+                    (i + 1) / n_images * 100,
+                    h, m, s)
+                )
+
+            # Save to file
+            out_path = os.path.join(file, output_folder)
+            os.makedirs(out_path, exist_ok=True)
+            np.savetxt(os.path.join(out_path, "logits_{}.csv".format(clf_name)), all_logits, delimiter=",")
+            np.savetxt(os.path.join(out_path, "y_y_pred_{}.csv".format(clf_name)), all_y_y_pred.astype(int), fmt='%i',
+                       delimiter=",")
+
+    def data_gen(self):
+        """
+        Returns the full dataset or a generator of datasets.
+
+        Returns
+        -------
+            X, y giving uncalibrated predictions and corresponding classes.
+        """
+        # Load logits and classification results from file
+        for clf_name in self.classifier_names:
+            logits = np.loadtxt(os.path.join(self.data_dir, 'logits_' + clf_name + '.csv'), dtype=float, delimiter=',')
+            y = np.loadtxt(os.path.join(self.data_dir, 'y_y_pred_' + clf_name + '.csv'),
+                           dtype=int, delimiter=',')[:, 0]
+
+            # Compute probabilities
+            if not self.use_logits:
+                X = scipy.special.softmax(logits, axis=1)
+            else:
+                X = logits
+
+            # Calibration and test size
+            if self.test_size > 1:
+                calib_size_tmp = self.train_size
+                test_size_tmp = self.test_size
+            else:
+                calib_size_tmp = int(np.shape(X)[0] * self.train_size)
+                test_size_tmp = np.shape(X)[0] - int(np.shape(X)[0] * self.train_size)
+
+            # Collect information on data set
+            info_dict = {
+                "Dataset": "CIFAR-100",
+                "Model": clf_name,
+                "n_classes": np.shape(X)[1],
+                "size": np.shape(X)[0],
+                "calib_size": calib_size_tmp,
+                "test_size": test_size_tmp,
+                "logits": self.use_logits
+            }
+
+            # Return (as generator)
+            yield X, y, info_dict
+
+
 class ImageNetData(Benchmark):
     """
     Model evaluation using the benchmark vision dataset ImageNet.
