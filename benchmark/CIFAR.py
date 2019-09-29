@@ -9,30 +9,28 @@ import pycalib.calibration_methods as calm
 
 if __name__ == "__main__":
 
-    # Classify ImageNet validation data with selected classifiers
+    # Classify CIFAR-100 validation data with selected classifiers
     clf_names = [
-        'alexnet', 'vgg19',
-        'resnet50', 'resnet152',
-        'densenet121', 'densenet201',
-        'inceptionv4',
-        'se_resnext50_32x4d', 'se_resnext101_32x4d',
-        'polynet',
-        "senet154",
-        'pnasnet5large',
-        'nasnetalarge'
+        'alexnet',
+        'vgg19',
+        'resnet110',
+        'resnext-8x64d',
+        'resnext-16x64d',
+        'densenet-bc-100-12',
+        'densenet-bc-L190-k40'
     ]
 
     # Setup
-    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/imagenet/"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/cifar/"
     val_folder = "val"
     output_folder = "clf_output"
     classify_images = False
 
     if classify_images:
         for clf_name in clf_names:
-            pycalib.benchmark.ImageNetData.classify_val_data(file, clf_name=clf_name,
-                                                             validation_folder=val_folder,
-                                                             output_folder=output_folder)
+            pycalib.benchmark.CIFARData.classify_val_data(file, clf_name=clf_name,
+                                                          validation_folder=val_folder,
+                                                          output_folder=output_folder)
 
     ###############################
     #   Benchmark
@@ -42,6 +40,7 @@ if __name__ == "__main__":
     random_state = 1
     data_dir = os.path.join(file, output_folder)
     run_dir = os.path.join(file, "calibration")
+    n_classes = 100
 
     # Calibration methods for logits
     with gpflow.defer_build():
@@ -50,23 +49,23 @@ if __name__ == "__main__":
 
     cal_methods_logits = {
         "Uncal": calm.NoCalibration(logits=True),
-        "GPcalib_lin": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10,
+        "GPcalib_lin": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
                                           mean_function=meanfunc, logits=True, verbose=False,
                                           random_state=random_state),
-        "GPcalib": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10,
+        "GPcalib": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
                                       logits=True, random_state=random_state),
-        "GPcalib_approx": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10,
+        "GPcalib_approx": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
                                              logits=True, random_state=random_state, inf_mean_approx=True),
         "Temp": calm.TemperatureScaling()
     }
 
     # Create benchmark object
-    cifar_benchmark = pycalib.benchmark.ImageNetData(run_dir=run_dir, data_dir=data_dir,
-                                                     classifier_names=clf_names,
-                                                     cal_methods=list(cal_methods_logits.values()),
-                                                     cal_method_names=list(cal_methods_logits.keys()),
-                                                     use_logits=True, n_splits=10, test_size=10000,
-                                                     train_size=1000, random_state=random_state)
+    cifar_benchmark = pycalib.benchmark.CIFARData(run_dir=run_dir, data_dir=data_dir,
+                                                  classifier_names=clf_names,
+                                                  cal_methods=list(cal_methods_logits.values()),
+                                                  cal_method_names=list(cal_methods_logits.keys()),
+                                                  use_logits=True, n_splits=10, test_size=10000,
+                                                  train_size=1000, random_state=random_state)
 
     # Run
     cifar_benchmark.run(n_jobs=1)
@@ -74,8 +73,8 @@ if __name__ == "__main__":
     # Calibration
     cal_methods = {
         "Uncal": calm.NoCalibration(),
-        "GPcalib": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10, random_state=random_state),
-        # "GPcalib_lin": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10,
+        "GPcalib": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10, random_state=random_state),
+        # "GPcalib_lin": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
         #                                   mean_function=meanfunc, logits=False, verbose=False,
         #                                   random_state=random_state),
         # "Temp": calm.TemperatureScaling(),
@@ -86,12 +85,12 @@ if __name__ == "__main__":
     }
 
     # Create benchmark object
-    cifar_benchmark = pycalib.benchmark.ImageNetData(run_dir=run_dir, data_dir=data_dir,
-                                                     classifier_names=clf_names,
-                                                     cal_methods=list(cal_methods.values()),
-                                                     cal_method_names=list(cal_methods.keys()),
-                                                     use_logits=False, n_splits=10, test_size=10000,
-                                                     train_size=1000, random_state=random_state)
+    cifar_benchmark = pycalib.benchmark.CIFARData(run_dir=run_dir, data_dir=data_dir,
+                                                  classifier_names=clf_names,
+                                                  cal_methods=list(cal_methods.values()),
+                                                  cal_method_names=list(cal_methods.keys()),
+                                                  use_logits=False, n_splits=10, test_size=10000,
+                                                  train_size=1000, random_state=random_state)
 
     # Run
     cifar_benchmark.run(n_jobs=1)
