@@ -49,7 +49,7 @@ if __name__ == "__main__":
     }
 
     # Setup
-    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/mnist/"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/mnist/"
     output_folder = "clf_output"
     classify_images = False
 
@@ -63,7 +63,6 @@ if __name__ == "__main__":
     ###############################
 
     # Initialization
-    data_dir = os.path.join(file, output_folder)
     run_dir = os.path.join(file, "calibration")
 
     # Classifiers
@@ -91,7 +90,7 @@ if __name__ == "__main__":
 
 
     # Create benchmark object
-    mnist_benchmark = pycalib.benchmark.MNISTData(run_dir=run_dir, data_dir=data_dir,
+    mnist_benchmark = pycalib.benchmark.MNISTData(run_dir=run_dir,
                                                   classifier_names=classifier_names,
                                                   cal_methods=list(cal_methods.values()),
                                                   cal_method_names=list(cal_methods.keys()),

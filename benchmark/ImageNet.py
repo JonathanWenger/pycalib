@@ -23,8 +23,8 @@ if __name__ == "__main__":
     ]
 
     # Setup
-    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/imagenet/"
-    val_folder = "val"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/imagenet/"
+    val_folder = "/data/val"
     output_folder = "clf_output"
     classify_images = False
     n_classes = 1000
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     if classify_images:
         for clf_name in clf_names:
             pycalib.benchmark.ImageNetData.classify_val_data(file, clf_name=clf_name,
-                                                             validation_folder=val_folder,
+                                                             data_folder=val_folder,
                                                              output_folder=output_folder)
 
     ###############################

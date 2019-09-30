@@ -192,12 +192,15 @@ dmypy.json
 # User specific
 ############################
 .DS_Store
+._.DS_Store
 
 
 ############################
 # Project specific
 ############################
 
-data/imagenet/*
-data/pcam/*
-data/cifar100/*
+
+datasets/**/data/
+datasets/**/clf_output/
+datasets/**/pretrained_networks/
+datasets/**/plots/

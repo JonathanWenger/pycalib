@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
             # Data set setup
             n_classes = 1000
-            file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/imagenet/"
+            file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/imagenet/"
 
         else:
             clf_name_dict = {
@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
             # Data set setup
             n_classes = 10
-            file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/mnist/"
+            file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/mnist/"
             output_folder = "clf_output"
 
         # Filepaths
