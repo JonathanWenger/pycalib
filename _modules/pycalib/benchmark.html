@@ -1138,7 +1138,8 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Model evaluation using the benchmark vision dataset CIFAR-100.</span>
 
-<span class="sd">    Implements a data generation method returning a new evaluation data set for each scoring round.</span>
+<span class="sd">    Implements a data generation method returning a new evaluation data set for each scoring round. Pre-trained CNNs are</span>
+<span class="sd">    available at [1]_.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1165,6 +1166,10 @@
 <span class="sd">        If `RandomState` instance, `random_state` is the random number generator;</span>
 <span class="sd">        If `None`, the random number generator is the RandomState instance used</span>
 <span class="sd">        by `np.random`.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] https://github.com/bearpaw/pytorch-classification</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span> <span class="n">use_logits</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -1205,7 +1210,6 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Load pretrained model</span>
         <span class="c1"># TODO: model = pretrainedmodels.__dict__[clf_name](num_classes=n_classes, pretrained=&#39;imagenet&#39;)</span>
@@ -1307,7 +1311,8 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Model evaluation using the benchmark vision dataset ImageNet.</span>
 
-<span class="sd">    Implements a data generation method returning a new evaluation data set for each scoring round.</span>
+<span class="sd">    Implements a data generation method returning a new evaluation data set for each scoring round. Pre-trained models</span>
+<span class="sd">    are available at [1]_.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1334,6 +1339,11 @@
 <span class="sd">        If `RandomState` instance, `random_state` is the random number generator;</span>
 <span class="sd">        If `None`, the random number generator is the RandomState instance used</span>
 <span class="sd">        by `np.random`.</span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] https://github.com/Cadene/pretrained-models.pytorch</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span> <span class="n">use_logits</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>

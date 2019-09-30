@@ -185,7 +185,8 @@
 <em class="property">class </em><code class="sig-prename descclassname">pycalib.benchmark.</code><code class="sig-name descname">CIFARData</code><span class="sig-paren">(</span><em class="sig-param">run_dir</em>, <em class="sig-param">data_dir</em>, <em class="sig-param">classifier_names</em>, <em class="sig-param">cal_methods</em>, <em class="sig-param">cal_method_names</em>, <em class="sig-param">use_logits=False</em>, <em class="sig-param">n_splits=10</em>, <em class="sig-param">test_size=9000</em>, <em class="sig-param">train_size=None</em>, <em class="sig-param">random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#CIFARData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.CIFARData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pycalib.benchmark.Benchmark.html#pycalib.benchmark.Benchmark" title="pycalib.benchmark.Benchmark"><code class="xref py py-class docutils literal notranslate"><span class="pre">pycalib.benchmark.Benchmark</span></code></a></p>
 <p>Model evaluation using the benchmark vision dataset CIFAR-100.</p>
-<p>Implements a data generation method returning a new evaluation data set for each scoring round.</p>
+<p>Implements a data generation method returning a new evaluation data set for each scoring round. Pre-trained CNNs are
+available at <a class="footnote-reference brackets" href="#id2" id="id1">1</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -203,6 +204,12 @@ If <cite>RandomState</cite> instance, <cite>random_state</cite> is the random nu
 If <cite>None</cite>, the random number generator is the RandomState instance used
 by <cite>np.random</cite>.</p></li>
 </ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://github.com/bearpaw/pytorch-classification">https://github.com/bearpaw/pytorch-classification</a></p>
 </dd>
 </dl>
 <p class="rubric">Methods Summary</p>
