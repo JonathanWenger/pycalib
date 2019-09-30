@@ -16,8 +16,9 @@ if __name__ == "__main__":
         'resnet110',
         'resnext-8x64d',
         'resnext-16x64d',
-        'densenet-bc-100-12',
-        'densenet-bc-L190-k40'
+        # 'densenet-bc-l100-k12',
+        'densenet-bc-l190-k40'
+        # 'WRN-28-10-drop'
     ]
 
     # Setup

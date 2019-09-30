@@ -21,6 +21,8 @@ from sklearn.datasets import fetch_openml
 # pytorch imports
 import torch
 import torch.utils.data
+import torchvision.datasets as datasets
+import torchvision.transforms as transforms
 import pretrainedmodels
 import pretrainedmodels.utils
 
@@ -1033,8 +1035,85 @@ class CIFARData(Benchmark):
                          random_state=random_state)
 
     @staticmethod
-    def classify_val_data(file, clf_name, n_classes=100, file_ending="JPEG",
-                          data_folder='/data', output_folder='clf_output'):
+    def load_pretrained_model(clf_name, checkpoint_dir, n_classes=100):
+        # Import model architectures
+        import datasets.cifar100.models as models
+
+        # Set correct architecture parameters
+        # (see: https://github.com/bearpaw/pytorch-classification/blob/master/TRAINING.md)
+        weight_decay = 1e-4
+        if clf_name.startswith('resnext'):
+            weight_decay = 5e-4
+            cardinality = 8
+            if clf_name.endswith('16x64d'):
+                cardinality = 16
+            model = models.__dict__[clf_name](
+                cardinality=cardinality,
+                num_classes=n_classes,
+                depth=29,
+                widen_factor=4
+            )
+        elif clf_name.startswith('densenet'):
+            if clf_name.endswith('l100-k12'):
+                depth = 100
+                growth_rate = 12
+            elif clf_name.endswith('l190-k40'):
+                depth = 190
+                growth_rate = 40
+            else:
+                depth = int(re.search("l([0-9]*)", clf_name).group()[1:])
+                growth_rate = int(re.search("k([0-9]*)", clf_name).group()[1:])
+                print("DenseNet depth and growth rate inferred from name. Depth: {}, growth rate: {}.".format(depth,
+                                                                                                              growth_rate))
+            model = models.__dict__[clf_name](
+                num_classes=n_classes,
+                depth=depth,
+                growthRate=growth_rate
+            )
+        elif clf_name.startswith('WRN-28-10-drop'):
+            weight_decay = 5e-4
+            model = models.__dict__[clf_name](
+                num_classes=n_classes,
+                depth=28,
+                widen_factor=10,
+                dropRate=0.3,
+            )
+        elif clf_name.endswith('resnet'):
+            if clf_name.endswith('110'):
+                depth = 110
+            else:
+                depth = int(re.sub("resnet", "", clf_name))
+                print("ResNet depth inferred from name. Depth: {}.".format(depth))
+            model = models.__dict__[clf_name](
+                num_classes=n_classes,
+                depth=depth,
+                block_name='BasicBlock',
+            )
+        else:
+            model = models.__dict__[clf_name](num_classes=n_classes)
+
+        # Define loss and optimizer
+        model = torch.nn.DataParallel(model).cuda()
+        print('    Total params: %.2fM' % (sum(p.numel() for p in model.parameters()) / 1000000.0))
+        criterion = torch.nn.CrossEntropyLoss()
+        optimizer = torch.optim.SGD(model.parameters(), lr=0.1, momentum=0.9, weight_decay=weight_decay)
+
+        # Load checkpoint.
+        print('==> Resuming from checkpoint..')
+        checkpoint_file = os.path.join(checkpoint_dir, clf_name, 'checkpoint.pth.tar')
+        assert os.path.isfile(checkpoint_file), 'Error: no checkpoint directory found!'
+        checkpoint = torch.load(checkpoint_file)
+        # best_acc = checkpoint['best_acc']
+        # start_epoch = checkpoint['epoch']
+        model.load_state_dict(checkpoint['state_dict'])
+        optimizer.load_state_dict(checkpoint['optimizer'])
+
+        return model
+
+    @staticmethod
+    def classify_val_data(file, clf_name, n_classes=100, file_ending="JPEG", download_test_data=False,
+                          data_folder='data', checkpoint_folder="/models/pretrained_networks/",
+                          output_folder='clf_output'):
         """
         Classify the CIFAR-100 evaluation data set with a given model.
 
@@ -1046,27 +1125,40 @@ class CIFARData(Benchmark):
         clf_name : str
             Name of classifier (CNN architecture) to classify data with.
         n_classes : int, default=100
-            Number of classes of pretrained model on CIFAR-100.
+            Number of classes of the pre-trained model on CIFAR-100.
         file_ending : str, default="JPEG"
             File suffix of images to classify.
+        download_test_data : bool, default=False.
+            Should the CIFAR-100 test data be downloaded to `data_folder`?
         data_folder : str, default='/data'
             Folder where validation images are contained. Images must be contained in folder named after their class.
+        checkpoint_folder : str, default="/models/pretrained_networks/"
+            Folder containing pre-trained models (i.e. checkpoints).
         output_folder : str, default='clf_output'
             Folder where output is stored.
 
         Returns
         -------
         """
-        # Load pretrained model
-        # TODO: model = pretrainedmodels.__dict__[clf_name](num_classes=n_classes, pretrained='imagenet')
-
-        # Data loading
-        valdir = os.path.join(file, data_folder)
-        load_img = pretrainedmodels.utils.LoadImage()
-        filenames = glob.glob(os.path.join(valdir, "**/*." + file_ending), recursive=True)
+        # Load CNN architectures
+        model = CIFARData.load_pretrained_model(clf_name=clf_name, checkpoint_dir=os.path.join(file, checkpoint_folder))
 
         # Image transformation
-        #TODO: tf_img = pretrainedmodels.utils.TransformImage(model)
+        transform_test = transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+        ])
+
+        # Data loading
+        dataloader = datasets.CIFAR100
+        testset = dataloader(root=os.path.join(file, data_folder), train=False, download=download_test_data,
+                             transform=transform_test)
+        testloader = torch.utils.data.DataLoader(testset, batch_size=args.test_batch, shuffle=False,
+                                                 num_workers=args.workers)
+
+        # valdir = os.path.join(file, data_folder)
+        # load_img = pretrainedmodels.utils.LoadImage()
+        # filenames = glob.glob(os.path.join(valdir, "**/*." + file_ending), recursive=True)
 
         # Classify images
         n_images = len(filenames)
