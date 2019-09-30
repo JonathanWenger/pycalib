@@ -219,7 +219,7 @@ by <cite>np.random</cite>.</p></li>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.benchmark.CIFARData.classify_val_data" title="pycalib.benchmark.CIFARData.classify_val_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">classify_val_data</span></code></a>(file, clf_name[, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.benchmark.CIFARData.classify_val_data" title="pycalib.benchmark.CIFARData.classify_val_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">classify_val_data</span></code></a>(dataset_folder, clf_name)</p></td>
 <td><p>Classify the CIFAR-100 evaluation data set with a given model.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.benchmark.CIFARData.data_gen" title="pycalib.benchmark.CIFARData.data_gen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_gen</span></code></a>()</p></td>
@@ -239,12 +239,12 @@ by <cite>np.random</cite>.</p></li>
 <p class="rubric">Methods Documentation</p>
 <dl class="method">
 <dt id="pycalib.benchmark.CIFARData.classify_val_data">
-<em class="property">static </em><code class="sig-name descname">classify_val_data</code><span class="sig-paren">(</span><em class="sig-param">file</em>, <em class="sig-param">clf_name</em>, <em class="sig-param">n_classes=100</em>, <em class="sig-param">download_test_data=False</em>, <em class="sig-param">batch_size=100</em>, <em class="sig-param">data_folder='data'</em>, <em class="sig-param">checkpoint_folder='/models/pretrained_networks/'</em>, <em class="sig-param">output_folder='clf_output'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#CIFARData.classify_val_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.CIFARData.classify_val_data" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">classify_val_data</code><span class="sig-paren">(</span><em class="sig-param">dataset_folder</em>, <em class="sig-param">clf_name</em>, <em class="sig-param">n_classes=100</em>, <em class="sig-param">download_test_data=False</em>, <em class="sig-param">batch_size=100</em>, <em class="sig-param">data_folder='data'</em>, <em class="sig-param">checkpoint_folder='models/pretrained_networks/'</em>, <em class="sig-param">output_folder='clf_output'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#CIFARData.classify_val_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.CIFARData.classify_val_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Classify the CIFAR-100 evaluation data set with a given model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Directory containing CIFAR-100 evaluation data. Folder ‘val’ under <cite>file</cite> is searched for images.
+<li><p><strong>dataset_folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Directory containing CIFAR-100 evaluation data. Folder ‘val’ under <cite>file</cite> is searched for images.
 Output from the model is saved in the given directory.</p></li>
 <li><p><strong>clf_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of classifier (CNN architecture) to classify data with.</p></li>
 <li><p><strong>n_classes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default=100</em>) – Number of classes of the pre-trained model on CIFAR-100.</p></li>
