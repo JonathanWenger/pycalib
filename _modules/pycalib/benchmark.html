@@ -926,7 +926,7 @@
                          <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
 
 <div class="viewcode-block" id="PCamData.classify_val_data"><a class="viewcode-back" href="../../automod/pycalib.benchmark.PCamData.html#pycalib.benchmark.PCamData.classify_val_data">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">classify_val_data</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">data_folder</span><span class="o">=</span><span class="s1">&#39;pcam&#39;</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;clf_output&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">classify_val_data</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">data_folder</span><span class="o">=</span><span class="s1">&#39;/data&#39;</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;clf_output&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Classify the PCam evaluation data set with a given model.</span>
 
@@ -948,7 +948,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Load data from file</span>
-        <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;camelyonpatch_level_2_split_valid_x.h5&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_folder</span><span class="p">,</span> <span class="s2">&quot;camelyonpatch_level_2_split_valid_x.h5&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
             <span class="n">X</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">][:]</span>
 
         <span class="c1"># Convert to grayscale by weighted average (luminosity method)</span>
@@ -957,7 +957,7 @@
         <span class="c1"># Reshape and normalize</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
 
-        <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;camelyonpatch_level_2_split_valid_y.h5&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_folder</span><span class="p">,</span> <span class="s2">&quot;camelyonpatch_level_2_split_valid_y.h5&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
             <span class="n">y</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">][:]</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 
@@ -1028,8 +1028,6 @@
 <span class="sd">    ----------</span>
 <span class="sd">    run_dir : str</span>
 <span class="sd">        Directory to run benchmarking in and save output and logs to.</span>
-<span class="sd">    data_dir : str</span>
-<span class="sd">        Directory containing calibration data obtained from MNIST classification.</span>
 <span class="sd">    classifier_names : list</span>
 <span class="sd">        Names of classifiers to be calibrated. Classification results on MNIST must be contained in `data_dir`.</span>
 <span class="sd">    cal_methods : list</span>
@@ -1049,12 +1047,11 @@
 <span class="sd">        by `np.random`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
                  <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># Create cross validator which splits the data randomly based on test or train size</span>
         <span class="n">cv</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
                              <span class="n">random_state</span><span class="o">=</span><span class="n">sklearn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">check_random_state</span><span class="p">(</span><span class="n">random_state</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">=</span> <span class="n">data_dir</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">classifier_names</span> <span class="o">=</span> <span class="n">classifier_names</span>
 
         <span class="c1"># Run super class constructor</span>
@@ -1186,7 +1183,7 @@
 
 <div class="viewcode-block" id="CIFARData.classify_val_data"><a class="viewcode-back" href="../../automod/pycalib.benchmark.CIFARData.html#pycalib.benchmark.CIFARData.classify_val_data">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">classify_val_data</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">file_ending</span><span class="o">=</span><span class="s2">&quot;JPEG&quot;</span><span class="p">,</span>
-                          <span class="n">validation_folder</span><span class="o">=</span><span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;clf_output&#39;</span><span class="p">):</span>
+                          <span class="n">data_folder</span><span class="o">=</span><span class="s1">&#39;/data&#39;</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;clf_output&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Classify the CIFAR-100 evaluation data set with a given model.</span>
 
@@ -1201,7 +1198,7 @@
 <span class="sd">            Number of classes of pretrained model on CIFAR-100.</span>
 <span class="sd">        file_ending : str, default=&quot;JPEG&quot;</span>
 <span class="sd">            File suffix of images to classify.</span>
-<span class="sd">        validation_folder : str, default=&#39;val&#39;</span>
+<span class="sd">        data_folder : str, default=&#39;val&#39;</span>
 <span class="sd">            Folder where validation images are contained. Images must be contained in folder named after their class.</span>
 <span class="sd">        output_folder : str, default=&#39;clf_output&#39;</span>
 <span class="sd">            Folder where output is stored.</span>
@@ -1214,12 +1211,12 @@
         <span class="c1"># TODO: model = pretrainedmodels.__dict__[clf_name](num_classes=n_classes, pretrained=&#39;imagenet&#39;)</span>
 
         <span class="c1"># Data loading</span>
-        <span class="n">valdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">validation_folder</span><span class="p">)</span>
+        <span class="n">valdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_folder</span><span class="p">)</span>
         <span class="n">load_img</span> <span class="o">=</span> <span class="n">pretrainedmodels</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">LoadImage</span><span class="p">()</span>
         <span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">valdir</span><span class="p">,</span> <span class="s2">&quot;**/*.&quot;</span> <span class="o">+</span> <span class="n">file_ending</span><span class="p">),</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># Image transformation</span>
-        <span class="c1">#TODO: tf_img = pretrainedmodels.utils.TransformImage(model)</span>
+        <span class="c1"># TODO: tf_img = pretrainedmodels.utils.TransformImage(model)</span>
 
         <span class="c1"># Classify images</span>
         <span class="n">n_images</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
@@ -1355,14 +1352,14 @@
 
 <div class="viewcode-block" id="ImageNetData.classify_val_data"><a class="viewcode-back" href="../../automod/pycalib.benchmark.ImageNetData.html#pycalib.benchmark.ImageNetData.classify_val_data">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">classify_val_data</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">file_ending</span><span class="o">=</span><span class="s2">&quot;JPEG&quot;</span><span class="p">,</span>
-                          <span class="n">validation_folder</span><span class="o">=</span><span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;clf_output&#39;</span><span class="p">):</span>
+                          <span class="n">data_folder</span><span class="o">=</span><span class="s1">&#39;data/val&#39;</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;clf_output&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Classify the ImageNet evaluation data set with a given model.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        file : str</span>
-<span class="sd">            Directory containing ImageNet evaluation data. Folder &#39;val&#39; under `file` is searched for images.</span>
+<span class="sd">            Directory containing ImageNet evaluation data. Folder &#39;data_folder&#39; under `file` is searched for images.</span>
 <span class="sd">            Output from the model is saved in the given directory.</span>
 <span class="sd">        clf_name : str</span>
 <span class="sd">            Name of classifier (CNN architecture) to classify data with. Must be one of `pretrainedmodels.model_names`.</span>
@@ -1370,7 +1367,7 @@
 <span class="sd">            Number of classes of pretrained model on ImageNet.</span>
 <span class="sd">        file_ending : str, default=&quot;JPEG&quot;</span>
 <span class="sd">            File suffix of images to classify.</span>
-<span class="sd">        validation_folder : str, default=&#39;val&#39;</span>
+<span class="sd">        data_folder : str, default=&#39;val&#39;</span>
 <span class="sd">            Folder where validation images are contained. Images must be contained in folder named after their class.</span>
 <span class="sd">        output_folder : str, default=&#39;clf_output&#39;</span>
 <span class="sd">            Folder where output is stored.</span>
@@ -1383,7 +1380,7 @@
         <span class="n">model</span> <span class="o">=</span> <span class="n">pretrainedmodels</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">clf_name</span><span class="p">](</span><span class="n">num_classes</span><span class="o">=</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">)</span>
 
         <span class="c1"># Data loading</span>
-        <span class="n">valdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">validation_folder</span><span class="p">)</span>
+        <span class="n">valdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_folder</span><span class="p">)</span>
         <span class="n">load_img</span> <span class="o">=</span> <span class="n">pretrainedmodels</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">LoadImage</span><span class="p">()</span>
         <span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">valdir</span><span class="p">,</span> <span class="s2">&quot;**/*.&quot;</span> <span class="o">+</span> <span class="n">file_ending</span><span class="p">),</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 

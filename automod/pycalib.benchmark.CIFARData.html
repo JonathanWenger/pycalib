@@ -229,7 +229,7 @@ by <cite>np.random</cite>.</p></li>
 <p class="rubric">Methods Documentation</p>
 <dl class="method">
 <dt id="pycalib.benchmark.CIFARData.classify_val_data">
-<em class="property">static </em><code class="sig-name descname">classify_val_data</code><span class="sig-paren">(</span><em class="sig-param">file</em>, <em class="sig-param">clf_name</em>, <em class="sig-param">n_classes=100</em>, <em class="sig-param">file_ending='JPEG'</em>, <em class="sig-param">validation_folder='val'</em>, <em class="sig-param">output_folder='clf_output'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#CIFARData.classify_val_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.CIFARData.classify_val_data" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">classify_val_data</code><span class="sig-paren">(</span><em class="sig-param">file</em>, <em class="sig-param">clf_name</em>, <em class="sig-param">n_classes=100</em>, <em class="sig-param">file_ending='JPEG'</em>, <em class="sig-param">data_folder='/data'</em>, <em class="sig-param">output_folder='clf_output'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#CIFARData.classify_val_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.CIFARData.classify_val_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Classify the CIFAR-100 evaluation data set with a given model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -239,7 +239,7 @@ Output from the model is saved in the given directory.</p></li>
 <li><p><strong>clf_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of classifier (CNN architecture) to classify data with.</p></li>
 <li><p><strong>n_classes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default=100</em>) – Number of classes of pretrained model on CIFAR-100.</p></li>
 <li><p><strong>file_ending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>default=&quot;JPEG&quot;</em>) – File suffix of images to classify.</p></li>
-<li><p><strong>validation_folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>default='val'</em>) – Folder where validation images are contained. Images must be contained in folder named after their class.</p></li>
+<li><p><strong>data_folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>default='val'</em>) – Folder where validation images are contained. Images must be contained in folder named after their class.</p></li>
 <li><p><strong>output_folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>default='clf_output'</em>) – Folder where output is stored.</p></li>
 </ul>
 </dd>
