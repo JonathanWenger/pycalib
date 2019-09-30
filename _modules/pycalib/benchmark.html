@@ -1198,7 +1198,7 @@
 <span class="sd">            Number of classes of pretrained model on CIFAR-100.</span>
 <span class="sd">        file_ending : str, default=&quot;JPEG&quot;</span>
 <span class="sd">            File suffix of images to classify.</span>
-<span class="sd">        data_folder : str, default=&#39;val&#39;</span>
+<span class="sd">        data_folder : str, default=&#39;/data&#39;</span>
 <span class="sd">            Folder where validation images are contained. Images must be contained in folder named after their class.</span>
 <span class="sd">        output_folder : str, default=&#39;clf_output&#39;</span>
 <span class="sd">            Folder where output is stored.</span>
@@ -1216,7 +1216,7 @@
         <span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">valdir</span><span class="p">,</span> <span class="s2">&quot;**/*.&quot;</span> <span class="o">+</span> <span class="n">file_ending</span><span class="p">),</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># Image transformation</span>
-        <span class="c1"># TODO: tf_img = pretrainedmodels.utils.TransformImage(model)</span>
+        <span class="c1">#TODO: tf_img = pretrainedmodels.utils.TransformImage(model)</span>
 
         <span class="c1"># Classify images</span>
         <span class="n">n_images</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
