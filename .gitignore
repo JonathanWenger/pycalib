@@ -191,6 +191,6 @@ dmypy.json
 # Project specific
 ############################
 
-data/imagenet
-data/pcam
-data/cifar100
+data/imagenet/*
+data/pcam/*
+data/cifar100/*
