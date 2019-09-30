@@ -23,8 +23,8 @@ if __name__ == "__main__":
     ]
 
     # Setup
-    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/imagenet/"
-    val_folder = "val"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/imagenet/"
+    val_folder = "/data/val"
     output_folder = "clf_output"
     classify_images = False
     n_classes = 1000
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     if classify_images:
         for clf_name in clf_names:
             pycalib.benchmark.ImageNetData.classify_val_data(file, clf_name=clf_name,
-                                                             validation_folder=val_folder,
+                                                             data_folder=val_folder,
                                                              output_folder=output_folder)
 
     ###############################
@@ -51,21 +51,12 @@ if __name__ == "__main__":
 
     cal_methods_logits = {
         "Uncal": calm.NoCalibration(logits=True),
-<<<<<<< HEAD
         "GPcalib_lin": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
                                           mean_function=meanfunc, logits=True, verbose=False,
                                           random_state=random_state),
         "GPcalib": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
                                       logits=True, random_state=random_state),
         "GPcalib_approx": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
-=======
-        "GPcalib_lin": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10,
-                                          mean_function=meanfunc, logits=True, verbose=False,
-                                          random_state=random_state),
-        "GPcalib": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10,
-                                      logits=True, random_state=random_state),
-        "GPcalib_approx": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10,
->>>>>>> 207cdf213a6ee870203c70861f5b58cf97cb01d3
                                              logits=True, random_state=random_state, inf_mean_approx=True),
         "Temp": calm.TemperatureScaling()
     }
@@ -84,13 +75,8 @@ if __name__ == "__main__":
     # Calibration
     cal_methods = {
         "Uncal": calm.NoCalibration(),
-<<<<<<< HEAD
         "GPcalib": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10, random_state=random_state),
         # "GPcalib_lin": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
-=======
-        "GPcalib": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10, random_state=random_state),
-        # "GPcalib_lin": calm.GPCalibration(n_classes=1000, maxiter=1000, n_inducing_points=10,
->>>>>>> 207cdf213a6ee870203c70861f5b58cf97cb01d3
         #                                   mean_function=meanfunc, logits=False, verbose=False,
         #                                   random_state=random_state),
         # "Temp": calm.TemperatureScaling(),

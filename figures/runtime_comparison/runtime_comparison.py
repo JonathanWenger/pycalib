@@ -18,7 +18,7 @@ if __name__ == "__main__":
     random_state = 1
     use_logits = True
     n_classes = 1000
-    file = "/home/j/Documents/research/projects/nonparametric_calibration/code/pycalib/data/imagenet/"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/code/pycalib/datasets/imagenet/"
     output_folder = "clf_output"
     data_dir = os.path.join(file, output_folder)
     run_dir = os.path.join(file, "calibration")
@@ -94,7 +94,7 @@ if __name__ == "__main__":
         "random_forest",
         "1layer_NN"
     ]
-    file = "/home/j/Documents/research/projects/nonparametric_calibration/code/pycalib/data/mnist/"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/code/pycalib/datasets/mnist/"
     output_folder = "clf_output"
     data_dir = os.path.join(file, output_folder)
     run_dir = os.path.join(file, "calibration")

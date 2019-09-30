@@ -11,7 +11,7 @@ if __name__ == "__main__":
     random_state = 1
 
     # Load KITTI data
-    data_dir = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/kitti"
+    data_dir = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/kitti"
     files = ['kitti_all_train.data',
              'kitti_all_train.labels',
              'kitti_all_test.data',

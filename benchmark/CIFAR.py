@@ -21,15 +21,15 @@ if __name__ == "__main__":
     ]
 
     # Setup
-    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/cifar/"
-    val_folder = "val"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/cifar100/"
+    data_folder = "data"
     output_folder = "clf_output"
     classify_images = False
 
     if classify_images:
         for clf_name in clf_names:
             pycalib.benchmark.CIFARData.classify_val_data(file, clf_name=clf_name,
-                                                          validation_folder=val_folder,
+                                                          data_folder=data_folder,
                                                           output_folder=output_folder)
 
     ###############################

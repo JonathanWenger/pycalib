@@ -49,14 +49,14 @@ if __name__ == "__main__":
     }
 
     # Setup
-    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/data/kitti/"
+    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/kitti/"
     output_folder = "clf_output"
     classify_images = True
 
     if classify_images:
         for clf_name, clf in clf_dict.items():
             pycalib.benchmark.KITTIBinaryData.classify_val_data(file, clf_name=clf_name, classifier=clf,
-                                                                data_folder="", output_folder=output_folder)
+                                                                data_folder="/data", output_folder=output_folder)
 
     ###############################
     #   Benchmark

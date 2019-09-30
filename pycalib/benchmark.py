@@ -772,7 +772,7 @@ class PCamData(Benchmark):
                          random_state=random_state)
 
     @staticmethod
-    def classify_val_data(file, clf_name, classifier, data_folder='pcam', output_folder='clf_output'):
+    def classify_val_data(file, clf_name, classifier, data_folder='/data', output_folder='clf_output'):
         """
         Classify the PCam evaluation data set with a given model.
 
@@ -794,7 +794,7 @@ class PCamData(Benchmark):
 
         """
         # Load data from file
-        with h5py.File(os.path.join(file, "camelyonpatch_level_2_split_valid_x.h5"), 'r') as hf:
+        with h5py.File(os.path.join(file, data_folder, "camelyonpatch_level_2_split_valid_x.h5"), 'r') as hf:
             X = hf["x"][:]
 
         # Convert to grayscale by weighted average (luminosity method)
@@ -803,7 +803,7 @@ class PCamData(Benchmark):
         # Reshape and normalize
         X = X.reshape(np.shape(X)[0], -1) / 255
 
-        with h5py.File(os.path.join(file, "camelyonpatch_level_2_split_valid_y.h5"), 'r') as hf:
+        with h5py.File(os.path.join(file, data_folder, "camelyonpatch_level_2_split_valid_y.h5"), 'r') as hf:
             y = hf["y"][:]
         y = y.flatten()
 
@@ -874,8 +874,6 @@ class MNISTData(Benchmark):
     ----------
     run_dir : str
         Directory to run benchmarking in and save output and logs to.
-    data_dir : str
-        Directory containing calibration data obtained from MNIST classification.
     classifier_names : list
         Names of classifiers to be calibrated. Classification results on MNIST must be contained in `data_dir`.
     cal_methods : list
@@ -895,12 +893,11 @@ class MNISTData(Benchmark):
         by `np.random`.
     """
 
-    def __init__(self, run_dir, data_dir, classifier_names, cal_methods, cal_method_names,
+    def __init__(self, run_dir, classifier_names, cal_methods, cal_method_names,
                  n_splits=10, test_size=0.9, train_size=None, random_state=None):
         # Create cross validator which splits the data randomly based on test or train size
         cv = ms.ShuffleSplit(n_splits=n_splits, test_size=test_size, train_size=train_size,
                              random_state=sklearn.utils.check_random_state(random_state))
-        self.data_dir = data_dir
         self.classifier_names = classifier_names
 
         # Run super class constructor
@@ -1032,7 +1029,7 @@ class CIFARData(Benchmark):
 
     @staticmethod
     def classify_val_data(file, clf_name, n_classes=100, file_ending="JPEG",
-                          validation_folder='val', output_folder='clf_output'):
+                          data_folder='/data', output_folder='clf_output'):
         """
         Classify the CIFAR-100 evaluation data set with a given model.
 
@@ -1047,7 +1044,7 @@ class CIFARData(Benchmark):
             Number of classes of pretrained model on CIFAR-100.
         file_ending : str, default="JPEG"
             File suffix of images to classify.
-        validation_folder : str, default='val'
+        data_folder : str, default='val'
             Folder where validation images are contained. Images must be contained in folder named after their class.
         output_folder : str, default='clf_output'
             Folder where output is stored.
@@ -1060,12 +1057,12 @@ class CIFARData(Benchmark):
         # TODO: model = pretrainedmodels.__dict__[clf_name](num_classes=n_classes, pretrained='imagenet')
 
         # Data loading
-        valdir = os.path.join(file, validation_folder)
+        valdir = os.path.join(file, data_folder)
         load_img = pretrainedmodels.utils.LoadImage()
         filenames = glob.glob(os.path.join(valdir, "**/*." + file_ending), recursive=True)
 
         # Image transformation
-        #TODO: tf_img = pretrainedmodels.utils.TransformImage(model)
+        # TODO: tf_img = pretrainedmodels.utils.TransformImage(model)
 
         # Classify images
         n_images = len(filenames)
@@ -1201,14 +1198,14 @@ class ImageNetData(Benchmark):
 
     @staticmethod
     def classify_val_data(file, clf_name, n_classes=1000, file_ending="JPEG",
-                          validation_folder='val', output_folder='clf_output'):
+                          data_folder='data/val', output_folder='clf_output'):
         """
         Classify the ImageNet evaluation data set with a given model.
 
         Parameters
         ----------
         file : str
-            Directory containing ImageNet evaluation data. Folder 'val' under `file` is searched for images.
+            Directory containing ImageNet evaluation data. Folder 'data_folder' under `file` is searched for images.
             Output from the model is saved in the given directory.
         clf_name : str
             Name of classifier (CNN architecture) to classify data with. Must be one of `pretrainedmodels.model_names`.
@@ -1216,7 +1213,7 @@ class ImageNetData(Benchmark):
             Number of classes of pretrained model on ImageNet.
         file_ending : str, default="JPEG"
             File suffix of images to classify.
-        validation_folder : str, default='val'
+        data_folder : str, default='val'
             Folder where validation images are contained. Images must be contained in folder named after their class.
         output_folder : str, default='clf_output'
             Folder where output is stored.
@@ -1229,7 +1226,7 @@ class ImageNetData(Benchmark):
         model = pretrainedmodels.__dict__[clf_name](num_classes=n_classes, pretrained='imagenet')
 
         # Data loading
-        valdir = os.path.join(file, validation_folder)
+        valdir = os.path.join(file, data_folder)
         load_img = pretrainedmodels.utils.LoadImage()
         filenames = glob.glob(os.path.join(valdir, "**/*." + file_ending), recursive=True)
 
