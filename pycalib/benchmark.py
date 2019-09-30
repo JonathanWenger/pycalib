@@ -1047,7 +1047,7 @@ class CIFARData(Benchmark):
             cardinality = 8
             if clf_name.endswith('16x64d'):
                 cardinality = 16
-            model = models.__dict__[clf_name](
+            model = models.__dict__['resnext'](
                 cardinality=cardinality,
                 num_classes=n_classes,
                 depth=29,
@@ -1065,26 +1065,26 @@ class CIFARData(Benchmark):
                 growth_rate = int(re.search("k([0-9]*)", clf_name).group()[1:])
                 print("DenseNet depth and growth rate inferred from name. Depth: {}, growth rate: {}.".format(depth,
                                                                                                               growth_rate))
-            model = models.__dict__[clf_name](
+            model = models.__dict__['densenet'](
                 num_classes=n_classes,
                 depth=depth,
                 growthRate=growth_rate
             )
         elif clf_name.startswith('WRN-28-10-drop'):
             weight_decay = 5e-4
-            model = models.__dict__[clf_name](
+            model = models.__dict__['wrn'](
                 num_classes=n_classes,
                 depth=28,
                 widen_factor=10,
                 dropRate=0.3,
             )
-        elif clf_name.endswith('resnet'):
+        elif clf_name.startswith('resnet'):
             if clf_name.endswith('110'):
                 depth = 110
             else:
                 depth = int(re.sub("resnet", "", clf_name))
                 print("ResNet depth inferred from name. Depth: {}.".format(depth))
-            model = models.__dict__[clf_name](
+            model = models.__dict__['resnet'](
                 num_classes=n_classes,
                 depth=depth,
                 block_name='BasicBlock',
@@ -1100,8 +1100,8 @@ class CIFARData(Benchmark):
 
         # Load checkpoint.
         print('==> Resuming from checkpoint..')
-        checkpoint_file = os.path.join(checkpoint_dir, clf_name, 'checkpoint.pth.tar')
-        assert os.path.isfile(checkpoint_file), 'Error: no checkpoint directory found!'
+        checkpoint_file = os.path.join(checkpoint_dir, clf_name, 'model_best.pth.tar')
+        assert os.path.isfile(checkpoint_file), 'Error: no checkpoint directory found at: {}'.format(checkpoint_file)
         checkpoint = torch.load(checkpoint_file)
         # best_acc = checkpoint['best_acc']
         # start_epoch = checkpoint['epoch']
@@ -1111,15 +1111,15 @@ class CIFARData(Benchmark):
         return model
 
     @staticmethod
-    def classify_val_data(file, clf_name, n_classes=100, download_test_data=False, batch_size=100,
-                          data_folder='data', checkpoint_folder="/models/pretrained_networks/",
+    def classify_val_data(dataset_folder, clf_name, n_classes=100, download_test_data=False, batch_size=100,
+                          data_folder='data', checkpoint_folder="models/pretrained_networks/",
                           output_folder='clf_output'):
         """
         Classify the CIFAR-100 evaluation data set with a given model.
 
         Parameters
         ----------
-        file : str
+        dataset_folder : str
             Directory containing CIFAR-100 evaluation data. Folder 'val' under `file` is searched for images.
             Output from the model is saved in the given directory.
         clf_name : str
@@ -1141,7 +1141,8 @@ class CIFARData(Benchmark):
         -------
         """
         # Load CNN architectures
-        model = CIFARData.load_pretrained_model(clf_name=clf_name, checkpoint_dir=os.path.join(file, checkpoint_folder))
+        model = CIFARData.load_pretrained_model(clf_name=clf_name,
+                                                checkpoint_dir=os.path.join(dataset_folder, checkpoint_folder))
 
         # Image transformation
         transform_test = transforms.Compose([
@@ -1151,7 +1152,7 @@ class CIFARData(Benchmark):
 
         # Data loading
         dataloader = datasets.CIFAR100
-        testset = dataloader(root=os.path.join(file, data_folder), train=False, download=download_test_data,
+        testset = dataloader(root=os.path.join(dataset_folder, data_folder), train=False, download=download_test_data,
                              transform=transform_test)
         testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=4)
 
@@ -1173,9 +1174,9 @@ class CIFARData(Benchmark):
 
                 # Collect model output
                 all_logits[(batch_idx * batch_size): np.minimum((batch_idx + 1) * batch_size, n_images),
-                :] = logits.data.numpy()
+                :] = logits.cpu().data.numpy()
                 all_y_y_pred[(batch_idx * batch_size): np.minimum((batch_idx + 1) * batch_size, n_images),
-                :] = np.column_stack([targets.data.numpy(), np.argmax(logits.data.numpy(), axis=1)])
+                :] = np.column_stack([targets.cpu().data.numpy(), logits.argmax(axis=1).cpu().data.numpy()])
 
                 # Print information on progress
                 m, s = divmod(time.time() - start_time, 60)
@@ -1183,12 +1184,12 @@ class CIFARData(Benchmark):
                 print("Classifying batch: {}/{:.0f}. {:.2f}% complete. Time elapsed: {:.0f}:{:02.0f}:{:02.0f}".format(
                     batch_idx + 1,
                     n_batches,
-                    (batch_idx + 1) / n_images * 100,
+                    (batch_idx + 1) / n_batches * 100,
                     h, m, s)
                 )
 
             # Save to file
-            out_path = os.path.join(file, output_folder)
+            out_path = os.path.join(dataset_folder, output_folder)
             os.makedirs(out_path, exist_ok=True)
             np.savetxt(os.path.join(out_path, "logits_{}.csv".format(clf_name)), all_logits, delimiter=",")
             np.savetxt(os.path.join(out_path, "y_y_pred_{}.csv".format(clf_name)), all_y_y_pred.astype(int), fmt='%i',

@@ -12,13 +12,12 @@ if __name__ == "__main__":
     # Classify CIFAR-100 validation data with selected classifiers
     clf_names = [
         'alexnet',
-        'vgg19',
-        'resnet110',
+        # 'vgg19_bn',
+        # 'resnet-110',
         'resnext-8x64d',
         'resnext-16x64d',
-        # 'densenet-bc-l100-k12',
         'densenet-bc-l190-k40'
-        # 'WRN-28-10-drop'
+        'WRN-28-10-drop'
     ]
 
     # Setup
@@ -29,7 +28,7 @@ if __name__ == "__main__":
 
     if classify_images:
         for clf_name in clf_names:
-            pycalib.benchmark.CIFARData.classify_val_data(file, clf_name=clf_name,
+            pycalib.benchmark.CIFARData.classify_val_data(dataset_folder=file, clf_name=clf_name,
                                                           data_folder=data_folder,
                                                           output_folder=output_folder)
 
@@ -42,6 +41,8 @@ if __name__ == "__main__":
     data_dir = os.path.join(file, output_folder)
     run_dir = os.path.join(file, "calibration")
     n_classes = 100
+    train_size = 1000
+    test_size = 9000
 
     # Calibration methods for logits
     with gpflow.defer_build():
@@ -65,8 +66,8 @@ if __name__ == "__main__":
                                                   classifier_names=clf_names,
                                                   cal_methods=list(cal_methods_logits.values()),
                                                   cal_method_names=list(cal_methods_logits.keys()),
-                                                  use_logits=True, n_splits=10, test_size=10000,
-                                                  train_size=1000, random_state=random_state)
+                                                  use_logits=True, n_splits=10, test_size=test_size,
+                                                  train_size=train_size, random_state=random_state)
 
 
     # Run
@@ -91,8 +92,8 @@ if __name__ == "__main__":
                                                   classifier_names=clf_names,
                                                   cal_methods=list(cal_methods.values()),
                                                   cal_method_names=list(cal_methods.keys()),
-                                                  use_logits=False, n_splits=10, test_size=10000,
-                                                  train_size=1000, random_state=random_state)
+                                                  use_logits=False, n_splits=10, test_size=test_size,
+                                                  train_size=train_size, random_state=random_state)
 
     # Run
     cifar_benchmark.run(n_jobs=1)
