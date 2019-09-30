@@ -175,6 +175,8 @@
 <span class="c1"># pytorch imports</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.utils.data</span>
+<span class="kn">import</span> <span class="nn">torchvision.datasets</span> <span class="k">as</span> <span class="nn">datasets</span>
+<span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="k">as</span> <span class="nn">transforms</span>
 <span class="kn">import</span> <span class="nn">pretrainedmodels</span>
 <span class="kn">import</span> <span class="nn">pretrainedmodels.utils</span>
 
@@ -1186,9 +1188,86 @@
                          <span class="n">cross_validator</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
                          <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
 
+<div class="viewcode-block" id="CIFARData.load_pretrained_model"><a class="viewcode-back" href="../../automod/pycalib.benchmark.CIFARData.html#pycalib.benchmark.CIFARData.load_pretrained_model">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">load_pretrained_model</span><span class="p">(</span><span class="n">clf_name</span><span class="p">,</span> <span class="n">checkpoint_dir</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+        <span class="c1"># Import model architectures</span>
+        <span class="kn">import</span> <span class="nn">datasets.cifar100.models</span> <span class="k">as</span> <span class="nn">models</span>
+
+        <span class="c1"># Set correct architecture parameters</span>
+        <span class="c1"># (see: https://github.com/bearpaw/pytorch-classification/blob/master/TRAINING.md)</span>
+        <span class="n">weight_decay</span> <span class="o">=</span> <span class="mf">1e-4</span>
+        <span class="k">if</span> <span class="n">clf_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;resnext&#39;</span><span class="p">):</span>
+            <span class="n">weight_decay</span> <span class="o">=</span> <span class="mf">5e-4</span>
+            <span class="n">cardinality</span> <span class="o">=</span> <span class="mi">8</span>
+            <span class="k">if</span> <span class="n">clf_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;16x64d&#39;</span><span class="p">):</span>
+                <span class="n">cardinality</span> <span class="o">=</span> <span class="mi">16</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">clf_name</span><span class="p">](</span>
+                <span class="n">cardinality</span><span class="o">=</span><span class="n">cardinality</span><span class="p">,</span>
+                <span class="n">num_classes</span><span class="o">=</span><span class="n">n_classes</span><span class="p">,</span>
+                <span class="n">depth</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span>
+                <span class="n">widen_factor</span><span class="o">=</span><span class="mi">4</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">clf_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;densenet&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">clf_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;l100-k12&#39;</span><span class="p">):</span>
+                <span class="n">depth</span> <span class="o">=</span> <span class="mi">100</span>
+                <span class="n">growth_rate</span> <span class="o">=</span> <span class="mi">12</span>
+            <span class="k">elif</span> <span class="n">clf_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;l190-k40&#39;</span><span class="p">):</span>
+                <span class="n">depth</span> <span class="o">=</span> <span class="mi">190</span>
+                <span class="n">growth_rate</span> <span class="o">=</span> <span class="mi">40</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">depth</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;l([0-9]*)&quot;</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">()[</span><span class="mi">1</span><span class="p">:])</span>
+                <span class="n">growth_rate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;k([0-9]*)&quot;</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">()[</span><span class="mi">1</span><span class="p">:])</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DenseNet depth and growth rate inferred from name. Depth: </span><span class="si">{}</span><span class="s2">, growth rate: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span>
+                                                                                                              <span class="n">growth_rate</span><span class="p">))</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">clf_name</span><span class="p">](</span>
+                <span class="n">num_classes</span><span class="o">=</span><span class="n">n_classes</span><span class="p">,</span>
+                <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span>
+                <span class="n">growthRate</span><span class="o">=</span><span class="n">growth_rate</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">clf_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;WRN-28-10-drop&#39;</span><span class="p">):</span>
+            <span class="n">weight_decay</span> <span class="o">=</span> <span class="mf">5e-4</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">clf_name</span><span class="p">](</span>
+                <span class="n">num_classes</span><span class="o">=</span><span class="n">n_classes</span><span class="p">,</span>
+                <span class="n">depth</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
+                <span class="n">widen_factor</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                <span class="n">dropRate</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">clf_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;resnet&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">clf_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;110&#39;</span><span class="p">):</span>
+                <span class="n">depth</span> <span class="o">=</span> <span class="mi">110</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">depth</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;resnet&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ResNet depth inferred from name. Depth: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">))</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">clf_name</span><span class="p">](</span>
+                <span class="n">num_classes</span><span class="o">=</span><span class="n">n_classes</span><span class="p">,</span>
+                <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span>
+                <span class="n">block_name</span><span class="o">=</span><span class="s1">&#39;BasicBlock&#39;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">clf_name</span><span class="p">](</span><span class="n">num_classes</span><span class="o">=</span><span class="n">n_classes</span><span class="p">)</span>
+
+        <span class="c1"># Define loss and optimizer</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">DataParallel</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;    Total params: </span><span class="si">%.2f</span><span class="s1">M&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span> <span class="o">/</span> <span class="mf">1000000.0</span><span class="p">))</span>
+        <span class="n">criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">)</span>
+
+        <span class="c1"># Load checkpoint.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;==&gt; Resuming from checkpoint..&#39;</span><span class="p">)</span>
+        <span class="n">checkpoint_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">checkpoint_dir</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">,</span> <span class="s1">&#39;checkpoint.pth.tar&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">checkpoint_file</span><span class="p">),</span> <span class="s1">&#39;Error: no checkpoint directory found!&#39;</span>
+        <span class="n">checkpoint</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">checkpoint_file</span><span class="p">)</span>
+        <span class="c1"># best_acc = checkpoint[&#39;best_acc&#39;]</span>
+        <span class="c1"># start_epoch = checkpoint[&#39;epoch&#39;]</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;state_dict&#39;</span><span class="p">])</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;optimizer&#39;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">model</span></div>
+
 <div class="viewcode-block" id="CIFARData.classify_val_data"><a class="viewcode-back" href="../../automod/pycalib.benchmark.CIFARData.html#pycalib.benchmark.CIFARData.classify_val_data">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">classify_val_data</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">file_ending</span><span class="o">=</span><span class="s2">&quot;JPEG&quot;</span><span class="p">,</span>
-                          <span class="n">data_folder</span><span class="o">=</span><span class="s1">&#39;/data&#39;</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;clf_output&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">classify_val_data</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">file_ending</span><span class="o">=</span><span class="s2">&quot;JPEG&quot;</span><span class="p">,</span> <span class="n">download_test_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                          <span class="n">data_folder</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">checkpoint_folder</span><span class="o">=</span><span class="s2">&quot;/models/pretrained_networks/&quot;</span><span class="p">,</span>
+                          <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;clf_output&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Classify the CIFAR-100 evaluation data set with a given model.</span>
 
@@ -1200,27 +1279,40 @@
 <span class="sd">        clf_name : str</span>
 <span class="sd">            Name of classifier (CNN architecture) to classify data with.</span>
 <span class="sd">        n_classes : int, default=100</span>
-<span class="sd">            Number of classes of pretrained model on CIFAR-100.</span>
+<span class="sd">            Number of classes of the pre-trained model on CIFAR-100.</span>
 <span class="sd">        file_ending : str, default=&quot;JPEG&quot;</span>
 <span class="sd">            File suffix of images to classify.</span>
+<span class="sd">        download_test_data : bool, default=False.</span>
+<span class="sd">            Should the CIFAR-100 test data be downloaded to `data_folder`?</span>
 <span class="sd">        data_folder : str, default=&#39;/data&#39;</span>
 <span class="sd">            Folder where validation images are contained. Images must be contained in folder named after their class.</span>
+<span class="sd">        checkpoint_folder : str, default=&quot;/models/pretrained_networks/&quot;</span>
+<span class="sd">            Folder containing pre-trained models (i.e. checkpoints).</span>
 <span class="sd">        output_folder : str, default=&#39;clf_output&#39;</span>
 <span class="sd">            Folder where output is stored.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Load pretrained model</span>
-        <span class="c1"># TODO: model = pretrainedmodels.__dict__[clf_name](num_classes=n_classes, pretrained=&#39;imagenet&#39;)</span>
-
-        <span class="c1"># Data loading</span>
-        <span class="n">valdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_folder</span><span class="p">)</span>
-        <span class="n">load_img</span> <span class="o">=</span> <span class="n">pretrainedmodels</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">LoadImage</span><span class="p">()</span>
-        <span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">valdir</span><span class="p">,</span> <span class="s2">&quot;**/*.&quot;</span> <span class="o">+</span> <span class="n">file_ending</span><span class="p">),</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Load CNN architectures</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">CIFARData</span><span class="o">.</span><span class="n">load_pretrained_model</span><span class="p">(</span><span class="n">clf_name</span><span class="o">=</span><span class="n">clf_name</span><span class="p">,</span> <span class="n">checkpoint_dir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">checkpoint_folder</span><span class="p">))</span>
 
         <span class="c1"># Image transformation</span>
-        <span class="c1">#TODO: tf_img = pretrainedmodels.utils.TransformImage(model)</span>
+        <span class="n">transform_test</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">((</span><span class="mf">0.4914</span><span class="p">,</span> <span class="mf">0.4822</span><span class="p">,</span> <span class="mf">0.4465</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.2023</span><span class="p">,</span> <span class="mf">0.1994</span><span class="p">,</span> <span class="mf">0.2010</span><span class="p">)),</span>
+        <span class="p">])</span>
+
+        <span class="c1"># Data loading</span>
+        <span class="n">dataloader</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">CIFAR100</span>
+        <span class="n">testset</span> <span class="o">=</span> <span class="n">dataloader</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_folder</span><span class="p">),</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="n">download_test_data</span><span class="p">,</span>
+                             <span class="n">transform</span><span class="o">=</span><span class="n">transform_test</span><span class="p">)</span>
+        <span class="n">testloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">testset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">test_batch</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                                 <span class="n">num_workers</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">workers</span><span class="p">)</span>
+
+        <span class="c1"># valdir = os.path.join(file, data_folder)</span>
+        <span class="c1"># load_img = pretrainedmodels.utils.LoadImage()</span>
+        <span class="c1"># filenames = glob.glob(os.path.join(valdir, &quot;**/*.&quot; + file_ending), recursive=True)</span>
 
         <span class="c1"># Classify images</span>
         <span class="n">n_images</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
