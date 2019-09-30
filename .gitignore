@@ -202,5 +202,5 @@ dmypy.json
 
 datasets/**/data/
 datasets/**/clf_output/
-datasets/**/pretrained_networks/
+datasets/**/models/
 datasets/**/plots/

@@ -984,7 +984,8 @@ class CIFARData(Benchmark):
     """
     Model evaluation using the benchmark vision dataset CIFAR-100.
 
-    Implements a data generation method returning a new evaluation data set for each scoring round.
+    Implements a data generation method returning a new evaluation data set for each scoring round. Pre-trained CNNs are
+    available at [1]_.
 
     Parameters
     ----------
@@ -1011,6 +1012,10 @@ class CIFARData(Benchmark):
         If `RandomState` instance, `random_state` is the random number generator;
         If `None`, the random number generator is the RandomState instance used
         by `np.random`.
+
+    References
+    ----------
+    .. [1] https://github.com/bearpaw/pytorch-classification
     """
 
     def __init__(self, run_dir, data_dir, classifier_names, cal_methods, cal_method_names, use_logits=False,
@@ -1051,7 +1056,6 @@ class CIFARData(Benchmark):
 
         Returns
         -------
-
         """
         # Load pretrained model
         # TODO: model = pretrainedmodels.__dict__[clf_name](num_classes=n_classes, pretrained='imagenet')
@@ -1153,7 +1157,8 @@ class ImageNetData(Benchmark):
     """
     Model evaluation using the benchmark vision dataset ImageNet.
 
-    Implements a data generation method returning a new evaluation data set for each scoring round.
+    Implements a data generation method returning a new evaluation data set for each scoring round. Pre-trained models
+    are available at [1]_.
 
     Parameters
     ----------
@@ -1180,6 +1185,11 @@ class ImageNetData(Benchmark):
         If `RandomState` instance, `random_state` is the random number generator;
         If `None`, the random number generator is the RandomState instance used
         by `np.random`.
+
+
+    References
+    ----------
+    .. [1] https://github.com/Cadene/pretrained-models.pytorch
     """
 
     def __init__(self, run_dir, data_dir, classifier_names, cal_methods, cal_method_names, use_logits=False,
