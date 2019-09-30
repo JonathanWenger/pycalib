@@ -1111,7 +1111,7 @@ class CIFARData(Benchmark):
         return model
 
     @staticmethod
-    def classify_val_data(file, clf_name, n_classes=100, file_ending="JPEG", download_test_data=False,
+    def classify_val_data(file, clf_name, n_classes=100, download_test_data=False, batch_size=100,
                           data_folder='data', checkpoint_folder="/models/pretrained_networks/",
                           output_folder='clf_output'):
         """
@@ -1126,10 +1126,10 @@ class CIFARData(Benchmark):
             Name of classifier (CNN architecture) to classify data with.
         n_classes : int, default=100
             Number of classes of the pre-trained model on CIFAR-100.
-        file_ending : str, default="JPEG"
-            File suffix of images to classify.
         download_test_data : bool, default=False.
             Should the CIFAR-100 test data be downloaded to `data_folder`?
+        batch_size : int, default=100,
+            Batch size for classification of the test set.
         data_folder : str, default='/data'
             Folder where validation images are contained. Images must be contained in folder named after their class.
         checkpoint_folder : str, default="/models/pretrained_networks/"
@@ -1153,15 +1153,11 @@ class CIFARData(Benchmark):
         dataloader = datasets.CIFAR100
         testset = dataloader(root=os.path.join(file, data_folder), train=False, download=download_test_data,
                              transform=transform_test)
-        testloader = torch.utils.data.DataLoader(testset, batch_size=args.test_batch, shuffle=False,
-                                                 num_workers=args.workers)
-
-        # valdir = os.path.join(file, data_folder)
-        # load_img = pretrainedmodels.utils.LoadImage()
-        # filenames = glob.glob(os.path.join(valdir, "**/*." + file_ending), recursive=True)
+        testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=4)
 
         # Classify images
-        n_images = len(filenames)
+        n_images = len(testset)
+        n_batches = np.floor_divide(n_images, batch_size)
         all_logits = np.zeros([n_images, n_classes])
         all_y_y_pred = np.zeros([n_images, 2], dtype=int)
 
@@ -1170,28 +1166,24 @@ class CIFARData(Benchmark):
             model.eval()
 
             start_time = time.time()
-            for i, path_img in enumerate(filenames):
+            for batch_idx, (inputs, targets) in enumerate(testloader):
                 # Compute model output
-                input_img = load_img(path_img)
-                input_tensor = tf_img(input_img)  # 3x400x225 -> 3x299x299 size may differ
-                input_tensor = input_tensor.unsqueeze(0)  # 3x299x299 -> 1x3x299x299
-                X = torch.autograd.Variable(input_tensor, requires_grad=False)
-                logits = model(X)
-
-                # Find class based on folder structure
-                y = int(re.search(os.path.join(valdir, '(.+?)/.*'), path_img).group(1))
+                inputs, targets = torch.autograd.Variable(inputs, volatile=True), torch.autograd.Variable(targets)
+                logits = model(inputs)
 
                 # Collect model output
-                all_logits[i, :] = logits.data.numpy()
-                all_y_y_pred[i, :] = np.column_stack([y, np.argmax(logits.data.numpy(), axis=1)])
+                all_logits[(batch_idx * batch_size): np.minimum((batch_idx + 1) * batch_size, n_images),
+                :] = logits.data.numpy()
+                all_y_y_pred[(batch_idx * batch_size): np.minimum((batch_idx + 1) * batch_size, n_images),
+                :] = np.column_stack([targets.data.numpy(), np.argmax(logits.data.numpy(), axis=1)])
 
                 # Print information on progress
                 m, s = divmod(time.time() - start_time, 60)
                 h, m = divmod(m, 60)
-                print("Classifying image: {}/{:.0f}. {:.2f}% complete. Time elapsed: {:.0f}:{:02.0f}:{:02.0f}".format(
-                    i + 1,
-                    n_images,
-                    (i + 1) / n_images * 100,
+                print("Classifying batch: {}/{:.0f}. {:.2f}% complete. Time elapsed: {:.0f}:{:02.0f}:{:02.0f}".format(
+                    batch_idx + 1,
+                    n_batches,
+                    (batch_idx + 1) / n_images * 100,
                     h, m, s)
                 )
 
