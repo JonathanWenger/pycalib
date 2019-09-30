@@ -1029,11 +1029,7 @@ class CIFARData(Benchmark):
 
     @staticmethod
     def classify_val_data(file, clf_name, n_classes=100, file_ending="JPEG",
-<<<<<<< HEAD
-                          validation_folder='val', output_folder='clf_output'):
-=======
                           data_folder='/data', output_folder='clf_output'):
->>>>>>> 15ecef93a6852bbf17a43ab3a0b8e26e413765ff
         """
         Classify the CIFAR-100 evaluation data set with a given model.
 
@@ -1048,11 +1044,7 @@ class CIFARData(Benchmark):
             Number of classes of pretrained model on CIFAR-100.
         file_ending : str, default="JPEG"
             File suffix of images to classify.
-<<<<<<< HEAD
-        validation_folder : str, default='val'
-=======
-        data_folder : str, default='val'
->>>>>>> 15ecef93a6852bbf17a43ab3a0b8e26e413765ff
+        data_folder : str, default='/data'
             Folder where validation images are contained. Images must be contained in folder named after their class.
         output_folder : str, default='clf_output'
             Folder where output is stored.
@@ -1065,20 +1057,12 @@ class CIFARData(Benchmark):
         # TODO: model = pretrainedmodels.__dict__[clf_name](num_classes=n_classes, pretrained='imagenet')
 
         # Data loading
-<<<<<<< HEAD
-        valdir = os.path.join(file, validation_folder)
-=======
         valdir = os.path.join(file, data_folder)
->>>>>>> 15ecef93a6852bbf17a43ab3a0b8e26e413765ff
         load_img = pretrainedmodels.utils.LoadImage()
         filenames = glob.glob(os.path.join(valdir, "**/*." + file_ending), recursive=True)
 
         # Image transformation
-<<<<<<< HEAD
         #TODO: tf_img = pretrainedmodels.utils.TransformImage(model)
-=======
-        # TODO: tf_img = pretrainedmodels.utils.TransformImage(model)
->>>>>>> 15ecef93a6852bbf17a43ab3a0b8e26e413765ff
 
         # Classify images
         n_images = len(filenames)
