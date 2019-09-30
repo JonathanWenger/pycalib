@@ -67,6 +67,7 @@ if __name__ == "__main__":
                                                   use_logits=True, n_splits=10, test_size=10000,
                                                   train_size=1000, random_state=random_state)
 
+
     # Run
     cifar_benchmark.run(n_jobs=1)
 
