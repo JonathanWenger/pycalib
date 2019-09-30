@@ -187,9 +187,17 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+
+############################
+# User specific
+############################
+.DS_Store
+
+
 ############################
 # Project specific
 ############################
 
-data/imagenet
-data/pcam
+data/imagenet/*
+data/pcam/*
+data/cifar100/*
