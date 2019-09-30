@@ -95,6 +95,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pycalib.benchmark Module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="automod/pycalib.benchmark.Benchmark.html">Benchmark</a></li>
+<li class="toctree-l4"><a class="reference internal" href="automod/pycalib.benchmark.CIFARData.html">CIFARData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="automod/pycalib.benchmark.ImageNetData.html">ImageNetData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="automod/pycalib.benchmark.KITTIBinaryData.html">KITTIBinaryData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="automod/pycalib.benchmark.MNISTData.html">MNISTData</a></li>
@@ -188,22 +189,25 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.benchmark.Benchmark.html#pycalib.benchmark.Benchmark" title="pycalib.benchmark.Benchmark"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Benchmark</span></code></a>(run_dir, cal_methods, …[, …])</p></td>
 <td><p>A benchmarking class for calibration methods.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.benchmark.ImageNetData.html#pycalib.benchmark.ImageNetData" title="pycalib.benchmark.ImageNetData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ImageNetData</span></code></a>(run_dir, data_dir, …[, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.benchmark.CIFARData.html#pycalib.benchmark.CIFARData" title="pycalib.benchmark.CIFARData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CIFARData</span></code></a>(run_dir, data_dir, …[, …])</p></td>
+<td><p>Model evaluation using the benchmark vision dataset CIFAR-100.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.benchmark.ImageNetData.html#pycalib.benchmark.ImageNetData" title="pycalib.benchmark.ImageNetData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ImageNetData</span></code></a>(run_dir, data_dir, …[, …])</p></td>
 <td><p>Model evaluation using the benchmark vision dataset ImageNet.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.benchmark.KITTIBinaryData.html#pycalib.benchmark.KITTIBinaryData" title="pycalib.benchmark.KITTIBinaryData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KITTIBinaryData</span></code></a>(run_dir, data_dir, …[, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.benchmark.KITTIBinaryData.html#pycalib.benchmark.KITTIBinaryData" title="pycalib.benchmark.KITTIBinaryData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KITTIBinaryData</span></code></a>(run_dir, data_dir, …[, …])</p></td>
 <td><p>Model evaluation using the (binary) KITTI benchmark dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.benchmark.MNISTData.html#pycalib.benchmark.MNISTData" title="pycalib.benchmark.MNISTData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MNISTData</span></code></a>(run_dir, data_dir, …[, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.benchmark.MNISTData.html#pycalib.benchmark.MNISTData" title="pycalib.benchmark.MNISTData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MNISTData</span></code></a>(run_dir, data_dir, …[, …])</p></td>
 <td><p>Model evaluation using the benchmark vision dataset MNIST.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">OrderedDict</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">OrderedDict</span></code></p></td>
 <td><p>Dictionary that remembers insertion order</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.benchmark.PCamData.html#pycalib.benchmark.PCamData" title="pycalib.benchmark.PCamData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PCamData</span></code></a>(run_dir, data_dir, …[, n_splits, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.benchmark.PCamData.html#pycalib.benchmark.PCamData" title="pycalib.benchmark.PCamData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PCamData</span></code></a>(run_dir, data_dir, …[, n_splits, …])</p></td>
 <td><p>Model evaluation using the PCam benchmark dataset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="automod/pycalib.benchmark.SyntheticBeta.html#pycalib.benchmark.SyntheticBeta" title="pycalib.benchmark.SyntheticBeta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SyntheticBeta</span></code></a>(run_dir, cal_methods, …[, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/pycalib.benchmark.SyntheticBeta.html#pycalib.benchmark.SyntheticBeta" title="pycalib.benchmark.SyntheticBeta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SyntheticBeta</span></code></a>(run_dir, cal_methods, …[, …])</p></td>
 <td><p>Model evaluation using synthetic data sampled from a Beta distribution.</p></td>
 </tr>
 </tbody>
