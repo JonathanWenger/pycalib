@@ -129,7 +129,7 @@ if __name__ == "__main__":
                 p_pred_nocal = nocal.predict_proba(Z_test)
                 p_pred_ts = ts.predict_proba(Z_test)
                 p_pred_gpc = gpc.predict_proba(Z_test)
-                reliability_diagram(y=y_test, p_pred=[p_pred_nocal, p_pred_ts, p_pred_gpc], n_bins=15,
+                pycalib.plotting.reliability_diagram(y=y_test, p_pred=[p_pred_nocal, p_pred_ts, p_pred_gpc], n_bins=15,
                                                      show_ece=False, show_legend=False,
                                                      title=["Uncal.", "Temp.", "GPcalib"],
                                                      model_name=None, plot_width=2.2 * 3 + .2, plot_height=2.2,
