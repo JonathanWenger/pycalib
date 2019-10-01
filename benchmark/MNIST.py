@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
     # Initialization
     run_dir = os.path.join(file, "calibration")
-    data_dir = os.path.join(file, "clf_output")
+    clf_output_dir = os.path.join(file, output_folder)
 
     # Classifiers
     classifier_names = list(clf_dict.keys())
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
 
     # Create benchmark object
-    mnist_benchmark = pycalib.benchmark.MNISTData(run_dir=run_dir, data_dir=data_dir,
+    mnist_benchmark = pycalib.benchmark.MNISTData(run_dir=run_dir, clf_output_dir=clf_output_dir,
                                                   classifier_names=classifier_names,
                                                   cal_methods=list(cal_methods.values()),
                                                   cal_method_names=list(cal_methods.keys()),

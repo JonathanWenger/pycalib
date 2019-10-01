@@ -130,6 +130,7 @@ def reliability_diagram(y, p_pred, filename, title="Reliability Diagram", n_bins
 
     # Save to file
     texfig.savefig(filename=filename, bbox_inches='tight', pad_inches=0)
+    plt.close()
 
 
 # def confidence_diagram(y, y_pred, p_pred, n_classes=None, file=None, plot=True, n_bins=20, color=None, **kwargs):

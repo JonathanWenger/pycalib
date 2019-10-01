@@ -51,8 +51,9 @@ if __name__ == "__main__":
     # Setup
     file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/pcam/"
     output_folder = "clf_output"
-    data_folder = "/data"
+    data_folder = "data"
     classify_images = False
+    clf_output_dir = os.path.join(file, "clf_output")
 
     if classify_images:
         for clf_name, clf in clf_dict.items():
@@ -91,7 +92,7 @@ if __name__ == "__main__":
 
 
     # Create benchmark object
-    pcam_benchmark = pycalib.benchmark.PCamData(run_dir=run_dir, data_dir=data_folder,
+    pcam_benchmark = pycalib.benchmark.PCamData(run_dir=run_dir, clf_output_dir=clf_output_dir,
                                                 classifier_names=classifier_names,
                                                 cal_methods=list(cal_methods.values()),
                                                 cal_method_names=list(cal_methods.keys()),

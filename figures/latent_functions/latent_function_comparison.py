@@ -6,6 +6,7 @@ if __name__ == "__main__":
     import pycalib.calibration_methods as calm
     import pycalib.benchmark as bm
     import pycalib.plotting
+    import matplotlib.pyplot as plt
     import pycalib.texfig as texfig
 
     # Seed
@@ -70,14 +71,14 @@ if __name__ == "__main__":
 
             # Benchmark data set
             if use_logits:
-                benchmark = bm.ImageNetData(run_dir=run_dir, data_dir=data_dir,
+                benchmark = bm.ImageNetData(run_dir=run_dir, clf_output_dir=data_dir,
                                             classifier_names=clf_names,
                                             cal_methods=[],
                                             cal_method_names=[],
                                             use_logits=use_logits, n_splits=10, test_size=10000,
                                             train_size=1000, random_state=random_state)
             else:
-                benchmark = pycalib.benchmark.MNISTData(run_dir=run_dir, data_dir=data_dir,
+                benchmark = pycalib.benchmark.MNISTData(run_dir=run_dir, clf_output_dir=data_dir,
                                                         classifier_names=clf_names,
                                                         cal_methods=[],
                                                         cal_method_names=[],
@@ -222,3 +223,4 @@ if __name__ == "__main__":
 
             # Save plot to file
             texfig.savefig(filename)
+            plt.close("all")

@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     # Seed and directories
     random_state = 1
-    data_dir = os.path.join(file, output_folder)
+    clf_output_dir = os.path.join(file, output_folder)
     run_dir = os.path.join(file, "calibration")
     n_classes = 100
     train_size = 1000
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     }
 
     # Create benchmark object
-    cifar_benchmark = pycalib.benchmark.CIFARData(run_dir=run_dir, data_dir=data_dir,
+    cifar_benchmark = pycalib.benchmark.CIFARData(run_dir=run_dir, clf_output_dir=clf_output_dir,
                                                   classifier_names=clf_names,
                                                   cal_methods=list(cal_methods_logits.values()),
                                                   cal_method_names=list(cal_methods_logits.keys()),
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     }
 
     # Create benchmark object
-    cifar_benchmark = pycalib.benchmark.CIFARData(run_dir=run_dir, data_dir=data_dir,
+    cifar_benchmark = pycalib.benchmark.CIFARData(run_dir=run_dir, clf_output_dir=clf_output_dir,
                                                   classifier_names=clf_names,
                                                   cal_methods=list(cal_methods.values()),
                                                   cal_method_names=list(cal_methods.keys()),

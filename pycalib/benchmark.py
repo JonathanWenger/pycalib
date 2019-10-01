@@ -606,7 +606,7 @@ class KITTIBinaryData(Benchmark):
     ----------
     run_dir : str
         Directory to run benchmarking in and save output and logs to.
-    data_dir : str
+    clf_output_dir : str
         Directory containing calibration data obtained from KITTI classification.
     classifier_names : list
         Names of classifiers to be calibrated. Classification results on KITTI must be contained in `data_dir`.
@@ -627,12 +627,12 @@ class KITTIBinaryData(Benchmark):
         by `np.random`.
     """
 
-    def __init__(self, run_dir, data_dir, classifier_names, cal_methods, cal_method_names,
+    def __init__(self, run_dir, clf_output_dir, classifier_names, cal_methods, cal_method_names,
                  n_splits=10, test_size=0.9, train_size=None, random_state=None):
         # Create cross validator which splits the data randomly based on test or train size
         cv = ms.ShuffleSplit(n_splits=n_splits, test_size=test_size, train_size=train_size,
                              random_state=sklearn.utils.check_random_state(random_state))
-        self.data_dir = data_dir
+        self.clf_output_dir = clf_output_dir
         self.classifier_names = classifier_names
 
         # Run super class constructor
@@ -704,8 +704,8 @@ class KITTIBinaryData(Benchmark):
         """
         # Load logits and classification results from file
         for clf_name in self.classifier_names:
-            X = np.loadtxt(os.path.join(self.data_dir, 'p_pred_' + clf_name + '.csv'), dtype=float, delimiter=',')
-            y = np.loadtxt(os.path.join(self.data_dir, 'y_y_pred_' + clf_name + '.csv'),
+            X = np.loadtxt(os.path.join(self.clf_output_dir, 'p_pred_' + clf_name + '.csv'), dtype=float, delimiter=',')
+            y = np.loadtxt(os.path.join(self.clf_output_dir, 'y_y_pred_' + clf_name + '.csv'),
                            dtype=int, delimiter=',')[:, 0]
 
             # Calibration and test size
@@ -739,7 +739,7 @@ class PCamData(Benchmark):
     ----------
     run_dir : str
         Directory to run benchmarking in and save output and logs to.
-    data_dir : str
+    clf_output_dir : str
         Directory containing calibration data obtained from PCam classification.
     classifier_names : list
         Names of classifiers to be calibrated. Classification results on PCam must be contained in `data_dir`.
@@ -760,12 +760,12 @@ class PCamData(Benchmark):
         by `np.random`.
     """
 
-    def __init__(self, run_dir, data_dir, classifier_names, cal_methods, cal_method_names,
+    def __init__(self, run_dir, clf_output_dir, classifier_names, cal_methods, cal_method_names,
                  n_splits=10, test_size=0.9, train_size=None, random_state=None):
         # Create cross validator which splits the data randomly based on test or train size
         cv = ms.ShuffleSplit(n_splits=n_splits, test_size=test_size, train_size=train_size,
                              random_state=sklearn.utils.check_random_state(random_state))
-        self.data_dir = data_dir
+        self.clf_output_dir = clf_output_dir
         self.classifier_names = classifier_names
 
         # Run super class constructor
@@ -841,8 +841,8 @@ class PCamData(Benchmark):
         """
         # Load logits and classification results from file
         for clf_name in self.classifier_names:
-            X = np.loadtxt(os.path.join(self.data_dir, 'p_pred_' + clf_name + '.csv'), dtype=float, delimiter=',')
-            y = np.loadtxt(os.path.join(self.data_dir, 'y_y_pred_' + clf_name + '.csv'),
+            X = np.loadtxt(os.path.join(self.clf_output_dir, 'p_pred_' + clf_name + '.csv'), dtype=float, delimiter=',')
+            y = np.loadtxt(os.path.join(self.clf_output_dir, 'y_y_pred_' + clf_name + '.csv'),
                            dtype=int, delimiter=',')[:, 0]
 
             # Calibration and test size
@@ -876,7 +876,7 @@ class MNISTData(Benchmark):
     ----------
     run_dir : str
         Directory to run benchmarking in and save output and logs to.
-    data_dir : str
+    clf_output_dir : str
         Directory containing calibration data obtained from MNIST classification.
     classifier_names : list
         Names of classifiers to be calibrated. Classification results on MNIST must be contained in `data_dir`.
@@ -897,12 +897,12 @@ class MNISTData(Benchmark):
         by `np.random`.
     """
 
-    def __init__(self, run_dir, data_dir, classifier_names, cal_methods, cal_method_names,
+    def __init__(self, run_dir, clf_output_dir, classifier_names, cal_methods, cal_method_names,
                  n_splits=10, test_size=0.9, train_size=None, random_state=None):
         # Create cross validator which splits the data randomly based on test or train size
         cv = ms.ShuffleSplit(n_splits=n_splits, test_size=test_size, train_size=train_size,
                              random_state=sklearn.utils.check_random_state(random_state))
-        self.data_dir = data_dir
+        self.clf_output_dir = clf_output_dir
         self.classifier_names = classifier_names
 
         # Run super class constructor
@@ -960,8 +960,8 @@ class MNISTData(Benchmark):
         """
         # Load classification results from file
         for clf_name in self.classifier_names:
-            X = np.loadtxt(os.path.join(self.data_dir, 'p_pred_' + clf_name + '.csv'), dtype=float, delimiter=',')
-            y = np.loadtxt(os.path.join(self.data_dir, 'y_y_pred_' + clf_name + '.csv'),
+            X = np.loadtxt(os.path.join(self.clf_output_dir, 'p_pred_' + clf_name + '.csv'), dtype=float, delimiter=',')
+            y = np.loadtxt(os.path.join(self.clf_output_dir, 'y_y_pred_' + clf_name + '.csv'),
                            dtype=int, delimiter=',')[:, 0]
 
             # Calibration and test size
@@ -996,7 +996,7 @@ class CIFARData(Benchmark):
     ----------
     run_dir : str
         Directory to run benchmarking in and save output and logs to.
-    data_dir : str
+    clf_output_dir : str
         Directory containing calibration data obtained from CIFAR-100 classification.
     classifier_names : list
         Names of classifiers to be calibrated. Classification results on CIFAR-100 must be contained in `data_dir`.
@@ -1023,12 +1023,12 @@ class CIFARData(Benchmark):
     .. [1] https://github.com/bearpaw/pytorch-classification
     """
 
-    def __init__(self, run_dir, data_dir, classifier_names, cal_methods, cal_method_names, use_logits=False,
+    def __init__(self, run_dir, clf_output_dir, classifier_names, cal_methods, cal_method_names, use_logits=False,
                  n_splits=10, test_size=9000, train_size=None, random_state=None):
         # Create cross validator which splits the data randomly based on test or train size
         cv = ms.ShuffleSplit(n_splits=n_splits, test_size=test_size, train_size=train_size,
                              random_state=sklearn.utils.check_random_state(random_state))
-        self.data_dir = data_dir
+        self.clf_output_dir = clf_output_dir
         self.classifier_names = classifier_names
         self.use_logits = use_logits
 
@@ -1208,8 +1208,8 @@ class CIFARData(Benchmark):
         """
         # Load logits and classification results from file
         for clf_name in self.classifier_names:
-            logits = np.loadtxt(os.path.join(self.data_dir, 'logits_' + clf_name + '.csv'), dtype=float, delimiter=',')
-            y = np.loadtxt(os.path.join(self.data_dir, 'y_y_pred_' + clf_name + '.csv'),
+            logits = np.loadtxt(os.path.join(self.clf_output_dir, 'logits_' + clf_name + '.csv'), dtype=float, delimiter=',')
+            y = np.loadtxt(os.path.join(self.clf_output_dir, 'y_y_pred_' + clf_name + '.csv'),
                            dtype=int, delimiter=',')[:, 0]
 
             # Compute probabilities
@@ -1252,7 +1252,7 @@ class ImageNetData(Benchmark):
     ----------
     run_dir : str
         Directory to run benchmarking in and save output and logs to.
-    data_dir : str
+    clf_output_dir : str
         Directory containing calibration data obtained from ImageNet classification.
     classifier_names : list
         Names of classifiers to be calibrated. Classification results on ImageNet must be contained in `data_dir`.
@@ -1280,12 +1280,12 @@ class ImageNetData(Benchmark):
     .. [1] https://github.com/Cadene/pretrained-models.pytorch
     """
 
-    def __init__(self, run_dir, data_dir, classifier_names, cal_methods, cal_method_names, use_logits=False,
+    def __init__(self, run_dir, clf_output_dir, classifier_names, cal_methods, cal_method_names, use_logits=False,
                  n_splits=10, test_size=0.9, train_size=None, random_state=None):
         # Create cross validator which splits the data randomly based on test or train size
         cv = ms.ShuffleSplit(n_splits=n_splits, test_size=test_size, train_size=train_size,
                              random_state=sklearn.utils.check_random_state(random_state))
-        self.data_dir = data_dir
+        self.clf_output_dir = clf_output_dir
         self.classifier_names = classifier_names
         self.use_logits = use_logits
 
@@ -1383,8 +1383,8 @@ class ImageNetData(Benchmark):
         """
         # Load logits and classification results from file
         for clf_name in self.classifier_names:
-            logits = np.loadtxt(os.path.join(self.data_dir, 'logits_' + clf_name + '.csv'), dtype=float, delimiter=',')
-            y = np.loadtxt(os.path.join(self.data_dir, 'y_y_pred_' + clf_name + '.csv'),
+            logits = np.loadtxt(os.path.join(self.clf_output_dir, 'logits_' + clf_name + '.csv'), dtype=float, delimiter=',')
+            y = np.loadtxt(os.path.join(self.clf_output_dir, 'y_y_pred_' + clf_name + '.csv'),
                            dtype=int, delimiter=',')[:, 0]
 
             # Compute probabilities

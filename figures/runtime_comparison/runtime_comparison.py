@@ -32,7 +32,7 @@ if __name__ == "__main__":
         'se_resnext101_32x4d'
     ]
 
-    imagenet_benchmark_data = bm.ImageNetData(run_dir=run_dir, data_dir=data_dir,
+    imagenet_benchmark_data = bm.ImageNetData(run_dir=run_dir, clf_output_dir=data_dir,
                                               classifier_names=clf_names,
                                               cal_methods=[],
                                               cal_method_names=[],
@@ -98,7 +98,7 @@ if __name__ == "__main__":
     output_folder = "clf_output"
     data_dir = os.path.join(file, output_folder)
     run_dir = os.path.join(file, "calibration")
-    mnist_benchmark_data = pycalib.benchmark.MNISTData(run_dir=run_dir, data_dir=data_dir,
+    mnist_benchmark_data = pycalib.benchmark.MNISTData(run_dir=run_dir, clf_output_dir=data_dir,
                                                        classifier_names=classifier_names,
                                                        cal_methods=list([]),
                                                        cal_method_names=list([]),

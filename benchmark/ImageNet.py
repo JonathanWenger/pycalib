@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     # Setup
     file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/imagenet/"
-    val_folder = "/data/val"
+    val_folder = "data/val"
     output_folder = "clf_output"
     classify_images = False
     n_classes = 1000
@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
     # Seed and directories
     random_state = 1
-    data_dir = os.path.join(file, output_folder)
+    clf_output_dir = os.path.join(file, "clf_output")
     run_dir = os.path.join(file, "calibration")
 
     # Calibration methods for logits
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     }
 
     # Create benchmark object
-    imnet_benchmark = pycalib.benchmark.ImageNetData(run_dir=run_dir, data_dir=data_dir,
+    imnet_benchmark = pycalib.benchmark.ImageNetData(run_dir=run_dir, clf_output_dir=clf_output_dir,
                                                      classifier_names=clf_names,
                                                      cal_methods=list(cal_methods_logits.values()),
                                                      cal_method_names=list(cal_methods_logits.keys()),
@@ -87,7 +87,7 @@ if __name__ == "__main__":
     }
 
     # Create benchmark object
-    imnet_benchmark = pycalib.benchmark.ImageNetData(run_dir=run_dir, data_dir=data_dir,
+    imnet_benchmark = pycalib.benchmark.ImageNetData(run_dir=run_dir, clf_output_dir=data_dir,
                                                      classifier_names=clf_names,
                                                      cal_methods=list(cal_methods.values()),
                                                      cal_method_names=list(cal_methods.keys()),
