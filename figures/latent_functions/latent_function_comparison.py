@@ -18,15 +18,15 @@ if __name__ == "__main__":
             clf_name_dict = {
                 'alexnet': "AlexNet",
                 'vgg19': "VGG19",
-                'resnet50': "ResNet50",
-                'resnet152': "ResNet152",
-                'densenet121': "DenseNet121",
-                'densenet201': "DenseNet201",
+                'resnet50': "ResNet-50",
+                'resnet152': "ResNet-152",
+                'densenet121': "DenseNet-121",
+                'densenet201': "DenseNet-201",
                 'inceptionv4': "InceptionV4",
-                'se_resnext50_32x4d': "SE-ResNeXt50",
-                'se_resnext101_32x4d': "SE-ResNeXt101",
+                'se_resnext50_32x4d': "SE-ResNeXt-50",
+                'se_resnext101_32x4d': "SE-ResNeXt-101",
                 'polynet': "PolyNet",
-                'senet154': "SENet154",
+                'senet154': "SENet-154",
                 'pnasnet5large': "PNASNet-5-Large",
                 'nasnetalarge': "NASNet-A-Large"
             }
