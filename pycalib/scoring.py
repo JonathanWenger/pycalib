@@ -398,17 +398,17 @@ class MultiScorer:
             self.results[key].append(metric(y, p_pred, **kwargs))
         self.results["cal_time"].append(cal_time)
 
-        # # Generate plots
-        # for key in self.plots.keys():
-        #     # Evaluate plots and save
-        #     plot_fun, kwargs = self.plots[key]
-        #     # Plots in CV runs
-        #     # TODO: make this safe for no filename argument
-        #     kwargs_copy = copy.deepcopy(kwargs)
-        #     kwargs_copy["filename"] = kwargs.get("filename", "") + "_" + str(self.n_folds)
-        #     plot_fun(y=y, p_pred=p_pred, **kwargs_copy)
-        #     # TODO: plot latent function
-        # plt.close("all")
+        # Generate plots
+        for key in self.plots.keys():
+            # Evaluate plots and save
+            plot_fun, kwargs = self.plots[key]
+            # Plots in CV runs
+            # TODO: make this safe for no filename argument
+            kwargs_copy = copy.deepcopy(kwargs)
+            kwargs_copy["filename"] = kwargs.get("filename", "") + "_" + str(self.n_folds)
+            plot_fun(y=y, p_pred=p_pred, **kwargs_copy)
+            # TODO: plot latent function
+        plt.close("all")
 
         # Set evaluation to true
         self._called = True

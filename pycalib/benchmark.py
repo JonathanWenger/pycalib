@@ -876,6 +876,8 @@ class MNISTData(Benchmark):
     ----------
     run_dir : str
         Directory to run benchmarking in and save output and logs to.
+    data_dir : str
+        Directory containing calibration data obtained from MNIST classification.
     classifier_names : list
         Names of classifiers to be calibrated. Classification results on MNIST must be contained in `data_dir`.
     cal_methods : list
@@ -895,11 +897,12 @@ class MNISTData(Benchmark):
         by `np.random`.
     """
 
-    def __init__(self, run_dir, classifier_names, cal_methods, cal_method_names,
+    def __init__(self, run_dir, data_dir, classifier_names, cal_methods, cal_method_names,
                  n_splits=10, test_size=0.9, train_size=None, random_state=None):
         # Create cross validator which splits the data randomly based on test or train size
         cv = ms.ShuffleSplit(n_splits=n_splits, test_size=test_size, train_size=train_size,
                              random_state=sklearn.utils.check_random_state(random_state))
+        self.data_dir = data_dir
         self.classifier_names = classifier_names
 
         # Run super class constructor

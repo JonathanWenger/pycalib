@@ -16,7 +16,7 @@ if __name__ == "__main__":
         # 'resnet-110',
         'resnext-8x64d',
         'resnext-16x64d',
-        'densenet-bc-l190-k40'
+        'densenet-bc-l190-k40',
         'WRN-28-10-drop'
     ]
 

@@ -5,6 +5,7 @@ if __name__ == "__main__":
     import pycalib.scoring
     import pycalib.calibration_methods as calm
     import pycalib.benchmark as bm
+    import pycalib.plotting
     import pycalib.texfig as texfig
 
     # Seed
@@ -93,7 +94,7 @@ if __name__ == "__main__":
                 file_suffix = "_logits"
             filename = folder_path + clf_comb_name + file_suffix
 
-            fig, axes = texfig.subplots(width=7/3 * len(clf_names), ratio=.25 * 3 / len(clf_names),
+            fig, axes = texfig.subplots(width=7 / 3 * len(clf_names), ratio=.25 * 3 / len(clf_names),
                                         nrows=1, ncols=len(clf_names), w_pad=1)
 
             # Iterate through data sets, calibrate and plot latent functions
@@ -121,6 +122,19 @@ if __name__ == "__main__":
                 # ECE_nocal = pycalib.scoring.expected_calibration_error(y_test, nocal.predict_proba(Z_test), n_bins=100)
                 # ECE_ts = pycalib.scoring.expected_calibration_error(y_test, ts.predict_proba(Z_test), n_bins=100)
                 # ECE_gpc = pycalib.scoring.expected_calibration_error(y_test, gpc.predict_proba(Z_test), n_bins=100)
+
+                # Plot reliability diagrams
+                if not os.path.exists(os.path.join(folder_path, "reliability_diagrams")):
+                    os.makedirs(os.path.join(folder_path, "reliability_diagrams"))
+                p_pred_nocal = nocal.predict_proba(Z_test)
+                p_pred_ts = ts.predict_proba(Z_test)
+                p_pred_gpc = gpc.predict_proba(Z_test)
+                pycalib.plotting.reliability_diagram(y=y_test, p_pred=[p_pred_nocal, p_pred_ts, p_pred_gpc], n_bins=15,
+                                                     show_ece=False, show_legend=False,
+                                                     title=["Uncal.", "Temp.", "GPcalib"],
+                                                     model_name=None, plot_width=1.8 * 3 + .2, plot_height=2,
+                                                     filename=os.path.join(folder_path, "reliability_diagrams",
+                                                                           info_dict['Model'] + "_reldiagram"))
 
                 # Get latent function values
                 z = np.linspace(start=3 * 10 ** -2, stop=1, num=1000)
@@ -177,7 +191,7 @@ if __name__ == "__main__":
 
                     # Compute y-intercepts by minimizing L2 distance between latent functions and identity
                     y_intercept_ts = np.mean(np.log(z) - ts_latent)
-                    #y_intercept_gpcalib = np.mean(gpc_latent - np.log(z))
+                    # y_intercept_gpcalib = np.mean(gpc_latent - np.log(z))
 
                     # Plot shifted latent function: temperature scaling
                     ts_latent_shifted = ts_latent + y_intercept_ts
