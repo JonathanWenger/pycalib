@@ -552,17 +552,17 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">metric</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">p_pred</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;cal_time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cal_time</span><span class="p">)</span>
 
-        <span class="c1"># # Generate plots</span>
-        <span class="c1"># for key in self.plots.keys():</span>
-        <span class="c1">#     # Evaluate plots and save</span>
-        <span class="c1">#     plot_fun, kwargs = self.plots[key]</span>
-        <span class="c1">#     # Plots in CV runs</span>
-        <span class="c1">#     # TODO: make this safe for no filename argument</span>
-        <span class="c1">#     kwargs_copy = copy.deepcopy(kwargs)</span>
-        <span class="c1">#     kwargs_copy[&quot;filename&quot;] = kwargs.get(&quot;filename&quot;, &quot;&quot;) + &quot;_&quot; + str(self.n_folds)</span>
-        <span class="c1">#     plot_fun(y=y, p_pred=p_pred, **kwargs_copy)</span>
-        <span class="c1">#     # TODO: plot latent function</span>
-        <span class="c1"># plt.close(&quot;all&quot;)</span>
+        <span class="c1"># Generate plots</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="c1"># Evaluate plots and save</span>
+            <span class="n">plot_fun</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plots</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="c1"># Plots in CV runs</span>
+            <span class="c1"># TODO: make this safe for no filename argument</span>
+            <span class="n">kwargs_copy</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">kwargs_copy</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;filename&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_folds</span><span class="p">)</span>
+            <span class="n">plot_fun</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">p_pred</span><span class="o">=</span><span class="n">p_pred</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs_copy</span><span class="p">)</span>
+            <span class="c1"># TODO: plot latent function</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
 
         <span class="c1"># Set evaluation to true</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_called</span> <span class="o">=</span> <span class="kc">True</span>
