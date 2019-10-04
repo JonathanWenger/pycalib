@@ -81,7 +81,7 @@ if __name__ == "__main__":
     # Calibration
     gpc = calm.GPCalibration(n_classes=len(np.unique(y)), random_state=random_state)
     gpc.fit(mlp.predict_proba(X_cal), y_cal)
-    gpc.plot_latent(filename=os.path.join(dir_path, "gpc_latent"), z=np.linspace(start=10**-3, stop=1, num=1000))
+    gpc.plot_latent(filename=os.path.join(dir_path, "gpc_latent"), z=np.linspace(start=10 ** -3, stop=1, num=1000))
     p_calib = gpc.predict_proba(p_pred_test)
     ece_calib = meas.expected_calibration_error(y=y_test, p_pred=p_calib)
     acc_calib = meas.accuracy(y=y_test, p_pred=p_calib)
@@ -116,9 +116,11 @@ if __name__ == "__main__":
         axes[i].set_xlabel("epoch")
         axes[i].set_ylabel(lab)
 
-    for j, metric_calib in enumerate([1-acc_calib, nll_calib, ece_calib]):
-        axes[j].axhline(y=metric_calib, xmin=0, xmax=1, color="red", linestyle="--", label="test + calibr.")
-        axes[j].plot(metrics_test["iter"][-1], metrics_calib)
+    for j, metric_calib in enumerate(
+            [1 - metrics_calib["acc_calib"], metrics_calib["NLL_calib"], metrics_calib["ECE_calib"]]):
+        axes[j].axhline(y=metric_calib, xmin=0, xmax=1, color="red", linestyle="--")
+        axes[j].plot(metrics_test["iter"][-1], metric_calib, label="test + calibr.",
+                     color="red", marker='o', markersize=6)
     axes[2].legend(prop={'size': 9}, labelspacing=0.2)
     texfig.savefig(os.path.join(dir_path, "ece_logloss"))
     plt.close('all')

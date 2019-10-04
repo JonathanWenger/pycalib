@@ -299,6 +299,7 @@ class TemperatureScaling(CalibrationMethod):
 
         # Save plot to file
         pycalib.texfig.savefig(filename)
+        plt.close()
 
 
 class PlattScaling(CalibrationMethod):
@@ -1163,6 +1164,7 @@ class GPCalibration(CalibrationMethod):
 
         # Save plot to file
         pycalib.texfig.savefig(filename)
+        plt.close()
 
 
 class OneVsRestCalibrator(sklearn.base.BaseEstimator):
