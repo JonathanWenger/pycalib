@@ -57,6 +57,10 @@ The repository includes 64-dimensional features extracted from KITTI sequences c
 
 A script will automatically download the MNIST dataset if an experiment is run on it.
 
+#### CIFAR-100
+
+When the CIFAR-100 experiment is run, there is an option to automatically download the dataset.
+
 #### ImageNet 2012
 
 Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be 
