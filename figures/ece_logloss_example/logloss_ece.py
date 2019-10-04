@@ -16,7 +16,7 @@ import pycalib.calibration_methods as calm
 if __name__ == "__main__":
     # Seed and Initialization
     random_state = 42
-    dir_path = "/home/j/Documents/university/theses/master's thesis/code/pycalib/pycalib/figures/ece_logloss_example"
+    dir_path = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/figures/ece_logloss_example"
     reliability_path = os.path.join(dir_path, "reliability_diagrams")
     os.makedirs(dir_path, exist_ok=True)
     os.makedirs(reliability_path, exist_ok=True)
@@ -81,7 +81,7 @@ if __name__ == "__main__":
     # Calibration
     gpc = calm.GPCalibration(n_classes=len(np.unique(y)), random_state=random_state)
     gpc.fit(mlp.predict_proba(X_cal), y_cal)
-    gpc.plot_latent(filename=os.path.join(dir_path, "gpc_latent"), xlim=[10**-3, 1])
+    gpc.plot_latent(filename=os.path.join(dir_path, "gpc_latent"), z=np.linspace(start=10**-3, stop=1, num=1000))
     p_calib = gpc.predict_proba(p_pred_test)
     ece_calib = meas.expected_calibration_error(y=y_test, p_pred=p_calib)
     acc_calib = meas.accuracy(y=y_test, p_pred=p_calib)
@@ -91,10 +91,14 @@ if __name__ == "__main__":
     # dir_path = os.path.dirname(os.path.realpath(__file__))
     json.dump(metrics_train, open(os.path.join(dir_path, "metrics_train.txt"), 'w'))
     json.dump(metrics_test, open(os.path.join(dir_path, "metrics_test.txt"), 'w'))
+    json.dump({"ECE_calib": ece_calib,
+               "acc_calib": acc_calib,
+               "NLL_calib": nll_calib}, open(os.path.join(dir_path, "metrics_calib.txt"), 'w'))
 
     # Load data from file
     metrics_train = json.load(open(os.path.join(dir_path, "metrics_train.txt")))
     metrics_test = json.load(open(os.path.join(dir_path, "metrics_test.txt")))
+    metrics_calib = json.load(open(os.path.join(dir_path, "metrics_calib.txt")))
 
     # Plot accuracy, ECE, logloss
     var_list = [("err", "error"),
@@ -114,6 +118,7 @@ if __name__ == "__main__":
 
     for j, metric_calib in enumerate([1-acc_calib, nll_calib, ece_calib]):
         axes[j].axhline(y=metric_calib, xmin=0, xmax=1, color="red", linestyle="--", label="test + calibr.")
+        axes[j].plot(metrics_test["iter"][-1], metrics_calib)
     axes[2].legend(prop={'size': 9}, labelspacing=0.2)
     texfig.savefig(os.path.join(dir_path, "ece_logloss"))
     plt.close('all')
