@@ -172,15 +172,25 @@ This package provides different calibration methods for multi-class problems and
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>You can install this python package using the command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install git+https://github.com/JonathanWenger/pycalib</span>
+<p>You can install this Python 3 package using <cite>pip</cite> (or <cite>pip3</cite>):
+.. code-block:: console</p>
+<blockquote>
+<div><p>pip install setuptools numpy scipy scikit-learn cython
+pip install git+https://github.com/JonathanWenger/pycalib.git</p>
+</div></blockquote>
+<p>Note that some dependencies need to be installed separately since our package depends on
+[<code class="docutils literal notranslate"><span class="pre">scikit-garden</span></code>](<a class="reference external" href="https://github.com/scikit-garden/scikit-garden">https://github.com/scikit-garden/scikit-garden</a>). Alternatively you can clone this repository with</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install setuptools numpy scipy scikit-learn cython</span>
+<span class="go">git clone https://github.com/JonathanWenger/pycalib</span>
+<span class="go">cd pycalib</span>
+<span class="go">python setup.py install</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">pycalib</span></code> was developed under Python 3.6. Any required Python packages should be automatically installed when using
-<code class="docutils literal notranslate"><span class="pre">pip</span></code>. If not using pip check the file <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> at <a class="reference external" href="https://github.com/JonathanWenger/pycalib">https://github.com/JonathanWenger/pycalib</a>.</p>
+<code class="docutils literal notranslate"><span class="pre">pip</span></code>. If not using pip, check the file <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> at <a class="reference external" href="https://github.com/JonathanWenger/pycalib">https://github.com/JonathanWenger/pycalib</a>.</p>
 </div>
 </div>
 
