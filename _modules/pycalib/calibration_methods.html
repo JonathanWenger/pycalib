@@ -452,7 +452,8 @@
         <span class="n">fig</span><span class="o">.</span><span class="n">align_labels</span><span class="p">()</span>
 
         <span class="c1"># Save plot to file</span>
-        <span class="n">pycalib</span><span class="o">.</span><span class="n">texfig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div></div>
+        <span class="n">pycalib</span><span class="o">.</span><span class="n">texfig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
 
 
 <div class="viewcode-block" id="PlattScaling"><a class="viewcode-back" href="../../automod/pycalib.calibration_methods.PlattScaling.html#pycalib.calibration_methods.PlattScaling">[docs]</a><span class="k">class</span> <span class="nc">PlattScaling</span><span class="p">(</span><span class="n">CalibrationMethod</span><span class="p">):</span>
@@ -1316,7 +1317,8 @@
             <span class="n">axes</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;confidence $</span><span class="se">\\</span><span class="s2">bm</span><span class="si">{z}</span><span class="s2">_k$&quot;</span><span class="p">)</span>
 
         <span class="c1"># Save plot to file</span>
-        <span class="n">pycalib</span><span class="o">.</span><span class="n">texfig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div></div>
+        <span class="n">pycalib</span><span class="o">.</span><span class="n">texfig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
 
 
 <div class="viewcode-block" id="OneVsRestCalibrator"><a class="viewcode-back" href="../../automod/pycalib.calibration_methods.OneVsRestCalibrator.html#pycalib.calibration_methods.OneVsRestCalibrator">[docs]</a><span class="k">class</span> <span class="nc">OneVsRestCalibrator</span><span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">BaseEstimator</span><span class="p">):</span>
