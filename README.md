@@ -27,13 +27,17 @@ them suitable as a calibration tool, such as the ability to incorporate prior kn
 </p>
 
 ## <a name="usage">Installation and Documentation</a>
-The code was developed in Python 3.6 under macOS Mojave (10.14). You can clone this repository with
+The code was developed in Python 3.6 under macOS Mojave (10.14). You can install this Python 3 package using `pip` (or `pip3`):
 ```
-git clone https://github.com/JonathanWenger/pycalib
-```
-or install the Python package directly via `pip`:
-```
+pip install setuptools numpy scipy scikit-learn cython
 pip install git+https://github.com/JonathanWenger/pycalib.git
+```
+Note that some dependencies need to be installed separately since our package depends on [`scikit-garden`](https://github.com/scikit-garden/scikit-garden). Alternatively you can clone this repository with
+```
+pip install setuptools numpy scipy scikit-learn cython
+git clone https://github.com/JonathanWenger/pycalib
+cd pycalib
+python setup.py install
 ```
 For tips on getting started and how to use this package please refer to the [documentation](https://jonathanwenger.github.io/pycalib/).
 
