@@ -372,7 +372,7 @@ class ActiveLearningExperiment(object):
             width = 3.25 * n_subplots
         if height is None:
             height = 1.7
-        fig, axes = texfig.subplots(ncols=n_subplots, width=width, ratio=height * 1.0 / width, w_pad=1)
+        fig, axes = texfig.subplots(nrows=n_subplots, width=width, ratio=height * 1.0 / width, w_pad=1, sharex=True)
         cmap = get_cmap("tab10")  # https://matplotlib.org/gallery/color/colormap_reference.html
 
         # Allow for one metric only
@@ -422,11 +422,12 @@ class ActiveLearningExperiment(object):
                                               mean[:, 0] + 1.96 * np.sqrt(var[:, 0]), alpha=0.3, linewidth=0.0)
 
             # Set labels and legend
-            axes[ax_ind].set_xlabel("queried samples")
+            if ax_ind + 1 == len(axes):
+                axes[ax_ind].set_xlabel("queried samples")
             axes[ax_ind].set_ylabel(metric_name)
 
         axes[ax_ind].legend(prop={'size': 9}, labelspacing=0.2)
 
         # Save plot to file
-        texfig.savefig(os.path.join(file))
+        texfig.savefig(os.path.join(file), bbox_inches='tight', pad_inches=0)
         plt.close("all")

@@ -11,6 +11,7 @@ if __name__ == "__main__":
 
     # Seed
     random_state = 1
+    plot_hist = True
 
     for use_logits in [True, False]:
 
@@ -107,6 +108,7 @@ if __name__ == "__main__":
                 y_cal = y[cal_ind]
                 Z_test = Z[test_ind, :]
                 y_test = y[test_ind]
+                hist_data = Z_cal.flatten()
 
                 # Calibrate
                 nocal = calm.NoCalibration(logits=use_logits)
@@ -145,8 +147,11 @@ if __name__ == "__main__":
                 gpc_latent, gpc_latent_var = gpc.latent(z)
 
                 if use_logits:
+
+                    # Compute factor for histogram height
                     xlims = np.array([np.min(z), np.max(z)])
                     ylims = xlims
+                    factor = 1.5*ylims[1] / len(hist_data)
 
                     # Plot latent function of no calibration
                     axes[i_clf].plot(xlims, ylims, '-', color='tab:gray', zorder=0,
@@ -186,7 +191,7 @@ if __name__ == "__main__":
 
                 else:
                     # Plot latent function corresponding to no calibration
-                    axes[i_clf].plot(z, np.log(z), '-', color='tab:gray', zorder=0,
+                    axes[i_clf].plot(z, np.log(z), '-', color='tab:gray', zorder=1,
                                      # label="Uncal: $\\textup{ECE}_1" + "={:.4f}$".format(ECE_nocal))
                                      label="Uncal.")
 
@@ -199,7 +204,7 @@ if __name__ == "__main__":
                     axes[i_clf].plot(z, ts_latent_shifted,
                                      '-', color='tab:orange',
                                      # label="Temp: $\\textup{ECE}_1" + "={:.4f}$".format(ECE_ts),
-                                     label="Temp.", zorder=2)
+                                     label="Temp.", zorder=3)
 
                     # Plot GPcalib latent function
                     axes[i_clf].plot(z, gpc_latent,
@@ -209,17 +214,26 @@ if __name__ == "__main__":
                                      zorder=3)
                     axes[i_clf].fill_between(z, gpc_latent - 2 * np.sqrt(gpc_latent_var),
                                              gpc_latent + 2 * np.sqrt(gpc_latent_var),
-                                             color='tab:blue', alpha=.2, zorder=1)
+                                             color='tab:blue', alpha=.2, zorder=2)
+
+                    # Compute factor for histogram height
+                    ylims = axes[i_clf].get_ylim()
+                    factor = 1.5*ylims[1] / len(hist_data)
 
                     # Plot annotation
                     axes[i_clf].set_xlabel("probability score")
+
+                # Plot histogram
+                if plot_hist:
+                    axes[i_clf].hist(hist_data, weights=factor * np.ones_like(hist_data),
+                                     bottom=ylims[0], zorder=0, color="gray", alpha=0.4)
 
                 # Plot annotation and legend
                 axes[i_clf].set_title(clf_name_dict[clf_names[i_clf]])
                 if i_clf == 0:
                     axes[i_clf].set_ylabel("latent function")
                 if i_clf + 1 == len(clf_names):
-                    axes[i_clf].legend(loc="lower right", prop={'size': 9}, labelspacing=0.2)
+                    axes[i_clf].legend(prop={'size': 9}, labelspacing=0.2)  # loc="lower right"
 
             # Save plot to file
             texfig.savefig(filename)

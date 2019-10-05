@@ -11,7 +11,7 @@ if __name__ == "__main__":
     random_state = 1
 
     # Load KITTI data
-    data_dir = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/kitti"
+    data_dir = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/kitti/data"
     files = ['kitti_all_train.data',
              'kitti_all_train.labels',
              'kitti_all_test.data',
@@ -62,4 +62,5 @@ if __name__ == "__main__":
                  }
 
     for filename, metrics_list in plot_dict.items():
-        al_exp.plot(file=os.path.join(dir, filename), metrics_list=metrics_list, scatter=False, confidence=True)
+        al_exp.plot(file=os.path.join(dir, filename), metrics_list=metrics_list, scatter=False, confidence=True,
+                    width=3.25, height=2*1.5)
