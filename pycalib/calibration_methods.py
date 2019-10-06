@@ -909,7 +909,7 @@ class GPCalibration(CalibrationMethod):
 
     References
     ----------
-    .. [1] Wenger, J., Kjellström H. & Triebel, R. Non-Parametric Probabilistic Calibration for Classification
+    .. [1] Wenger, J., Kjellström H. & Triebel, R. Non-Parametric Calibration for Classification
     .. [2] Hensman, J., Matthews, A. G. d. G. & Ghahramani, Z. Scalable Variational Gaussian Process Classification in
            Proceedings of AISTATS (2015)
     .. [3] Matthews, A. G. d. G., van der Wilk, M., et al. GPflow: A Gaussian process library using TensorFlow. Journal
