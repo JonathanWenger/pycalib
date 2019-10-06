@@ -51,7 +51,7 @@ Due to the size of the data, only a script replicating the experiments is provid
 #### KITTI
 
 The repository includes 64-dimensional features extracted from KITTI sequences compressed in a zip file 
-`data/kitti_features.zip`.
+`datasets/kitti/kitti_data.zip`.
 
 #### MNIST
 
