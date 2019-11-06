@@ -183,15 +183,15 @@
 <dl class="class">
 <dt id="pycalib.benchmark.Benchmark">
 <em class="property">class </em><code class="sig-prename descclassname">pycalib.benchmark.</code><code class="sig-name descname">Benchmark</code><span class="sig-paren">(</span><em class="sig-param">run_dir</em>, <em class="sig-param">cal_methods</em>, <em class="sig-param">cal_method_names</em>, <em class="sig-param">cross_validator</em>, <em class="sig-param">random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/benchmark.html#Benchmark"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.benchmark.Benchmark" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A benchmarking class for calibration methods.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>run_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Directory to run benchmarking in and save output and logs to.</p></li>
-<li><p><strong>cal_methods</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Calibration methods to benchmark.</p></li>
-<li><p><strong>cal_method_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Names of calibration methods.</p></li>
-<li><p><strong>cross_validator</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>cross-validation generator</em><em> or </em><em>an iterable</em><em>, </em><em>optional</em>) – Determines the cross-validation splitting strategy. Possible inputs for cv are:
+<li><p><strong>run_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Directory to run benchmarking in and save output and logs to.</p></li>
+<li><p><strong>cal_methods</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Calibration methods to benchmark.</p></li>
+<li><p><strong>cal_method_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Names of calibration methods.</p></li>
+<li><p><strong>cross_validator</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>cross-validation generator</em><em> or </em><em>an iterable</em><em>, </em><em>optional</em>) – Determines the cross-validation splitting strategy. Possible inputs for cv are:
 - None, to use the default 3-fold cross validation,
 - integer, to specify the number of folds in a <cite>(Stratified)KFold</cite>,
 - <cite>CV splitter</cite>,
@@ -199,7 +199,7 @@
 For integer/None inputs, if the estimator is a classifier and <code class="docutils literal notranslate"><span class="pre">y</span></code> is
 either binary or multi-class, <code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code> is used. In all
 other cases, <code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code> is used.</p></li>
-<li><p><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>RandomState instance</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a><em>, </em><em>optional</em><em> (</em><em>default=None</em><em>)</em>) – If int, random_state is the seed used by the random number generator;
+<li><p><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>RandomState instance</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em>, </em><em>optional</em><em> (</em><em>default=None</em><em>)</em>) – If int, random_state is the seed used by the random number generator;
 If RandomState instance, random_state is the random number generator;
 If None, the random number generator is the RandomState instance used
 by <cite>np.random</cite>.</p></li>
@@ -246,13 +246,13 @@ by <cite>np.random</cite>.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>out_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File location for the output plot.</p></li>
-<li><p><strong>results_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The location of the csv files containing experiment results.</p></li>
-<li><p><strong>score</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Type of score to plot.</p></li>
-<li><p><strong>methods</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – Calibration methods to plot.</p></li>
-<li><p><strong>classifiers</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em> or </em><em>&quot;all&quot;</em>) – List of classifiers for which to show results.</p></li>
-<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default=5.</em>) – Width of the plot.</p></li>
-<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default=2.5</em>) – Height of the plot.</p></li>
+<li><p><strong>out_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File location for the output plot.</p></li>
+<li><p><strong>results_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The location of the csv files containing experiment results.</p></li>
+<li><p><strong>score</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Type of score to plot.</p></li>
+<li><p><strong>methods</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Calibration methods to plot.</p></li>
+<li><p><strong>classifiers</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> or </em><em>&quot;all&quot;</em>) – List of classifiers for which to show results.</p></li>
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>default=5.</em>) – Width of the plot.</p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>default=2.5</em>) – Height of the plot.</p></li>
 </ul>
 </dd>
 </dl>
@@ -264,7 +264,7 @@ by <cite>np.random</cite>.</p></li>
 <dd><p>Train all models, evaluate on test data and save the results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>n_jobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a><em>, </em><em>optional</em><em> (</em><em>default=None</em><em>)</em>) – The number of CPUs to use to do the computation.
+<dd class="field-odd"><p><strong>n_jobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em>, </em><em>optional</em><em> (</em><em>default=None</em><em>)</em>) – The number of CPUs to use to do the computation.
 <code class="docutils literal notranslate"><span class="pre">None</span></code> means 1 unless in a <code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code> context.
 <code class="docutils literal notranslate"><span class="pre">-1</span></code> means using all processors.</p>
 </dd>
