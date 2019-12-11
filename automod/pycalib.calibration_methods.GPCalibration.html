@@ -234,7 +234,7 @@ of Machine Learning Research 18, 1–6 (Apr. 2017)</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.fit" title="pycalib.calibration_methods.GPCalibration.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(X, y)</p></td>
-<td><p>Fit the calibration method based on the given uncalibrated class probabilities X and ground truth labels y.</p></td>
+<td><p>Fit the calibration method based on the given uncalibrated class probabilities or logits X and ground truth labels y.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.get_params" title="pycalib.calibration_methods.GPCalibration.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>([deep])</p></td>
 <td><p>Get parameters for this estimator.</p></td>
@@ -260,11 +260,12 @@ of Machine Learning Research 18, 1–6 (Apr. 2017)</p>
 <dl class="method">
 <dt id="pycalib.calibration_methods.GPCalibration.fit">
 <code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fit the calibration method based on the given uncalibrated class probabilities X and ground truth labels y.</p>
+<dd><p>Fit the calibration method based on the given uncalibrated class probabilities or logits X and ground truth
+labels y.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_classes</em><em>)</em>) – Training data, i.e. predicted probabilities of the base classifier on the calibration set.</p></li>
+<li><p><strong>X</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_classes</em><em>)</em>) – Training data, i.e. predicted probabilities or logits of the base classifier on the calibration set.</p></li>
 <li><p><strong>y</strong> (<em>array-like</em><em>, </em><em>shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em>) – Target classes.</p></li>
 </ul>
 </dd>
@@ -283,7 +284,7 @@ of Machine Learning Research 18, 1–6 (Apr. 2017)</p>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>deep</strong> (<em>boolean</em><em>, </em><em>optional</em>) – If True, will return the parameters for this estimator and
+<dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -374,11 +375,14 @@ Note, if <cite>self.inference_mean_approximation==True</cite>, then the logical 
 <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s possible to update each
 component of a nested object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Estimator parameters.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>self</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>self</strong> – Estimator instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)">object</a></p>
 </dd>
 </dl>
 </dd></dl>

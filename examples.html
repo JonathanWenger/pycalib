@@ -167,10 +167,10 @@ classifier, which is not calibrated.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This example shows how to use the calibration methods provided by pycalib.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">sklearn</span>
-<span class="kn">import</span> <span class="nn">pycalib.benchmark</span> <span class="kn">as</span> <span class="nn">bm</span>
-<span class="kn">import</span> <span class="nn">pycalib.calibration_methods</span> <span class="kn">as</span> <span class="nn">calm</span>
+<span class="kn">import</span> <span class="nn">pycalib.benchmark</span> <span class="k">as</span> <span class="nn">bm</span>
+<span class="kn">import</span> <span class="nn">pycalib.calibration_methods</span> <span class="k">as</span> <span class="nn">calm</span>
 
 <span class="c1"># Generate synthetic data</span>
 <span class="n">seed</span> <span class="o">=</span> <span class="mi">0</span>
@@ -202,10 +202,10 @@ calibrate its posterior uncertainty using a multi-class calibration method.</p>
 <span class="sd">This example demonstrates how to calibrate a random forest trained on the MNIST benchmark dataset using pycalib.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Package imports</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">model_selection</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-<span class="kn">import</span> <span class="nn">pycalib.calibration_methods</span> <span class="kn">as</span> <span class="nn">calm</span>
+<span class="kn">import</span> <span class="nn">pycalib.calibration_methods</span> <span class="k">as</span> <span class="nn">calm</span>
 
 <span class="c1"># Seed and data size</span>
 <span class="n">seed</span> <span class="o">=</span> <span class="mi">0</span>
@@ -213,7 +213,7 @@ calibrate its posterior uncertainty using a multi-class calibration method.</p>
 <span class="n">n_calib</span> <span class="o">=</span> <span class="mi">1000</span>
 
 <span class="c1"># Download MNIST data</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_openml</span><span class="p">(</span><span class="s1">&#39;mnist_784&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">return_X_y</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_openml</span><span class="p">(</span><span class="s1">&#39;mnist_784&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">X</span> <span class="o">/</span> <span class="mf">255.</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
 

@@ -168,11 +168,11 @@
 <span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">import</span> <span class="nn">sklearn.multiclass</span>
 <span class="kn">import</span> <span class="nn">sklearn.utils</span>
-<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="k">import</span> <span class="n">clone</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">LabelBinarizer</span>
-<span class="kn">from</span> <span class="nn">sklearn.utils.validation</span> <span class="k">import</span> <span class="n">check_is_fitted</span>
-<span class="kn">from</span> <span class="nn">sklearn.utils._joblib</span> <span class="k">import</span> <span class="n">Parallel</span>
-<span class="kn">from</span> <span class="nn">sklearn.utils._joblib</span> <span class="k">import</span> <span class="n">delayed</span>
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">clone</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelBinarizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils.validation</span> <span class="kn">import</span> <span class="n">check_is_fitted</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils._joblib</span> <span class="kn">import</span> <span class="n">Parallel</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils._joblib</span> <span class="kn">import</span> <span class="n">delayed</span>
 
 <span class="c1"># Calibration models</span>
 <span class="kn">import</span> <span class="nn">sklearn.isotonic</span>
@@ -181,14 +181,14 @@
 
 <span class="c1"># Gaussian Processes and TensorFlow</span>
 <span class="kn">import</span> <span class="nn">gpflow</span>
-<span class="kn">from</span> <span class="nn">pycalib</span> <span class="k">import</span> <span class="n">gp_classes</span>
+<span class="kn">from</span> <span class="nn">pycalib</span> <span class="kn">import</span> <span class="n">gp_classes</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
 <span class="c1"># Turn off tensorflow deprecation warnings</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">tensorflow.python.util</span> <span class="k">import</span> <span class="n">module_wrapper</span> <span class="k">as</span> <span class="n">deprecation</span>
+    <span class="kn">from</span> <span class="nn">tensorflow.python.util</span> <span class="kn">import</span> <span class="n">module_wrapper</span> <span class="k">as</span> <span class="n">deprecation</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">tensorflow.python.util</span> <span class="k">import</span> <span class="n">deprecation_wrapper</span> <span class="k">as</span> <span class="n">deprecation</span>
+    <span class="kn">from</span> <span class="nn">tensorflow.python.util</span> <span class="kn">import</span> <span class="n">deprecation_wrapper</span> <span class="k">as</span> <span class="n">deprecation</span>
 <span class="n">deprecation</span><span class="o">.</span><span class="n">_PER_MODULE_WARNING_LIMIT</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="c1"># Plotting</span>
@@ -207,7 +207,7 @@
 <span class="sd">    predicted posterior probability.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
 <div class="viewcode-block" id="CalibrationMethod.fit"><a class="viewcode-back" href="../../automod/pycalib.calibration_methods.CalibrationMethod.html#pycalib.calibration_methods.CalibrationMethod.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -297,7 +297,7 @@
 <span class="sd">        Are the inputs for calibration logits (e.g. from a neural network)?</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logits</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logits</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logits</span> <span class="o">=</span> <span class="n">logits</span>
 
 <div class="viewcode-block" id="NoCalibration.fit"><a class="viewcode-back" href="../../automod/pycalib.calibration_methods.NoCalibration.html#pycalib.calibration_methods.NoCalibration.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -314,9 +314,9 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Probability calibration using temperature scaling</span>
 
-<span class="sd">    Temperature scaling [1]_ is a one parameter multi-class scaling method. Output confidence scores are calibrated, meaning</span>
-<span class="sd">    they match empirical frequencies of the associated class prediction. Temperature scaling does not change the class</span>
-<span class="sd">    predictions of the underlying model.</span>
+<span class="sd">    Temperature scaling [1]_ is a one parameter multi-class scaling method. Output confidence scores are calibrated,</span>
+<span class="sd">    meaning they match empirical frequencies of the associated class prediction. Temperature scaling does not change the</span>
+<span class="sd">    class predictions of the underlying model.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -331,7 +331,7 @@
 <span class="sd">    .. [1] On calibration of modern neural networks, C. Guo, G. Pleiss, Y. Sun, K. Weinberger, ICML 2017</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">T_init</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">T_init</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">T_init</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Temperature not greater than 0.&quot;</span><span class="p">)</span>
@@ -340,12 +340,13 @@
 
 <div class="viewcode-block" id="TemperatureScaling.fit"><a class="viewcode-back" href="../../automod/pycalib.calibration_methods.TemperatureScaling.html#pycalib.calibration_methods.TemperatureScaling.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Fit the calibration method based on the given uncalibrated class probabilities X and ground truth labels y.</span>
+<span class="sd">        Fit the calibration method based on the given uncalibrated class probabilities or logits X and ground truth</span>
+<span class="sd">        labels y.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        X : array-like, shape (n_samples, n_classes)</span>
-<span class="sd">            Training data, i.e. predicted probabilities of the base classifier on the calibration set.</span>
+<span class="sd">            Training data, i.e. predicted probabilities or logits of the base classifier on the calibration set.</span>
 <span class="sd">        y : array-like, shape (n_samples,)</span>
 <span class="sd">            Target classes.</span>
 
@@ -483,7 +484,7 @@
 <span class="sd">           Machine learning 68, 267–276 (2007)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">regularization</span><span class="o">=</span><span class="mi">10</span> <span class="o">**</span> <span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">regularization</span><span class="o">=</span><span class="mi">10</span> <span class="o">**</span> <span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">regularization</span> <span class="o">=</span> <span class="n">regularization</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">check_random_state</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
@@ -570,7 +571,7 @@
 <span class="sd">           A. Niculescu-Mizil &amp; R. Caruana, ICML 2005</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_of_bounds</span><span class="o">=</span><span class="s2">&quot;clip&quot;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_of_bounds</span><span class="o">=</span><span class="s2">&quot;clip&quot;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_of_bounds</span> <span class="o">=</span> <span class="n">out_of_bounds</span>
 
@@ -655,7 +656,7 @@
 <span class="sd">           Intelligence and Statistics (AISTATS)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">&quot;abm&quot;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">&quot;abm&quot;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">params</span>
 
@@ -736,7 +737,7 @@
 <span class="sd">           classifiers in Proceedings of the 18th International Conference on Machine Learning (ICML, 2001), 609–616.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;equal_freq&#39;</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">input_range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;equal_freq&#39;</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">input_range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;equal_width&#39;</span><span class="p">,</span> <span class="s1">&#39;equal_freq&#39;</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
@@ -848,7 +849,7 @@
 <span class="sd">           in Proceedings of the Twenty-Ninth AAAI Conference on Artificial Intelligence, Austin, Texas, USA.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">input_range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">input_range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">C</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_range</span> <span class="o">=</span> <span class="n">input_range</span>
@@ -1070,7 +1071,7 @@
 <span class="sd">           of Machine Learning Research 18, 1–6 (Apr. 2017)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">n_classes</span><span class="p">,</span>
                  <span class="n">logits</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">mean_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1139,12 +1140,13 @@
 
 <div class="viewcode-block" id="GPCalibration.fit"><a class="viewcode-back" href="../../automod/pycalib.calibration_methods.GPCalibration.html#pycalib.calibration_methods.GPCalibration.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Fit the calibration method based on the given uncalibrated class probabilities X and ground truth labels y.</span>
+<span class="sd">        Fit the calibration method based on the given uncalibrated class probabilities or logits X and ground truth</span>
+<span class="sd">        labels y.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        X : array-like, shape (n_samples, n_classes)</span>
-<span class="sd">            Training data, i.e. predicted probabilities of the base classifier on the calibration set.</span>
+<span class="sd">            Training data, i.e. predicted probabilities or logits of the base classifier on the calibration set.</span>
 <span class="sd">        y : array-like, shape (n_samples,)</span>
 <span class="sd">            Target classes.</span>
 
@@ -1348,7 +1350,7 @@
 <span class="sd">        vice-versa.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calibrator</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calibrator</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">calibrator</span> <span class="o">=</span> <span class="n">calibrator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span>
 

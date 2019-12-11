@@ -159,22 +159,22 @@
 
 <span class="c1"># Turn off tensorflow deprecation warnings</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">tensorflow.python.util</span> <span class="k">import</span> <span class="n">module_wrapper</span> <span class="k">as</span> <span class="n">deprecation</span>
+    <span class="kn">from</span> <span class="nn">tensorflow.python.util</span> <span class="kn">import</span> <span class="n">module_wrapper</span> <span class="k">as</span> <span class="n">deprecation</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">tensorflow.python.util</span> <span class="k">import</span> <span class="n">deprecation_wrapper</span> <span class="k">as</span> <span class="n">deprecation</span>
+    <span class="kn">from</span> <span class="nn">tensorflow.python.util</span> <span class="kn">import</span> <span class="n">deprecation_wrapper</span> <span class="k">as</span> <span class="n">deprecation</span>
 <span class="n">deprecation</span><span class="o">.</span><span class="n">_PER_MODULE_WARNING_LIMIT</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="c1"># gpflow imports</span>
-<span class="kn">from</span> <span class="nn">gpflow.mean_functions</span> <span class="k">import</span> <span class="n">MeanFunction</span>
-<span class="kn">from</span> <span class="nn">gpflow</span> <span class="k">import</span> <span class="n">features</span>
-<span class="kn">from</span> <span class="nn">gpflow.conditionals</span> <span class="k">import</span> <span class="n">conditional</span><span class="p">,</span> <span class="n">Kuu</span>
-<span class="kn">from</span> <span class="nn">gpflow</span> <span class="k">import</span> <span class="n">settings</span>
-<span class="kn">from</span> <span class="nn">gpflow.decors</span> <span class="k">import</span> <span class="n">params_as_tensors</span>
-<span class="kn">from</span> <span class="nn">gpflow.quadrature</span> <span class="k">import</span> <span class="n">ndiag_mc</span>
-<span class="kn">from</span> <span class="nn">gpflow.params</span> <span class="k">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">DataHolder</span><span class="p">,</span> <span class="n">Parameterized</span>
-<span class="kn">from</span> <span class="nn">gpflow.models.model</span> <span class="k">import</span> <span class="n">GPModel</span>
-<span class="kn">from</span> <span class="nn">gpflow</span> <span class="k">import</span> <span class="n">transforms</span><span class="p">,</span> <span class="n">kullback_leiblers</span>
-<span class="kn">from</span> <span class="nn">gpflow.models.svgp</span> <span class="k">import</span> <span class="n">Minibatch</span>
+<span class="kn">from</span> <span class="nn">gpflow.mean_functions</span> <span class="kn">import</span> <span class="n">MeanFunction</span>
+<span class="kn">from</span> <span class="nn">gpflow</span> <span class="kn">import</span> <span class="n">features</span>
+<span class="kn">from</span> <span class="nn">gpflow.conditionals</span> <span class="kn">import</span> <span class="n">conditional</span><span class="p">,</span> <span class="n">Kuu</span>
+<span class="kn">from</span> <span class="nn">gpflow</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">gpflow.decors</span> <span class="kn">import</span> <span class="n">params_as_tensors</span>
+<span class="kn">from</span> <span class="nn">gpflow.quadrature</span> <span class="kn">import</span> <span class="n">ndiag_mc</span>
+<span class="kn">from</span> <span class="nn">gpflow.params</span> <span class="kn">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">DataHolder</span><span class="p">,</span> <span class="n">Parameterized</span>
+<span class="kn">from</span> <span class="nn">gpflow.models.model</span> <span class="kn">import</span> <span class="n">GPModel</span>
+<span class="kn">from</span> <span class="nn">gpflow</span> <span class="kn">import</span> <span class="n">transforms</span><span class="p">,</span> <span class="n">kullback_leiblers</span>
+<span class="kn">from</span> <span class="nn">gpflow.models.svgp</span> <span class="kn">import</span> <span class="n">Minibatch</span>
 
 
 <span class="c1">############################</span>
@@ -188,11 +188,11 @@
 <span class="sd">    :math:`y_i = \log(x_i)`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">MeanFunction</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Log.__call__"><a class="viewcode-back" href="../../automod/pycalib.gp_classes.Log.html#pycalib.gp_classes.Log.__call__">[docs]</a>    <span class="nd">@params_as_tensors</span>
-    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="c1"># Avoid -inf = log(0)</span>
         <span class="n">tiny</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span><span class="o">.</span><span class="n">tiny</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">clip_by_value</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clip_value_min</span><span class="o">=</span><span class="n">tiny</span><span class="p">,</span> <span class="n">clip_value_max</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
@@ -207,12 +207,12 @@
 <span class="sd">    :math:`y_i = \\alpha x_i`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">MeanFunction</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">float_type</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ScalarMult.__call__"><a class="viewcode-back" href="../../automod/pycalib.gp_classes.ScalarMult.html#pycalib.gp_classes.ScalarMult.__call__">[docs]</a>    <span class="nd">@params_as_tensors</span>
-    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="c1"># Scalar multiplication</span>
         <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span></div></div>
 
@@ -232,7 +232,7 @@
 <span class="sd">           Proceedings of AISTATS (2015)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">kern</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">,</span> <span class="n">feat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">kern</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">,</span> <span class="n">feat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">mean_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">num_latent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">q_diag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -428,12 +428,12 @@
 <span class="sd">    :math:`y_i = \\frac{\\exp(f_i)}{\\sum_{j=1}^k\\exp(f_j)}`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="n">num_classes</span>
 
 <div class="viewcode-block" id="SoftArgMax.__call__"><a class="viewcode-back" href="../../automod/pycalib.gp_classes.SoftArgMax.html#pycalib.gp_classes.SoftArgMax.__call__">[docs]</a>    <span class="nd">@params_as_tensors</span>
-    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">F</span><span class="p">)</span></div></div>
 
 
@@ -442,7 +442,7 @@
 <span class="c1">############################</span>
 
 <div class="viewcode-block" id="MultiCal"><a class="viewcode-back" href="../../automod/pycalib.gp_classes.MultiCal.html#pycalib.gp_classes.MultiCal">[docs]</a><span class="k">class</span> <span class="nc">MultiCal</span><span class="p">(</span><span class="n">gpflow</span><span class="o">.</span><span class="n">likelihoods</span><span class="o">.</span><span class="n">Likelihood</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">invlink</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_monte_carlo_points</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">invlink</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_monte_carlo_points</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A likelihood that performs multiclass calibration using the softargmax link function and a single latent</span>
 <span class="sd">        process.</span>

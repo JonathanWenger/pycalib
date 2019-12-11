@@ -163,14 +163,14 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">scipy.special</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="k">import</span> <span class="n">get_cmap</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="kn">import</span> <span class="n">get_cmap</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 
 <span class="c1"># scikit-learn imports</span>
 <span class="kn">import</span> <span class="nn">sklearn.utils</span>
 <span class="kn">import</span> <span class="nn">sklearn.model_selection</span> <span class="k">as</span> <span class="nn">ms</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="k">import</span> <span class="n">fetch_openml</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
 
 <span class="c1"># pytorch imports</span>
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -215,7 +215,7 @@
 <span class="sd">        by `np.random`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span> <span class="n">cross_validator</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span> <span class="n">cross_validator</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># Create directory</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">run_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">run_dir</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -480,7 +480,7 @@
 <span class="sd">        by `np.random`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
                  <span class="n">beta_params</span><span class="p">,</span> <span class="n">miscal_functions</span><span class="p">,</span> <span class="n">miscal_function_names</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">marginal_probs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
@@ -781,7 +781,7 @@
 <span class="sd">        by `np.random`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">clf_output_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">clf_output_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
                  <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># Create cross validator which splits the data randomly based on test or train size</span>
         <span class="n">cv</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
@@ -914,7 +914,7 @@
 <span class="sd">        by `np.random`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">clf_output_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">clf_output_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
                  <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># Create cross validator which splits the data randomly based on test or train size</span>
         <span class="n">cv</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
@@ -1051,7 +1051,7 @@
 <span class="sd">        by `np.random`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">clf_output_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">clf_output_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span>
                  <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># Create cross validator which splits the data randomly based on test or train size</span>
         <span class="n">cv</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
@@ -1177,7 +1177,7 @@
 <span class="sd">    .. [1] https://github.com/bearpaw/pytorch-classification</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">clf_output_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span> <span class="n">use_logits</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">clf_output_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span> <span class="n">use_logits</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">9000</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># Create cross validator which splits the data randomly based on test or train size</span>
         <span class="n">cv</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
@@ -1434,7 +1434,7 @@
 <span class="sd">    .. [1] https://github.com/Cadene/pretrained-models.pytorch</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">clf_output_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span> <span class="n">use_logits</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">,</span> <span class="n">clf_output_dir</span><span class="p">,</span> <span class="n">classifier_names</span><span class="p">,</span> <span class="n">cal_methods</span><span class="p">,</span> <span class="n">cal_method_names</span><span class="p">,</span> <span class="n">use_logits</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># Create cross validator which splits the data randomly based on test or train size</span>
         <span class="n">cv</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
