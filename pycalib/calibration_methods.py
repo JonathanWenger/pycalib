@@ -160,9 +160,9 @@ class TemperatureScaling(CalibrationMethod):
     """
     Probability calibration using temperature scaling
 
-    Temperature scaling [1]_ is a one parameter multi-class scaling method. Output confidence scores are calibrated, meaning
-    they match empirical frequencies of the associated class prediction. Temperature scaling does not change the class
-    predictions of the underlying model.
+    Temperature scaling [1]_ is a one parameter multi-class scaling method. Output confidence scores are calibrated,
+    meaning they match empirical frequencies of the associated class prediction. Temperature scaling does not change the
+    class predictions of the underlying model.
 
     Parameters
     ----------
@@ -186,12 +186,13 @@ class TemperatureScaling(CalibrationMethod):
 
     def fit(self, X, y):
         """
-        Fit the calibration method based on the given uncalibrated class probabilities X and ground truth labels y.
+        Fit the calibration method based on the given uncalibrated class probabilities or logits X and ground truth
+        labels y.
 
         Parameters
         ----------
         X : array-like, shape (n_samples, n_classes)
-            Training data, i.e. predicted probabilities of the base classifier on the calibration set.
+            Training data, i.e. predicted probabilities or logits of the base classifier on the calibration set.
         y : array-like, shape (n_samples,)
             Target classes.
 
@@ -985,12 +986,13 @@ class GPCalibration(CalibrationMethod):
 
     def fit(self, X, y):
         """
-        Fit the calibration method based on the given uncalibrated class probabilities X and ground truth labels y.
+        Fit the calibration method based on the given uncalibrated class probabilities or logits X and ground truth
+        labels y.
 
         Parameters
         ----------
         X : array-like, shape (n_samples, n_classes)
-            Training data, i.e. predicted probabilities of the base classifier on the calibration set.
+            Training data, i.e. predicted probabilities or logits of the base classifier on the calibration set.
         y : array-like, shape (n_samples,)
             Target classes.
 

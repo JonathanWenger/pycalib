@@ -11,11 +11,11 @@ if __name__ == "__main__":
 
     # Seed
     random_state = 1
-    plot_hist = True
+    plot_hist = False
 
-    for use_logits in [True, False]:
+    for dataset in ["CIFAR100"]: #"MNIST", "CIFAR100", "ImageNet"]:
 
-        if use_logits:
+        if dataset == "ImageNet":
             # Classifier display names
             clf_name_dict = {
                 'alexnet': "AlexNet",
@@ -43,8 +43,9 @@ if __name__ == "__main__":
             # Data set setup
             n_classes = 1000
             file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/imagenet/"
+            use_logits = True
 
-        else:
+        elif dataset == "MNIST":
             clf_name_dict = {
                 "AdaBoost": "AdaBoost",
                 "XGBoost": "XGBoost",
@@ -61,7 +62,29 @@ if __name__ == "__main__":
             # Data set setup
             n_classes = 10
             file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/mnist/"
+            use_logits = False
+
+        elif dataset == "CIFAR100":
+            clf_name_dict = {
+                'alexnet': "AlexNet",
+                'WRN-28-10-drop': "WideResNet",
+                'resnext-8x64d': "ResNeXt-29 (8x64)",
+                'resnext-16x64d': "ResNeXt-29 (16x64)",
+                'densenet-bc-l190-k40': "DenseNet-BC-190"
+            }
+
+            clf_combinations = {
+                "latent_maps_cifar1": ["alexnet", "WRN-28-10-drop", "densenet-bc-l190-k40"],
+                "latent_maps_cifar2": ["resnext-8x64d", "resnext-16x64d"]
+            }
+
+            # Data set setup
+            n_classes = 100
+            file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/cifar100/"
             output_folder = "clf_output"
+            use_logits = True
+        else:
+            raise NotImplementedError("Dataset chosen is not available.")
 
         # Filepaths
         output_folder = "clf_output"
@@ -71,24 +94,34 @@ if __name__ == "__main__":
         for clf_comb_name, clf_names in clf_combinations.items():
 
             # Benchmark data set
-            if use_logits:
+            if dataset == "ImageNet":
                 benchmark = bm.ImageNetData(run_dir=run_dir, clf_output_dir=data_dir,
                                             classifier_names=clf_names,
                                             cal_methods=[],
                                             cal_method_names=[],
                                             use_logits=use_logits, n_splits=10, test_size=10000,
                                             train_size=1000, random_state=random_state)
-            else:
+            elif dataset == "MNIST":
                 benchmark = pycalib.benchmark.MNISTData(run_dir=run_dir, clf_output_dir=data_dir,
                                                         classifier_names=clf_names,
                                                         cal_methods=[],
                                                         cal_method_names=[],
                                                         n_splits=10, test_size=9000,
                                                         train_size=1000, random_state=random_state)
+            elif dataset == "CIFAR100":
+                benchmark = pycalib.benchmark.CIFARData(run_dir=run_dir, clf_output_dir=data_dir,
+                                                        classifier_names=clf_names,
+                                                        cal_methods=[],
+                                                        cal_method_names=[],
+                                                        n_splits=10, test_size=9000,
+                                                        use_logits=use_logits,
+                                                        train_size=1000, random_state=random_state)
+            else:
+                raise NotImplementedError("Dataset choice not available.")
 
             # Filepath and plot axes
             folder_path = "/home/j/Documents/research/projects/nonparametric_calibration/" + \
-                          "pycalib/figures/latent_functions/plots/"
+                          "pycalib/figures/latent_functions/plots/latent_maps/"
             if not os.path.exists(folder_path):
                 os.makedirs(folder_path)
             file_suffix = "_probs"
@@ -151,7 +184,7 @@ if __name__ == "__main__":
                     # Compute factor for histogram height
                     xlims = np.array([np.min(z), np.max(z)])
                     ylims = xlims
-                    factor = 1.5*ylims[1] / len(hist_data)
+                    factor = 1.5 * ylims[1] / len(hist_data)
 
                     # Plot latent function of no calibration
                     axes[i_clf].plot(xlims, ylims, '-', color='tab:gray', zorder=0,
@@ -218,7 +251,7 @@ if __name__ == "__main__":
 
                     # Compute factor for histogram height
                     ylims = axes[i_clf].get_ylim()
-                    factor = 1.5*ylims[1] / len(hist_data)
+                    factor = 1.5 * ylims[1] / len(hist_data)
 
                     # Plot annotation
                     axes[i_clf].set_xlabel("probability score")
