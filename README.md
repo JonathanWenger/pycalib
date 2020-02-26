@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.com/JonathanWenger/pycalib.svg?branch=master)](https://travis-ci.com/JonathanWenger/pycalib)
 
+<p align="center">
+  <img src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="512"/>
+</p>
+
 
 This repository provides the implementation of our paper ["Non-Parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel) published as a conference paper at AISTATS 2020. All results presented in our work were produced with this code.
 
@@ -10,10 +14,6 @@ This repository provides the implementation of our paper ["Non-Parametric Calibr
 * [Datasets and Experiments](#data)
 * [Publication](#publication)
 * [License and Contact](#contact)
-
-<p align="center">
-  <img src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="512"/>
-</p>
 
 ## <a name="usage">Introduction</a>
 
@@ -72,16 +72,17 @@ If you use this repository in your research, please cite the following paper:
 
 _"Non-Parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1906.04933.pdf)), Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel
 
-	@InProceedings{wenger2019calibration,
-	  title         = {Non-Parametric Calibration for Classification},
-	  author        = {Jonathan Wenger and Hedvig Kjellstr{\"o}m and Rudolph Triebel},
-	  booktitle 	= {Proceedings of the 23rd International Conference on Artificial Intelligence and Statistics},
-	  year          = {2020},
-	  series		= {Proceedings of Machine Learning Research},
-	  keywords      = {calibration, non-parametric, gaussian processes, classification},
-	  url           = {https://github.com/JonathanWenger/pycalib}
-	}
-
+```bibtex
+@InProceedings{wenger2019calibration,
+  title         = {Non-Parametric Calibration for Classification},
+  author        = {Jonathan Wenger and Hedvig Kjellstr{\"o}m and Rudolph Triebel},
+  booktitle     = {Proceedings of the 23rd International Conference on Artificial Intelligence and Statistics (AISTATS)},
+  year          = {2020},
+  series        = {Proceedings of Machine Learning Research},
+  keywords      = {calibration, non-parametric, gaussian processes, classification},
+  url           = {https://github.com/JonathanWenger/pycalib}
+}
+```
 
 ## <a name="contact"> License and Contact</a>
 
