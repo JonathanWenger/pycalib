@@ -7,7 +7,7 @@
 </p>
 
 
-This repository provides the implementation of our paper ["Non-Parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel) published as a conference paper at AISTATS 2020. All results presented in our work were produced with this code.
+This repository provides an implementation of the paper ["Non-Parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel) published as a conference submission at AISTATS 2020. All results presented in our work were produced with this code.
 
 * [Introduction](#introduction)
 * [Installation and Documentation](#usage)
@@ -25,12 +25,12 @@ Many applications of classification methods not only require high accuracy but a
 
 ## <a name="usage">Installation and Documentation</a>
 The code was developed in Python 3.6 under Ubuntu (18.04). You can install this Python 3 package using `pip` (or `pip3`):
-```
+```bash
 pip install setuptools numpy scipy scikit-learn cython
 pip install git+https://github.com/JonathanWenger/pycalib.git
 ```
 Note that some dependencies need to be installed separately since some experiments rely on [`scikit-garden`](https://github.com/scikit-garden/scikit-garden). Alternatively you can clone this repository with
-```
+```bash
 pip install setuptools numpy scipy scikit-learn cython
 git clone https://github.com/JonathanWenger/pycalib
 cd pycalib
