@@ -113,7 +113,7 @@ def reliability_diagram(y, p_pred, filename, title="Reliability Diagram", n_bins
         # Plot histogram
         hist, ex = np.histogram(p_max, bins=bins)
         current_plot_axes[1].fill_between(bins, np.concatenate(([0], hist / np.sum(hist))), lw=0.0, step="pre")
-        current_plot_axes[1].set_xlabel('confidence $\\hat{z}$')
+        current_plot_axes[1].set_xlabel('confidence $\\hat{\\textnormal{z}}$')
         if i == 0:
             current_plot_axes[1].set_ylabel('sample frac.')
         current_plot_axes[1].set_xlim(xlim)

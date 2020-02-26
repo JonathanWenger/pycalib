@@ -42,7 +42,6 @@ if __name__ == "__main__":
                                          calibration_method=calib.GPCalibration(n_classes=n_classes, maxiter=1000,
                                                                                 n_inducing_points=10, verbose=False,
                                                                                 random_state=random_state),
-                                         # calibration_method=calib.TemperatureScaling(),
                                          calib_size=250,
                                          calib_points=[500, 2000, 3500],
                                          batch_size=250)
@@ -63,4 +62,4 @@ if __name__ == "__main__":
 
     for filename, metrics_list in plot_dict.items():
         al_exp.plot(file=os.path.join(dir, filename), metrics_list=metrics_list, scatter=False, confidence=True,
-                    width=3.25, height=2*1.5)
+                    width=3.25, height=2*1.25)

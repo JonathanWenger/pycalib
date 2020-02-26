@@ -13,7 +13,7 @@ if __name__ == "__main__":
     random_state = 1
     plot_hist = False
 
-    for dataset in ["CIFAR100"]: #"MNIST", "CIFAR100", "ImageNet"]:
+    for dataset in ["ImageNet"]: #"MNIST", "CIFAR100", "ImageNet"]:
 
         if dataset == "ImageNet":
             # Classifier display names

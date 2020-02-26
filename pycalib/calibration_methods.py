@@ -1150,19 +1150,19 @@ class GPCalibration(CalibrationMethod):
             fig, axes = pycalib.texfig.subplots(nrows=2, ncols=1, sharex=True, **kwargs)
             axes[0].plot(z, latent, label="GP mean")
             axes[0].fill_between(z, latent - 2 * np.sqrt(latent_var), latent + 2 * np.sqrt(latent_var), alpha=.2)
-            axes[0].set_ylabel("GP $g(\\bm{z}_k)$")
+            axes[0].set_ylabel("GP $g(\\textnormal{z}_k)$")
             axes[1].plot(Z.reshape((np.size(Z),)),
                          np.matlib.repmat(np.arange(0, self.n_classes), np.shape(Z)[0], 1).reshape((np.size(Z),)), 'kx',
                          markersize=5)
             axes[1].set_ylabel("class $k$")
-            axes[1].set_xlabel("confidence $\\bm{z}_k$")
+            axes[1].set_xlabel("confidence $\\textnormal{z}_k$")
             fig.align_labels()
         else:
             fig, axes = pycalib.texfig.subplots(nrows=1, ncols=1, sharex=True, **kwargs)
             axes.plot(z, latent, label="GP mean")
             axes.fill_between(z, latent - 2 * np.sqrt(latent_var), latent + 2 * np.sqrt(latent_var), alpha=.2)
-            axes.set_xlabel("GP $g(\\bm{z}_k)$")
-            axes.set_ylabel("confidence $\\bm{z}_k$")
+            axes.set_xlabel("GP $g(\\textnormal{z}_k)$")
+            axes.set_ylabel("confidence $\\textnormal{z}_k$")
 
         # Save plot to file
         pycalib.texfig.savefig(filename)

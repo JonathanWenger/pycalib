@@ -6,7 +6,7 @@
   <img src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="512"/>
 </p>
 
-This repository provides the implementation of our paper ["Non-Parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel). All results presented in our work were produced with this code.
+This repository provides the implementation of our paper ["Non-Parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel) published as a conference paper at AISTATS 2020. All results presented in our work were produced with this code.
 
 * [Introduction](#introduction)
 * [Installation and Documentation](#usage)
@@ -22,12 +22,15 @@ uncertainties do not match the  probability of classifying correctly. This repos
 model-agnostic approach to calibration, based on Gaussian processes, which have a number of desirable properties making 
 them suitable as a calibration tool, such as the ability to incorporate prior knowledge.
 
+
+Many applications of classification methods not only require high accuracy but also reliable estimation of predictive uncertainty. However, while many current classification frameworks, in particular deep neural networks, achieve high accuracy, they tend to incorrectly estimate uncertainty. We provide a method that adjusts the confidence estimates of a general classifier such that they approach the probability of classifying correctly. In contrast to existing approaches, our calibration method employs a non-parametric representation using a latent Gaussian process, and is specifically designed for multi-class classification. It can be applied to any classifier that outputs confidence estimates and is not limited to neural networks. In the experiments included in this repository, we show the universally strong performance of our method across different classifiers and benchmark data sets, in particular for state-of-the art neural network architectures.
+
 <p align="center">
   <img src="figures/gpcalib_illustration/diagram_calibration.png" alt="diagram_calibration" width="512"/>
 </p>
 
 ## <a name="usage">Installation and Documentation</a>
-The code was developed in Python 3.6 under macOS Mojave (10.14). You can install this Python 3 package using `pip` (or `pip3`):
+The code was developed in Python 3.6 under Ubuntu (18.04). You can install this Python 3 package using `pip` (or `pip3`):
 ```
 pip install setuptools numpy scipy scikit-learn cython
 pip install git+https://github.com/JonathanWenger/pycalib.git
@@ -75,20 +78,19 @@ If you use this repository in your research, please cite the following paper:
 
 _"Non-Parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1906.04933.pdf)), Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel
 
-	@Article{wenger2019nonparametric,
-	  author        = {Jonathan Wenger and Hedvig Kjellström and Rudolph Triebel},
+	@InProceedings{wenger2019calibration,
 	  title         = {Non-Parametric Calibration for Classification},
-	  journal       = {arXiv preprint arXiv:1906.04933},
-	  year          = {2019},
-	  archiveprefix = {arXiv},
-	  eprint        = {1906.04933},
+	  author        = {Jonathan Wenger and Hedvig Kjellstr{\"o}m and Rudolph Triebel},
+	  booktitle 	= {Proceedings of the 23rd International Conference on Artificial Intelligence and Statistics},
+	  year          = {2020},
+	  series 		= {Proceedings of Machine Learning Research},
 	  keywords      = {calibration, non-parametric, gaussian processes, classification},
 	  url           = {https://github.com/JonathanWenger/pycalib}
 	}
+
 
 ## <a name="contact"> License and Contact</a>
 
 This work is released under the [MIT License](LICENSE).
 
-Please submit an [issue](https://github.com/JonathanWenger/pycalib/issues/new) to report bugs or request changes. 
-Contact **Jonathan Wenger** [:envelope:](mailto:jonathan.wenger@uni-tuebingen.de) for any questions or comments. 
+Please submit an [issue](https://github.com/JonathanWenger/pycalib/issues/new) to report bugs or request changes.

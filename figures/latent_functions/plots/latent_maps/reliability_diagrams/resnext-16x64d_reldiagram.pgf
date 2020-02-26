@@ -7005,7 +7005,7 @@
 \definecolor{textcolor}{rgb}{0.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{textcolor}%
 \pgfsetfillcolor{textcolor}%
-\pgftext[x=1.226633in,y=0.123333in,,top]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont confidence \(\displaystyle \hat{z}\)}%
+\pgftext[x=1.226633in,y=0.123333in,,top]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont confidence \(\displaystyle \hat{\textnormal{z}}\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -7306,7 +7306,7 @@
 \definecolor{textcolor}{rgb}{0.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{textcolor}%
 \pgfsetfillcolor{textcolor}%
-\pgftext[x=3.307801in,y=0.123333in,,top]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont confidence \(\displaystyle \hat{z}\)}%
+\pgftext[x=3.307801in,y=0.123333in,,top]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont confidence \(\displaystyle \hat{\textnormal{z}}\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -7589,7 +7589,7 @@
 \definecolor{textcolor}{rgb}{0.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{textcolor}%
 \pgfsetfillcolor{textcolor}%
-\pgftext[x=5.388968in,y=0.123333in,,top]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont confidence \(\displaystyle \hat{z}\)}%
+\pgftext[x=5.388968in,y=0.123333in,,top]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont confidence \(\displaystyle \hat{\textnormal{z}}\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
