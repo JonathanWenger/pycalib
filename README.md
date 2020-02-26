@@ -2,9 +2,6 @@
 
 [![Build Status](https://travis-ci.com/JonathanWenger/pycalib.svg?branch=master)](https://travis-ci.com/JonathanWenger/pycalib)
 
-<p align="center">
-  <img src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="512"/>
-</p>
 
 This repository provides the implementation of our paper ["Non-Parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel) published as a conference paper at AISTATS 2020. All results presented in our work were produced with this code.
 
@@ -14,6 +11,9 @@ This repository provides the implementation of our paper ["Non-Parametric Calibr
 * [Publication](#publication)
 * [License and Contact](#contact)
 
+<p align="center">
+  <img src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="512"/>
+</p>
 
 ## <a name="usage">Introduction</a>
 
@@ -29,7 +29,7 @@ The code was developed in Python 3.6 under Ubuntu (18.04). You can install this 
 pip install setuptools numpy scipy scikit-learn cython
 pip install git+https://github.com/JonathanWenger/pycalib.git
 ```
-Note that some dependencies need to be installed separately since our package depends on [`scikit-garden`](https://github.com/scikit-garden/scikit-garden). Alternatively you can clone this repository with
+Note that some dependencies need to be installed separately since some experiments rely on [`scikit-garden`](https://github.com/scikit-garden/scikit-garden). Alternatively you can clone this repository with
 ```
 pip install setuptools numpy scipy scikit-learn cython
 git clone https://github.com/JonathanWenger/pycalib
@@ -52,7 +52,7 @@ The repository includes 64-dimensional features extracted from KITTI sequences c
 
 #### MNIST
 
-A script will automatically download the MNIST dataset if an experiment is run on it.
+A script will automatically download the MNIST dataset if needed.
 
 #### CIFAR-100
 
