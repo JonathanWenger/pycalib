@@ -17,12 +17,6 @@ This repository provides the implementation of our paper ["Non-Parametric Calibr
 
 ## <a name="usage">Introduction</a>
 
-Many popular classification models in computer vision and robotics are often not calibrated, meaning their predicted 
-uncertainties do not match the  probability of classifying correctly. This repository provides a new multi-class and 
-model-agnostic approach to calibration, based on Gaussian processes, which have a number of desirable properties making 
-them suitable as a calibration tool, such as the ability to incorporate prior knowledge.
-
-
 Many applications of classification methods not only require high accuracy but also reliable estimation of predictive uncertainty. However, while many current classification frameworks, in particular deep neural networks, achieve high accuracy, they tend to incorrectly estimate uncertainty. We provide a method that adjusts the confidence estimates of a general classifier such that they approach the probability of classifying correctly. In contrast to existing approaches, our calibration method employs a non-parametric representation using a latent Gaussian process, and is specifically designed for multi-class classification. It can be applied to any classifier that outputs confidence estimates and is not limited to neural networks. In the experiments included in this repository, we show the universally strong performance of our method across different classifiers and benchmark data sets, in particular for state-of-the art neural network architectures.
 
 <p align="center">
@@ -83,7 +77,7 @@ _"Non-Parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1
 	  author        = {Jonathan Wenger and Hedvig Kjellstr{\"o}m and Rudolph Triebel},
 	  booktitle 	= {Proceedings of the 23rd International Conference on Artificial Intelligence and Statistics},
 	  year          = {2020},
-	  series 		= {Proceedings of Machine Learning Research},
+	  series		= {Proceedings of Machine Learning Research},
 	  keywords      = {calibration, non-parametric, gaussian processes, classification},
 	  url           = {https://github.com/JonathanWenger/pycalib}
 	}
