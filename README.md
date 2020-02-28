@@ -32,7 +32,7 @@ The code was developed in Python 3.6 under Ubuntu (18.04). You can install this 
 pip install setuptools numpy scipy scikit-learn cython
 pip install git+https://github.com/JonathanWenger/pycalib.git
 ```
-Note that some dependencies need to be installed separately since some experiments rely on [`scikit-garden`](https://github.com/scikit-garden/scikit-garden). Alternatively you can clone this repository with
+Note that some dependencies need to be installed separately since a subset of experiments rely on [`scikit-garden`](https://github.com/scikit-garden/scikit-garden). Alternatively you can clone this repository with
 ```bash
 pip install setuptools numpy scipy scikit-learn cython
 git clone https://github.com/JonathanWenger/pycalib
@@ -50,27 +50,13 @@ We performed calibration experiments for binary and multi-class benchmark datase
 
 The experiments can be reproduced by using the scripts in `benchmark` and `figures`. The datasets we used and how to obtain them are listed below.
 
-#### PCam
-
-Due to the size of the data, only a script replicating the experiments is provided. The data can be downloaded from the 
+- **PCam**: Due to the size of the data, only a script replicating the experiments is provided. The data can be downloaded from the 
 [PCam repository](https://github.com/basveeling/pcam).
-
-#### KITTI
-
-The repository includes 64-dimensional features extracted from KITTI sequences compressed in a zip file 
+- **KITTI**: The repository includes 64-dimensional features extracted from KITTI sequences compressed in a zip file 
 `datasets/kitti/kitti_data.zip`.
-
-#### MNIST
-
-A script will automatically download the MNIST dataset if needed.
-
-#### CIFAR-100
-
-When the CIFAR-100 experiment is run, there is an option to automatically download the dataset.
-
-#### ImageNet 2012
-
-Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be 
+- **MNIST**: A script will automatically download the MNIST dataset if needed.
+- **CIFAR-100**: When the CIFAR-100 experiment is run, there is an option to automatically download the dataset.
+- **ImageNet 2012**: Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be 
 obtained from the [ImageNet website](http://www.image-net.org).
 
 
