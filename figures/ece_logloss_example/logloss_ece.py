@@ -10,7 +10,6 @@ import sklearn.metrics as metr
 
 import pycalib.texfig as texfig
 import pycalib.scoring as meas
-from pycalib.plotting import reliability_diagram
 import pycalib.calibration_methods as calm
 
 if __name__ == "__main__":
@@ -52,7 +51,6 @@ if __name__ == "__main__":
                         random_state=random_state)
 
     for iter in np.arange(start=1, stop=66, step=1):
-
         # Train
         mlp.fit(X_train, y_train)
 
@@ -74,9 +72,9 @@ if __name__ == "__main__":
         metrics_train["iter"].append(mlp.n_iter_)
 
         # Plot reliability diagram every 5 iterations
-        if np.mod(iter, 5) == 0:
-            reliability_diagram(y=y_test, p_pred=p_pred_test, show_ece=True,
-                                filename=os.path.join(reliability_path, "reliability_iter_" + str(iter)))
+        # if np.mod(iter, 5) == 0:
+        #     reliability_diagram(y=y_test, p_pred=p_pred_test, show_ece=True,
+        #                         filename=os.path.join(reliability_path, "reliability_iter_" + str(iter)))
 
     # Calibration
     gpc = calm.GPCalibration(n_classes=len(np.unique(y)), random_state=random_state)
@@ -101,16 +99,15 @@ if __name__ == "__main__":
     metrics_calib = json.load(open(os.path.join(dir_path, "metrics_calib.txt")))
 
     # Plot accuracy, ECE, logloss
-    var_list = [("err", "error"),
-                ("NLL", "NLL"),
-                ("ECE", "$\\textup{ECE}_1$")
-                ]
+    var_list = [
+        ("err", "error"),
+        ("NLL", "NLL"),
+        ("ECE", "$\\textup{ECE}_1$")
+    ]
 
     fig, axes = texfig.subplots(width=7, ratio=.2, nrows=1, ncols=3, w_pad=1)
 
     for i, (m, lab) in enumerate(var_list):
-        # axes[i].axvspan(15, 30, alpha=0.3, color='gray')
-        # axes[i].axvspan(40, 60, alpha=0.3, color='gray')
         axes[i].plot(metrics_train["iter"][2::], metrics_train[m][2::], label="train")
         axes[i].plot(metrics_test["iter"][2::], metrics_test[m][2::], label="test")
         axes[i].set_xlabel("epoch")

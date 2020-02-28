@@ -1,5 +1,8 @@
+"""Evaluate calibration in the online active learning setting when using uncertainty sampling"""
+
 import os
 import numpy as np
+
 # Install latest version of scikit-garden from github to enable partial_fit(X, y):
 # (https://github.com/scikit-garden/scikit-garden)
 from skgarden import MondrianForestClassifier
@@ -55,11 +58,12 @@ if __name__ == "__main__":
     al_exp.result_df = al_exp.load_result(file=dir + "/active_learning_results.csv")
 
     # Plot
-    plot_dict = {"AL_ECE_error": ["$\\text{ECE}_1$", "error"],
-                 "AL_ratio_over_underconfidence": ["$\\frac{o(f)}{u(f)}$", "$\\frac{\\text{accuracy}}{\\text{error}}$"],
-                 "AL_over_underconfidence": ["overconfidence", "underconfidence"]
-                 }
+    plot_dict = {
+        "AL_ECE_error": ["$\\text{ECE}_1$", "error"],
+        "AL_ratio_over_underconfidence": ["$\\frac{o(f)}{u(f)}$", "$\\frac{\\text{accuracy}}{\\text{error}}$"],
+        "AL_over_underconfidence": ["overconfidence", "underconfidence"]
+    }
 
     for filename, metrics_list in plot_dict.items():
         al_exp.plot(file=os.path.join(dir, filename), metrics_list=metrics_list, scatter=False, confidence=True,
-                    width=3.25, height=2*1.25)
+                    width=3.25, height=2 * 1.25)
