@@ -3,11 +3,11 @@
 [![Build Status](https://travis-ci.com/JonathanWenger/pycalib.svg?branch=master)](https://travis-ci.com/JonathanWenger/pycalib)
 
 <p align="center">
-  <img src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="512"/>
+  <img src="figures/ece_logloss_example/ece_logloss.png" alt="latent_process" width="512"/>
 </p>
 
 
-This repository provides an implementation of the paper ["Non-Parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel) published as a conference submission at AISTATS 2020. All results presented in our work were produced with this code.
+This repository provides an implementation of the paper ["Non-Parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel) published at AISTATS 2020. All results presented in our work were produced with this code.
 
 * [Introduction](#introduction)
 * [Installation and Documentation](#usage)
@@ -21,6 +21,7 @@ Many applications of classification methods not only require high accuracy but a
 
 <p align="center">
   <img src="figures/gpcalib_illustration/diagram_calibration.png" alt="diagram_calibration" width="512"/>
+  <img src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="512"/>
 </p>
 
 ## <a name="usage">Installation and Documentation</a>
@@ -38,7 +39,14 @@ python setup.py install
 ```
 For tips on getting started and how to use this package please refer to the [documentation](https://jonathanwenger.github.io/pycalib/).
 
-## <a name="data">Datasets and Experiments</a>
+## <a name="data">Experiments and Benchmark Datasets</a>
+
+We performed calibration experiments for binary and multi-class benchmark datasets from computer vision for a range of classifiers and calibration methods. We found that GP calibration performed particularly well on large-scale architectures and challenging data sets.
+<p align="center">
+  <img src="figures/gpcalib_illustration/calibration_experiment_results.png" alt="latent_process" width="512"/>
+</p>
+
+The experiments can be reproduced by using the scripts in `benchmark` and `figures`. The datasets we used and how to obtain them are listed below.
 
 #### PCam
 
@@ -62,9 +70,6 @@ When the CIFAR-100 experiment is run, there is an option to automatically downlo
 
 Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be 
 obtained from the [ImageNet website](http://www.image-net.org).
-
-The repository includes scripts that replicate the experiments found in the paper in the `benchmark` and `figures` 
-folders.
 
 
 ## <a name="publication">Publication</a>
