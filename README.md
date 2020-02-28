@@ -2,18 +2,20 @@
 
 [![Build Status](https://travis-ci.com/JonathanWenger/pycalib.svg?branch=master)](https://travis-ci.com/JonathanWenger/pycalib)
 
+This repository provides an implementation of the paper ["Non-Parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel) published at AISTATS 2020. All results presented in our work were produced with this code.
+
 <p align="center">
-  <img src="figures/ece_logloss_example/ece_logloss.png" alt="latent_process" width="800"/>
+  <img src="figures/ece_logloss_example/ece_logloss.png" alt="latent_process" width="700"/>
 </p>
 
 
-This repository provides an implementation of the paper ["Non-Parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel) published at AISTATS 2020. All results presented in our work were produced with this code.
-
+<!---
 * [Introduction](#introduction)
 * [Installation and Documentation](#usage)
 * [Datasets and Experiments](#data)
 * [Publication](#publication)
 * [License and Contact](#contact)
+--->
 
 ## <a name="usage">Introduction</a>
 
@@ -43,7 +45,7 @@ For tips on getting started and how to use this package please refer to the [doc
 
 We performed calibration experiments for binary and multi-class benchmark datasets from computer vision for a range of classifiers and calibration methods. We found that GP calibration performed particularly well on large-scale architectures and challenging data sets.
 <p align="center">
-  <img src="figures/gpcalib_illustration/calibration_experiment_results.png" alt="latent_process" width="800"/>
+  <img src="figures/gpcalib_illustration/calibration_experiment_results.png" alt="latent_process" width="700"/>
 </p>
 
 The experiments can be reproduced by using the scripts in `benchmark` and `figures`. The datasets we used and how to obtain them are listed below.
