@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.com/JonathanWenger/pycalib.svg?branch=master)](https://travis-ci.com/JonathanWenger/pycalib)
 
 <p align="center">
-  <img src="figures/ece_logloss_example/ece_logloss.png" alt="latent_process" width="512"/>
+  <img src="figures/ece_logloss_example/ece_logloss.png" alt="latent_process" width="800"/>
 </p>
 
 
@@ -20,8 +20,8 @@ This repository provides an implementation of the paper ["Non-Parametric Calibra
 Many applications of classification methods not only require high accuracy but also reliable estimation of predictive uncertainty. However, while many current classification frameworks, in particular deep neural networks, achieve high accuracy, they tend to incorrectly estimate uncertainty. We provide a method that adjusts the confidence estimates of a general classifier such that they approach the probability of classifying correctly. In contrast to existing approaches, our calibration method employs a non-parametric representation using a latent Gaussian process, and is specifically designed for multi-class classification. It can be applied to any classifier that outputs confidence estimates and is not limited to neural networks. In the experiments included in this repository, we show the universally strong performance of our method across different classifiers and benchmark data sets, in particular for state-of-the art neural network architectures.
 
 <p align="center">
-  <img src="figures/gpcalib_illustration/diagram_calibration.png" alt="diagram_calibration" width="512"/>
-  <img src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="512"/>
+  <img src="figures/gpcalib_illustration/diagram_calibration.png" alt="diagram_calibration" width="400"/>
+  <img src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="400"/>
 </p>
 
 ## <a name="usage">Installation and Documentation</a>
@@ -43,7 +43,7 @@ For tips on getting started and how to use this package please refer to the [doc
 
 We performed calibration experiments for binary and multi-class benchmark datasets from computer vision for a range of classifiers and calibration methods. We found that GP calibration performed particularly well on large-scale architectures and challenging data sets.
 <p align="center">
-  <img src="figures/gpcalib_illustration/calibration_experiment_results.png" alt="latent_process" width="512"/>
+  <img src="figures/gpcalib_illustration/calibration_experiment_results.png" alt="latent_process" width="800"/>
 </p>
 
 The experiments can be reproduced by using the scripts in `benchmark` and `figures`. The datasets we used and how to obtain them are listed below.
