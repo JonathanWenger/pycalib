@@ -50,13 +50,13 @@ We performed calibration experiments for binary and multi-class benchmark datase
 
 The experiments can be reproduced by using the scripts in `benchmark` and `figures`. The datasets we used and how to obtain them are listed below.
 
-- **PCam**: Due to the size of the data, only a script replicating the experiments is provided. The data can be downloaded from the 
+- **PCam**: Due to the size of the data, only a script replicating the experiments is provided. The data can be downloaded from the
 [PCam repository](https://github.com/basveeling/pcam).
-- **KITTI**: The repository includes 64-dimensional features extracted from KITTI sequences compressed in a zip file 
+- **KITTI**: The repository includes 64-dimensional features extracted from KITTI sequences compressed in a zip file
 `datasets/kitti/kitti_data.zip`.
 - **MNIST**: A script will automatically download the MNIST dataset if needed.
 - **CIFAR-100**: When the CIFAR-100 experiment is run, there is an option to automatically download the dataset.
-- **ImageNet 2012**: Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be 
+- **ImageNet 2012**: Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be
 obtained from the [ImageNet website](http://www.image-net.org).
 
 
@@ -66,7 +66,7 @@ If you use this repository in your research, please cite the following paper:
 _"Non-Parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1906.04933.pdf)), Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel
 
 ```bibtex
-@InProceedings{wenger2019calibration,
+@InProceedings{wenger2020calibration,
   title         = {Non-Parametric Calibration for Classification},
   author        = {Jonathan Wenger and Hedvig Kjellstr{\"o}m and Rudolph Triebel},
   booktitle     = {Proceedings of the 23rd International Conference on Artificial Intelligence and Statistics (AISTATS)},
