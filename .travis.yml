@@ -1,24 +1,31 @@
+# Travis configuration file
+# Read more under http://docs.travis-ci.com/user/build-configuration/
+
+# Set the build language to Python
 language: python
-dist: xenial
 python:
   - "3.6"
-# install dependencies
+# Install dependencies
 install:
-- pip install sphinx
-- pip install sphinx_rtd_theme
-- pip install sphinx_automodapi
-- pip install Cython
-- pip install -r requirements.txt
-script:             # build sphinx document
-- cd docs/
-- make html
-- cd -
-deploy:              # deploy to github page
-- provider: pages
-  skip_cleanup: true
-  local_dir: docs/_build/html
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
-  keep_history: true
-# run tests
+  - pip install sphinx
+  - pip install sphinx_rtd_theme
+  - pip install sphinx_automodapi
+  - pip install Cython
+  - pip install -r requirements.txt
+#   - pip install -e . # development installation of package, alternatively: python setup.py develop
+# Build sphinx documentation
+script:
+  - cd docs/
+  - make clean
+  - make html
+  - cd ..
+# Deploy documentation to github pages
+deploy:
+  - provider: pages
+    skip_cleanup: true
+    local_dir: docs/_build/html
+    github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+    keep_history: true
+# Run tests
 # script:
 #   - pytest

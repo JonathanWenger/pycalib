@@ -66,7 +66,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'pycalib'
-copyright = '2018, Jonathan Wenger'
+copyright = '2019, Jonathan Wenger'
 author = 'Jonathan Wenger'
 
 # The version info for the project you're documenting, acts as replacement for

@@ -9,7 +9,7 @@ with open('LICENSE') as f:
 setup(
     name='pycalib',
     version='0.1.0',
-    description='Non-parametric Calibration for Classification',
+    description='Non-Parametric Calibration for Classification',
     long_description=readme,
     author='Jonathan Wenger',
     author_email='jonathan.wenger@uni-tuebingen.de',
