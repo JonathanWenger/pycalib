@@ -1,3 +1,7 @@
+"""
+Utility to generate PGF vector files from Python's Matplotlib plots to use in LaTeX documents. All credit goes to Nils
+Fischer. Source code repository at https://github.com/nilsleiffischer/texfig.
+"""
 # Standard imports
 import math
 
@@ -5,11 +9,6 @@ import math
 import matplotlib as mpl
 
 mpl.use('pgf')
-
-"""
-Utility to generate PGF vector files from Python's Matplotlib plots to use in LaTeX documents. All credit goes to Nils 
-Fischer. Source code repository at https://github.com/nilsleiffischer/texfig.
-"""
 
 default_width = 4  # in inches
 default_ratio = 2.0 / (1 + math.sqrt(5.0))  # golden ratio

@@ -1,13 +1,16 @@
-import numpy as np
-import pandas as pd
+"""Active Learning experiment with an uncertainty sampling based query strategy and calibration."""
+
 import os
 import time
-import gpflow
-import scipy.stats
-from scipy.stats import entropy
 import matplotlib.pyplot as plt
 from matplotlib.cm import get_cmap
+import numpy as np
+from scipy.stats import entropy
+import pandas as pd
+
+import gpflow
 import sklearn.utils
+
 import pycalib.texfig as texfig
 import pycalib.scoring as sc
 
@@ -217,7 +220,6 @@ class ActiveLearningExperiment(object):
             if do_calibration and next_calib_point_ind < len(self.calib_points) and results["n_samples_queried"][
                 -1] + len(active_sample_ids) >= self.calib_points[next_calib_point_ind]:
                 # Query all remaining samples
-                # TODO: this is inefficient as only a few of the remaining samples will need to be queried.
                 p_pred_remain = classifier.predict_proba(X_train_shuffled[self.calib_points[next_calib_point_ind]:, :])
                 try:
                     p_pred_remain = calibration_method.predict_proba(p_pred_remain)

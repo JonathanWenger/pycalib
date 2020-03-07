@@ -1,14 +1,12 @@
+"""Plotting functions for calibration methods."""
+
 # Standard imports
 import numpy as np
 import scipy.stats
-import pandas as pd
 
 # matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.offsetbox import AnchoredText
-
-# scikit-learn
-import sklearn.metrics
 
 # Package imports
 import pycalib.scoring
@@ -131,62 +129,3 @@ def reliability_diagram(y, p_pred, filename, title="Reliability Diagram", n_bins
     # Save to file
     texfig.savefig(filename=filename, bbox_inches='tight', pad_inches=0)
     plt.close()
-
-
-# def confidence_diagram(y, y_pred, p_pred, n_classes=None, file=None, plot=True, n_bins=20, color=None, **kwargs):
-#     """
-#     Plot a confidence diagram
-#
-#     Plots a diagram showing both distributions of over- and underconfidence.
-#
-#     Parameters
-#     ----------
-#     y : array, shape = [n_samples]
-#         Ground truth labels.
-#     y_pred : array, shape = [n_samples]
-#         Predicted labels.
-#     p_pred : array, shape = [n_samples, n_classes]
-#         Array of confidence estimates.
-#     file : str, optional
-#         File name of output plot.
-#     plot : bool
-#         Should the generated plot be shown?
-#     n_bins: int, optional, default=20
-#         Number of bins to use for the histograms.
-#     """
-#
-#     # Determine number of classes
-#     if n_classes is None:
-#         n_classes = len(np.unique(y))
-#
-#     # Find prediction confidence
-#     p_max = np.max(p_pred, axis=1)
-#
-#     # Define bins
-#     bins = np.linspace(0, 1, n_bins + 1)
-#
-#     # Plot overconfidence
-#     plt.subplot(2, 1, 1)
-#     plt.hist(p_max[y != y_pred], range=[1 / n_classes, 1], bins=bins, color=color, **kwargs)
-#     plt.axvline(pycalib.scoring.overconfidence(y, y_pred, p_pred), linewidth=3, color='k')
-#     plt.xlim([1 / n_classes, 1])
-#     plt.ylabel('Count')
-#     plt.title('Confidence of false predictions')
-#
-#     # Plot 1 - underconfidence
-#     plt.subplot(2, 1, 2)
-#     plt.xlim([1 / n_classes, 1])
-#     plt.hist(p_max[y == y_pred], range=[1 / n_classes, 1], bins=bins, color=color, **kwargs)
-#     plt.axvline(1 - pycalib.scoring.underconfidence(y, y_pred, p_pred), linewidth=3, color='k')
-#     plt.xlabel('Predicted Probability')
-#     plt.ylabel('Count')
-#     plt.title('Confidence of correct predictions')
-#
-#     # Save plot
-#     plt.subplots_adjust(hspace=0.5)
-#     if file is not None:
-#         plt.savefig(file)
-#     if plot:
-#         plt.show()
-#
-#     return plt

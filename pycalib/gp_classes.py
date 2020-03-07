@@ -1,3 +1,5 @@
+"""Gaussian Process classes enabling variational inference of a single GP in GPcalibration."""
+
 # standard imports
 import numpy as np
 import tensorflow as tf
@@ -384,16 +386,10 @@ class MultiCal(gpflow.likelihoods.Likelihood):
 
     def predict_mean_and_var(self, Fmus, Fvars):
         """
-        Given a Normal distribution for the latent function,
-        return the mean of Y
-        if
-            q(f) = N(Fmu, Fvar)
-        and this object represents
-            p(y|f)
-        then this method computes the predictive mean
-           \int\int y p(y|f)q(f) df dy
-        and the predictive variance
-           \int\int y^2 p(y|f)q(f) df dy  - [ \int\int y p(y|f)q(f) df dy ]^2
+        Given a Normal distribution for the latent function, return the mean of :math:`Y`, if
+        :math:`q(f) = N(Fmu, Fvar)` and this object represents :math:`p(y|f)`, then this method computes the predictive
+        mean :math:`\\int\\int y p(y|f)q(f) df dy` and the predictive variance
+        :math:`\\int\\int y^2 p(y|f)q(f) df dy  - [ \\int\\int y p(y|f)q(f) df dy ]^2`.
 
         Parameters
         ----------

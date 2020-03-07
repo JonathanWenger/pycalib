@@ -1,3 +1,5 @@
+"""Benchmark classes for calibration methods."""
+
 # Standard library imports
 import os
 import time

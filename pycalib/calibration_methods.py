@@ -1,3 +1,5 @@
+"""Calibration Methods."""
+
 # Standard library imports
 import numpy as np
 import numpy.matlib
@@ -348,7 +350,7 @@ class PlattScaling(CalibrationMethod):
         n_jobs : int or None, optional (default=None)
             The number of jobs to use for the computation.
             ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.
-            ``-1`` means using all processors. See :term:`Glossary <n_jobs>` for more details.
+            ``-1`` means using all processors.
 
         Returns
         -------
@@ -434,7 +436,7 @@ class IsotonicRegression(CalibrationMethod):
         n_jobs : int or None, optional (default=None)
             The number of jobs to use for the computation.
             ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.
-            ``-1`` means using all processors. See :term:`Glossary <n_jobs>` for more details.
+            ``-1`` means using all processors.
 
         Returns
         -------
@@ -519,7 +521,7 @@ class BetaCalibration(CalibrationMethod):
         n_jobs : int or None, optional (default=None)
             The number of jobs to use for the computation.
             ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.
-            ``-1`` means using all processors. See :term:`Glossary <n_jobs>` for more details.
+            ``-1`` means using all processors.
 
         Returns
         -------
@@ -605,7 +607,7 @@ class HistogramBinning(CalibrationMethod):
         n_jobs : int or None, optional (default=None)
             The number of jobs to use for the computation.
             ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.
-            ``-1`` means using all processors. See :term:`Glossary <n_jobs>` for more details.
+            ``-1`` means using all processors.
 
         Returns
         -------
@@ -626,7 +628,7 @@ class HistogramBinning(CalibrationMethod):
             # Compute probability of class 1 in each equal width bin
             binned_stat = scipy.stats.binned_statistic(x=X[:, 1], values=np.equal(1, y), statistic='mean',
                                                        bins=self.n_bins, range=self.input_range)
-            self.prob_class_1 = binned_stat.statistic  # TODO: test this and correct attributes
+            self.prob_class_1 = binned_stat.statistic
             self.binning = binned_stat.bin_edges
         elif self.mode == 'equal_freq':
             # Find binning based on equal frequency
@@ -769,7 +771,7 @@ class BayesianBinningQuantiles(CalibrationMethod):
         n_jobs : int or None, optional (default=None)
             The number of jobs to use for the computation.
             ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.
-            ``-1`` means using all processors. See :term:`Glossary <n_jobs>` for more details.
+            ``-1`` means using all processors.
 
         Returns
         -------
@@ -910,7 +912,8 @@ class GPCalibration(CalibrationMethod):
 
     References
     ----------
-    .. [1] Wenger, J., Kjellström H. & Triebel, R. Non-Parametric Calibration for Classification
+    .. [1] Wenger, J., Kjellström H. & Triebel, R. Non-Parametric Calibration for Classification in
+           Proceedings of AISTATS (2020)
     .. [2] Hensman, J., Matthews, A. G. d. G. & Ghahramani, Z. Scalable Variational Gaussian Process Classification in
            Proceedings of AISTATS (2015)
     .. [3] Matthews, A. G. d. G., van der Wilk, M., et al. GPflow: A Gaussian process library using TensorFlow. Journal

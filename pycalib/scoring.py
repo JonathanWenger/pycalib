@@ -1,3 +1,5 @@
+"""Scoring functions and metrics for classification models."""
+
 import time
 
 import numpy as np
@@ -407,7 +409,6 @@ class MultiScorer:
             kwargs_copy = copy.deepcopy(kwargs)
             kwargs_copy["filename"] = kwargs.get("filename", "") + "_" + str(self.n_folds)
             plot_fun(y=y, p_pred=p_pred, **kwargs_copy)
-            # TODO: plot latent function
         plt.close("all")
 
         # Set evaluation to true
