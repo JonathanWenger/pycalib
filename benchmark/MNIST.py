@@ -1,22 +1,31 @@
-import os.path
-import numpy as np
-import gpflow
-import xgboost as xgb
-
-# Install latest version of scikit-garden from github to enable partial_fit(X, y):
-# (https://github.com/scikit-garden/scikit-garden)
-from skgarden import MondrianForestClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neural_network import MLPClassifier
-from sklearn.ensemble import AdaBoostClassifier
-import pycalib.benchmark
-import pycalib.calibration_methods as calm
-
-###############################
-#   Generate calibration data
-###############################
+"""Calibration experiment on the MNIST benchmark dataset."""
 
 if __name__ == "__main__":
+
+    import os
+
+    import xgboost as xgb
+    # Install latest version of scikit-garden from github to enable partial_fit(X, y):
+    # (https://github.com/scikit-garden/scikit-garden)
+    from skgarden import MondrianForestClassifier
+    from sklearn.ensemble import RandomForestClassifier
+    from sklearn.neural_network import MLPClassifier
+    from sklearn.ensemble import AdaBoostClassifier
+    import pycalib.benchmark
+    import pycalib.calibration_methods as calm
+
+    ###############################
+    #   Generate calibration data
+    ###############################
+
+    # Setup
+    classify_images = False
+    file = os.path.dirname(os.path.realpath(__file__))
+    if os.path.basename(os.path.normpath(file)) == "pycalib":
+        file += "/datasets/mnist/"
+    else:
+        file = os.path.split(os.path.split(file)[0])[0] + "/datasets/mnist/"
+    output_folder = "clf_output"
 
     # Classify MNIST validation data with selected classifiers
     random_state = 1
@@ -48,11 +57,6 @@ if __name__ == "__main__":
                                    random_state=random_state)
     }
 
-    # Setup
-    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/mnist/"
-    output_folder = "clf_output"
-    classify_images = False
-
     if classify_images:
         for clf_name, clf in clf_dict.items():
             pycalib.benchmark.MNISTData.classify_val_data(file, clf_name=clf_name, classifier=clf,
@@ -69,17 +73,11 @@ if __name__ == "__main__":
     # Classifiers
     classifier_names = list(clf_dict.keys())
 
-    # Calibration models
-    with gpflow.defer_build():
-        meanfunc = pycalib.gp_classes.ScalarMult()
-        meanfunc.alpha.transform = gpflow.transforms.positive
+    # Calibration methods
     cal_methods = {
         "Uncal": calm.NoCalibration(),
         "GPcalib": calm.GPCalibration(n_classes=10, maxiter=1000, n_inducing_points=10, logits=False,
                                       random_state=random_state),
-        "GPcalib_lin": calm.GPCalibration(n_classes=10, maxiter=1000, mean_function=meanfunc,
-                                          n_inducing_points=10, logits=False,
-                                          random_state=random_state),
         "GPcalib_approx": calm.GPCalibration(n_classes=10, maxiter=1000, n_inducing_points=10,
                                              logits=False, random_state=random_state, inf_mean_approx=True),
         "Platt": calm.PlattScaling(random_state=random_state),
@@ -88,7 +86,6 @@ if __name__ == "__main__":
         "BBQ": calm.BayesianBinningQuantiles(),
         "Temp": calm.TemperatureScaling()
     }
-
 
     # Create benchmark object
     mnist_benchmark = pycalib.benchmark.MNISTData(run_dir=run_dir, clf_output_dir=clf_output_dir,

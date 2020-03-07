@@ -1,24 +1,37 @@
+"""Compare different calibration methods with respect to parameter inference and calibration in wall-clock time."""
+
 if __name__ == "__main__":
+
+    import os
     import numpy as np
     import pandas as pd
-    import os.path
     import time
+
     import gpflow
-    import pycalib
+
     import pycalib.scoring
     import pycalib.calibration_methods as calm
     import pycalib.benchmark as bm
     import pycalib.texfig as texfig
 
+    # Filepaths
+    out_dir = os.path.dirname(os.path.realpath(__file__))
+    dataset_dir = out_dir
+    if os.path.basename(os.path.normpath(out_dir)) == "pycalib":
+        out_dir += "/figures/runtime_comparison/"
+        dataset_dir += "/datasets/"
+    else:
+        dataset_dir = os.path.split(os.path.split(dataset_dir)[0])[0] + "/datasets/"
+
     # Initialization
     results_df = pd.DataFrame(columns=["data", "classifier", "cal_method", "time_inf", "time_pred"])
     results_list = list()
 
-    # ImageNet data
+    # ImageNet
     random_state = 1
     use_logits = True
     n_classes = 1000
-    file = "/home/j/Documents/research/projects/nonparametric_calibration/code/pycalib/datasets/imagenet/"
+    file = dataset_dir + "imagenet/"
     output_folder = "clf_output"
     data_dir = os.path.join(file, output_folder)
     run_dir = os.path.join(file, "calibration")
@@ -81,11 +94,9 @@ if __name__ == "__main__":
                                      "time_pred": pred_time})
 
     results_df = pd.DataFrame(results_list)
-    results_df.to_csv(
-        "/home/j/Documents/research/projects/nonparametric_calibration/code/" +
-        "pycalib/figures/runtime_comparison/runtime_results_imagenet.csv")
+    results_df.to_csv(out_dir + "/runtime_results_imagenet.csv")
 
-    ################ MNIST
+    # MNIST
 
     classifier_names = [
         # "AdaBoost",
@@ -94,7 +105,7 @@ if __name__ == "__main__":
         "random_forest",
         "1layer_NN"
     ]
-    file = "/home/j/Documents/research/projects/nonparametric_calibration/code/pycalib/datasets/mnist/"
+    file = dataset_dir + "mnist/"
     output_folder = "clf_output"
     data_dir = os.path.join(file, output_folder)
     run_dir = os.path.join(file, "calibration")
@@ -148,15 +159,12 @@ if __name__ == "__main__":
 
     # Save results
     results_df = pd.DataFrame(results_list)
-    results_df.to_csv(
-        "/home/j/Documents/research/projects/nonparametric_calibration/code/" +
-        "pycalib/figures/runtime_comparison/runtime_results_MNIST.csv")
+    results_df.to_csv(out_dir + "/runtime_results_MNIST.csv")
 
-    ###### Plot
+    # Create plot
 
     # Load data
-    results_df = pd.read_csv("/home/j/Documents/research/projects/nonparametric_calibration/code/" +
-                             "pycalib/figures/runtime_comparison/runtime_results_MNIST.csv", index_col=0)
+    results_df = pd.read_csv(out_dir + "/runtime_results_MNIST.csv", index_col=0)
 
     plot_classifier = "1layer_NN"
     plot_df = results_df.loc[results_df['classifier'] == plot_classifier]
@@ -188,5 +196,4 @@ if __name__ == "__main__":
             tick.set_rotation(45)
 
     # Save plot to file
-    texfig.savefig("/home/j/Documents/research/projects/nonparametric_calibration/code/" +
-                   "pycalib/figures/runtime_comparison/runtime_results_MNIST")
+    texfig.savefig(out_dir + "/runtime_results_MNIST")

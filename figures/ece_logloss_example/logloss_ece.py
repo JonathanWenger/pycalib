@@ -1,21 +1,30 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import json
-import os
-
-from sklearn.datasets import fetch_openml
-from sklearn import model_selection as ms
-from sklearn.neural_network import MLPClassifier
-import sklearn.metrics as metr
-
-import pycalib.texfig as texfig
-import pycalib.scoring as meas
-import pycalib.calibration_methods as calm
+"""Train a simple neural network (and calibrate post-hoc) while monitoring log-loss and calibration error."""
 
 if __name__ == "__main__":
-    # Seed and Initialization
+
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import json
+    import os
+
+    from sklearn.datasets import fetch_openml
+    from sklearn import model_selection as ms
+    from sklearn.neural_network import MLPClassifier
+    import sklearn.metrics as metr
+
+    import pycalib.texfig as texfig
+    import pycalib.scoring as meas
+    import pycalib.calibration_methods as calm
+
+    # Setup filepath
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    if os.path.basename(os.path.normpath(dir_path)) == "pycalib":
+        dir_path += "/figures/ece_logloss_example"
+
+    # Seed
     random_state = 42
-    dir_path = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/figures/ece_logloss_example"
+
+    # Initialization and folder structure
     reliability_path = os.path.join(dir_path, "reliability_diagrams")
     os.makedirs(dir_path, exist_ok=True)
     os.makedirs(reliability_path, exist_ok=True)
@@ -71,11 +80,6 @@ if __name__ == "__main__":
         metrics_train["err"].append(1 - metr.accuracy_score(y_true=y_train, y_pred=y_pred_train, normalize=True))
         metrics_train["iter"].append(mlp.n_iter_)
 
-        # Plot reliability diagram every 5 iterations
-        # if np.mod(iter, 5) == 0:
-        #     reliability_diagram(y=y_test, p_pred=p_pred_test, show_ece=True,
-        #                         filename=os.path.join(reliability_path, "reliability_iter_" + str(iter)))
-
     # Calibration
     gpc = calm.GPCalibration(n_classes=len(np.unique(y)), random_state=random_state)
     gpc.fit(mlp.predict_proba(X_cal), y_cal)
@@ -86,7 +90,6 @@ if __name__ == "__main__":
     nll_calib = metr.log_loss(y_true=y_test, y_pred=p_calib)
 
     # Save data to file
-    # dir_path = os.path.dirname(os.path.realpath(__file__))
     json.dump(metrics_train, open(os.path.join(dir_path, "metrics_train.txt"), 'w'))
     json.dump(metrics_test, open(os.path.join(dir_path, "metrics_test.txt"), 'w'))
     json.dump({"ECE_calib": ece_calib,

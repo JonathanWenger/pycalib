@@ -1,20 +1,29 @@
-"""Evaluate calibration in the online active learning setting when using uncertainty sampling"""
-
-import os
-import numpy as np
-
-# Install latest version of scikit-garden from github to enable partial_fit(X, y):
-# (https://github.com/scikit-garden/scikit-garden)
-from skgarden import MondrianForestClassifier
-import pycalib.calibration_methods as calib
-import pycalib.active_learning as al
+"""Evaluate the effect of calibration on active learning when using uncertainty sampling."""
 
 if __name__ == "__main__":
+
+    import os
+    import numpy as np
+
+    # Install latest version of scikit-garden from github to enable partial_fit(X, y):
+    # (https://github.com/scikit-garden/scikit-garden)
+    from skgarden import MondrianForestClassifier
+    import pycalib.calibration_methods as calib
+    import pycalib.active_learning as al
+
     # Setup
+    out_dir = os.path.dirname(os.path.realpath(__file__))
+    data_dir = out_dir
+    if os.path.basename(os.path.normpath(out_dir)) == "pycalib":
+        out_dir += "/figures/active_learning/"
+        data_dir += "/datasets/kitti/data"
+    else:
+        data_dir = os.path.split(os.path.split(data_dir)[0])[0] + "/datasets/kitti/data"
+
+    # Seed
     random_state = 1
 
     # Load KITTI data
-    data_dir = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/kitti/data"
     files = ['kitti_all_train.data',
              'kitti_all_train.labels',
              'kitti_all_test.data',
@@ -49,13 +58,12 @@ if __name__ == "__main__":
                                          calib_points=[500, 2000, 3500],
                                          batch_size=250)
 
-    # result_df = al_exp.run(n_cv=10, random_state=random_state)
+    result_df = al_exp.run(n_cv=10, random_state=random_state)
 
     # Save to file
-    dir = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/figures/active_learning/"
-    # al_exp.save_result(file=dir)
+    al_exp.save_result(file=out_dir)
 
-    al_exp.result_df = al_exp.load_result(file=dir + "/active_learning_results.csv")
+    al_exp.result_df = al_exp.load_result(file=out_dir + "/active_learning_results.csv")
 
     # Plot
     plot_dict = {
@@ -65,5 +73,5 @@ if __name__ == "__main__":
     }
 
     for filename, metrics_list in plot_dict.items():
-        al_exp.plot(file=os.path.join(dir, filename), metrics_list=metrics_list, scatter=False, confidence=True,
+        al_exp.plot(file=os.path.join(out_dir, filename), metrics_list=metrics_list, scatter=False, confidence=True,
                     width=3.25, height=2 * 1.25)

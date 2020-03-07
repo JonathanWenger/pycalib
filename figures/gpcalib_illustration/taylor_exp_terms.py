@@ -1,17 +1,29 @@
+"""
+Illustration of the Taylor approximation to the log-softargmax function used in variational inference of the latent GP.
+"""
+
 if __name__ == "__main__":
+
+    import os
     import numpy as np
-    import pycalib.texfig as texfig
     import matplotlib.pyplot as plt
-    from mpl_toolkits.mplot3d import Axes3D
     from scipy.special import logsumexp, softmax
 
+    import pycalib.texfig as texfig
+
+    # Setup filepaths
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    if os.path.basename(os.path.normpath(dir_path)) == "pycalib":
+        dir_path += "/figures/gpcalib_illustration/"
 
     # Log-softargmax function being approximated
     def logsoftargmax(f, y):
+        """log-softargmax function: ln(sigma(f)_y)"""
         return f[:, y] - logsumexp(f, axis=1)
 
 
     def taylor_logsoftargmax(f, y, loc):
+        """Second-order Taylor approximation of the log-softargmax function."""
         e_y = np.zeros(np.shape(f)[1])
         e_y[y] = 1
         sigma = softmax(loc)
@@ -41,7 +53,7 @@ if __name__ == "__main__":
     ax.tick_params(axis='both', which='major', labelsize=10)
     ax.legend()
     # ax.legend(prop={'size': 9}, labelspacing=0.2)
-    texfig.savefig("figures/gpcalib_illustration/taylor_approx_mesh")
+    texfig.savefig(dir_path + "taylor_approx_mesh")
 
     # Contour difference plot
     fig, axes = texfig.subplots()
@@ -50,5 +62,6 @@ if __name__ == "__main__":
     axes.set_xlabel("$f_n^1$")
     axes.set_ylabel("$f_n^2$")
 
-    texfig.savefig("figures/gpcalib_illustration/taylor_approx_contour")
+    # Save plot
+    texfig.savefig(dir_path + "taylor_approx_contour")
     plt.close("all")

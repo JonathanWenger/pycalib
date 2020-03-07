@@ -1,19 +1,28 @@
+"""Compare latent functions of temperature scaling and GP calibration visually on different benchmark datasets."""
+
 if __name__ == "__main__":
+
+    import os
     import numpy as np
-    import os.path
-    import pycalib
-    import pycalib.scoring
+    import matplotlib.pyplot as plt
+
     import pycalib.calibration_methods as calm
     import pycalib.benchmark as bm
     import pycalib.plotting
-    import matplotlib.pyplot as plt
     import pycalib.texfig as texfig
+
+    # Setup
+    plot_hist = False
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    if os.path.basename(os.path.normpath(dir_path)) == "pycalib":
+        dir_path += "/datasets/"
+    else:
+        dir_path = os.path.split(os.path.split(dir_path)[0])[0] + "/datasets/"
 
     # Seed
     random_state = 1
-    plot_hist = False
 
-    for dataset in ["ImageNet"]: #"MNIST", "CIFAR100", "ImageNet"]:
+    for dataset in ["ImageNet"]:  # "MNIST", "CIFAR100", "ImageNet"]:
 
         if dataset == "ImageNet":
             # Classifier display names
@@ -40,9 +49,9 @@ if __name__ == "__main__":
                 "latent_maps_appendix2": ['se_resnext50_32x4d', 'se_resnext101_32x4d', "senet154"]
             }
 
-            # Data set setup
+            # Dataset setup
             n_classes = 1000
-            file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/imagenet/"
+            file = dir_path + "/imagenet/"
             use_logits = True
 
         elif dataset == "MNIST":
@@ -59,9 +68,9 @@ if __name__ == "__main__":
                 "latent_maps_appendix2": ["XGBoost", "random_forest"]
             }
 
-            # Data set setup
+            # Dataset setup
             n_classes = 10
-            file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/mnist/"
+            file = dir_path + "/mnist/"
             use_logits = False
 
         elif dataset == "CIFAR100":
@@ -80,7 +89,7 @@ if __name__ == "__main__":
 
             # Data set setup
             n_classes = 100
-            file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/cifar100/"
+            file = dir_path + "/cifar100/"
             output_folder = "clf_output"
             use_logits = True
         else:
@@ -120,8 +129,10 @@ if __name__ == "__main__":
                 raise NotImplementedError("Dataset choice not available.")
 
             # Filepath and plot axes
-            folder_path = "/home/j/Documents/research/projects/nonparametric_calibration/" + \
-                          "pycalib/figures/latent_functions/plots/latent_maps/"
+            folder_path = os.path.dirname(os.path.realpath(__file__))
+            if os.path.basename(os.path.normpath(folder_path)) == "pycalib":
+                folder_path += "/figures/latent_functions"
+            folder_path += "/plots/latent_maps/"
             if not os.path.exists(folder_path):
                 os.makedirs(folder_path)
             file_suffix = "_probs"

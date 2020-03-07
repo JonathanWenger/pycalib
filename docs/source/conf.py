@@ -20,6 +20,7 @@
 import os
 import sys
 
+# Path
 sys.path.insert(0, os.path.abspath('../../../pycalib'))
 
 # -- General configuration ------------------------------------------------

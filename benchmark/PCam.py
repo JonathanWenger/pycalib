@@ -1,22 +1,33 @@
-import os.path
-import numpy as np
-import gpflow
-import xgboost as xgb
-
-# Install latest version of scikit-garden from github to enable partial_fit(X, y):
-# (https://github.com/scikit-garden/scikit-garden)
-from skgarden import MondrianForestClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neural_network import MLPClassifier
-from sklearn.ensemble import AdaBoostClassifier
-import pycalib.benchmark
-import pycalib.calibration_methods as calm
-
-###############################
-#   Generate calibration data
-###############################
+"""Calibration experiment on the PCam benchmark dataset."""
 
 if __name__ == "__main__":
+
+    import os
+
+    import xgboost as xgb
+    # Install latest version of scikit-garden from github to enable partial_fit(X, y):
+    # (https://github.com/scikit-garden/scikit-garden)
+    from skgarden import MondrianForestClassifier
+    from sklearn.ensemble import RandomForestClassifier
+    from sklearn.neural_network import MLPClassifier
+    from sklearn.ensemble import AdaBoostClassifier
+    import pycalib.benchmark
+    import pycalib.calibration_methods as calm
+
+    ###############################
+    #   Generate calibration data
+    ###############################
+
+    # Setup
+    classify_images = False
+    file = os.path.dirname(os.path.realpath(__file__))
+    if os.path.basename(os.path.normpath(file)) == "pycalib":
+        file += "/datasets/pcam/"
+    else:
+        file = os.path.split(os.path.split(file)[0])[0] + "/datasets/pcam/"
+    output_folder = "clf_output"
+    data_folder = "data"
+    clf_output_dir = os.path.join(file, "clf_output")
 
     # Classify PCam validation data with selected classifiers
     random_state = 1
@@ -48,13 +59,6 @@ if __name__ == "__main__":
                                    random_state=random_state)
     }
 
-    # Setup
-    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/pcam/"
-    output_folder = "clf_output"
-    data_folder = "data"
-    classify_images = False
-    clf_output_dir = os.path.join(file, "clf_output")
-
     if classify_images:
         for clf_name, clf in clf_dict.items():
             pycalib.benchmark.PCamData.classify_val_data(file, clf_name=clf_name, classifier=clf,
@@ -70,17 +74,11 @@ if __name__ == "__main__":
     # Classifiers
     classifier_names = list(clf_dict.keys())
 
-    # Calibration models
-    with gpflow.defer_build():
-        meanfunc = pycalib.gp_classes.ScalarMult()
-        meanfunc.alpha.transform = gpflow.transforms.positive
+    # Calibration methods
     cal_methods = {
         "Uncal": calm.NoCalibration(),
         "GPcalib": calm.GPCalibration(n_classes=2, maxiter=1000, n_inducing_points=10, logits=False,
                                       random_state=random_state),
-        "GPcalib_lin": calm.GPCalibration(n_classes=2, maxiter=1000, mean_function=meanfunc,
-                                          n_inducing_points=10, logits=False,
-                                          random_state=random_state),
         "GPcalib_approx": calm.GPCalibration(n_classes=2, maxiter=1000, n_inducing_points=10,
                                              logits=False, random_state=random_state, inf_mean_approx=True),
         "Platt": calm.PlattScaling(random_state=random_state),

@@ -1,13 +1,26 @@
-import os.path
-import gpflow
-import pycalib.benchmark
-import pycalib.calibration_methods as calm
-
-###############################
-#   Generate calibration data
-###############################
+"""Calibration experiment on the Imagenet benchmark dataset."""
 
 if __name__ == "__main__":
+
+    import os
+
+    import pycalib.benchmark
+    import pycalib.calibration_methods as calm
+
+    ###############################
+    #   Generate calibration data
+    ###############################
+
+    # Setup
+    classify_images = False
+    file = os.path.dirname(os.path.realpath(__file__))
+    if os.path.basename(os.path.normpath(file)) == "pycalib":
+        file += "/datasets/imagenet/"
+    else:
+        file = os.path.split(os.path.split(file)[0])[0] + "/datasets/imagenet/"
+    val_folder = "data/val"
+    output_folder = "clf_output"
+    n_classes = 1000
 
     # Classify ImageNet validation data with selected classifiers
     clf_names = [
@@ -21,13 +34,6 @@ if __name__ == "__main__":
         'pnasnet5large',
         'nasnetalarge'
     ]
-
-    # Setup
-    file = "/home/j/Documents/research/projects/nonparametric_calibration/pycalib/datasets/imagenet/"
-    val_folder = "data/val"
-    output_folder = "clf_output"
-    classify_images = False
-    n_classes = 1000
 
     if classify_images:
         for clf_name in clf_names:
@@ -45,15 +51,8 @@ if __name__ == "__main__":
     run_dir = os.path.join(file, "calibration")
 
     # Calibration methods for logits
-    with gpflow.defer_build():
-        meanfunc = pycalib.gp_classes.ScalarMult()
-        meanfunc.alpha.transform = gpflow.transforms.positive
-
     cal_methods_logits = {
         "Uncal": calm.NoCalibration(logits=True),
-        "GPcalib_lin": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
-                                          mean_function=meanfunc, logits=True, verbose=False,
-                                          random_state=random_state),
         "GPcalib": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
                                       logits=True, random_state=random_state),
         "GPcalib_approx": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
@@ -72,13 +71,10 @@ if __name__ == "__main__":
     # Run
     imnet_benchmark.run(n_jobs=1)
 
-    # Calibration
+    # Calibration methods for probability scores
     cal_methods = {
         "Uncal": calm.NoCalibration(),
         "GPcalib": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10, random_state=random_state),
-        # "GPcalib_lin": calm.GPCalibration(n_classes=n_classes, maxiter=1000, n_inducing_points=10,
-        #                                   mean_function=meanfunc, logits=False, verbose=False,
-        #                                   random_state=random_state),
         # "Temp": calm.TemperatureScaling(),
         "Isotonic": calm.IsotonicRegression(),
         "Beta": calm.BetaCalibration(),
@@ -87,7 +83,7 @@ if __name__ == "__main__":
     }
 
     # Create benchmark object
-    imnet_benchmark = pycalib.benchmark.ImageNetData(run_dir=run_dir, clf_output_dir=data_dir,
+    imnet_benchmark = pycalib.benchmark.ImageNetData(run_dir=run_dir, clf_output_dir=clf_output_dir,
                                                      classifier_names=clf_names,
                                                      cal_methods=list(cal_methods.values()),
                                                      cal_method_names=list(cal_methods.keys()),
