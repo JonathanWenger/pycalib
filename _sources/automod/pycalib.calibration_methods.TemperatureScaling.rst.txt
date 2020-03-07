@@ -12,6 +12,7 @@ TemperatureScaling
 
       ~TemperatureScaling.fit
       ~TemperatureScaling.get_params
+      ~TemperatureScaling.latent
       ~TemperatureScaling.plot
       ~TemperatureScaling.plot_latent
       ~TemperatureScaling.predict
@@ -22,6 +23,7 @@ TemperatureScaling
 
    .. automethod:: fit
    .. automethod:: get_params
+   .. automethod:: latent
    .. automethod:: plot
    .. automethod:: plot_latent
    .. automethod:: predict

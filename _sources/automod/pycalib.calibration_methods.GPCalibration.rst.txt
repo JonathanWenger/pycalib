@@ -12,6 +12,7 @@ GPCalibration
 
       ~GPCalibration.fit
       ~GPCalibration.get_params
+      ~GPCalibration.latent
       ~GPCalibration.plot
       ~GPCalibration.plot_latent
       ~GPCalibration.predict
@@ -22,6 +23,7 @@ GPCalibration
 
    .. automethod:: fit
    .. automethod:: get_params
+   .. automethod:: latent
    .. automethod:: plot
    .. automethod:: plot_latent
    .. automethod:: predict

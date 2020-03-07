@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -239,19 +239,22 @@ of Machine Learning Research 18, 1–6 (Apr. 2017)</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.get_params" title="pycalib.calibration_methods.GPCalibration.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>([deep])</p></td>
 <td><p>Get parameters for this estimator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.plot" title="pycalib.calibration_methods.GPCalibration.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>(filename[, xlim])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.latent" title="pycalib.calibration_methods.GPCalibration.latent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latent</span></code></a>(z)</p></td>
+<td><p>Evaluate the latent function f(z) of the GP calibration method.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.plot" title="pycalib.calibration_methods.GPCalibration.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>(filename[, xlim])</p></td>
 <td><p>Plot the calibration map.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.plot_latent" title="pycalib.calibration_methods.GPCalibration.plot_latent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_latent</span></code></a>(z, filename[, plot_classes])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.plot_latent" title="pycalib.calibration_methods.GPCalibration.plot_latent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_latent</span></code></a>(z, filename[, plot_classes])</p></td>
 <td><p>Plot the latent function of the calibration method.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.predict" title="pycalib.calibration_methods.GPCalibration.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a>(X)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.predict" title="pycalib.calibration_methods.GPCalibration.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a>(X)</p></td>
 <td><p>Predict the class of new samples after scaling.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.predict_proba" title="pycalib.calibration_methods.GPCalibration.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a>(X[, mean_approx])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.predict_proba" title="pycalib.calibration_methods.GPCalibration.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a>(X[, mean_approx])</p></td>
 <td><p>Compute calibrated posterior probabilities for a given array of posterior probabilities from an arbitrary classifier.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.set_params" title="pycalib.calibration_methods.GPCalibration.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**params)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycalib.calibration_methods.GPCalibration.set_params" title="pycalib.calibration_methods.GPCalibration.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**params)</p></td>
 <td><p>Set the parameters of this estimator.</p></td>
 </tr>
 </tbody>
@@ -292,6 +295,24 @@ contained subobjects that are estimators.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>mapping of string to any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycalib.calibration_methods.GPCalibration.latent">
+<code class="sig-name descname">latent</code><span class="sig-paren">(</span><em class="sig-param">z</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/calibration_methods.html#GPCalibration.latent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.calibration_methods.GPCalibration.latent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the latent function f(z) of the GP calibration method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>z</strong> (<em>array-like</em><em>, </em><em>shape=</em><em>(</em><em>n_evaluations</em><em>,</em><em>)</em>) – Input confidence for which to evaluate the latent function.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>f</strong> (<em>array-like, shape=(n_evaluations,)</em>) – Values of the latent function at z.</p></li>
+<li><p><strong>f_var</strong> (<em>array-like, shape=(n_evaluations,)</em>) – Variance of the latent function at z.</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
