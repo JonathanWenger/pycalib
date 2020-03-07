@@ -304,7 +304,7 @@
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pycalib.gp_classes.MultiCal.predict_mean_and_var" title="pycalib.gp_classes.MultiCal.predict_mean_and_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_mean_and_var</span></code></a>(Fmus, Fvars)</p></td>
-<td><p>Given a Normal distribution for the latent function, return the mean of Y if     q(f) = N(Fmu, Fvar) and this object represents     p(y|f) then this method computes the predictive mean    intint y p(y|f)q(f) df dy and the predictive variance    intint y^2 p(y|f)q(f) df dy  - [ intint y p(y|f)q(f) df dy ]^2</p></td>
+<td><p>Given a Normal distribution for the latent function, return the mean of <span class="math notranslate nohighlight">\(Y\)</span>, if <span class="math notranslate nohighlight">\(q(f) = N(Fmu, Fvar)\)</span> and this object represents <span class="math notranslate nohighlight">\(p(y|f)\)</span>, then this method computes the predictive mean <span class="math notranslate nohighlight">\(\int\int y p(y|f)q(f) df dy\)</span> and the predictive variance <span class="math notranslate nohighlight">\(\int\int y^2 p(y|f)q(f) df dy  - [ \int\int y p(y|f)q(f) df dy ]^2\)</span>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pycalib.gp_classes.MultiCal.read_trainables" title="pycalib.gp_classes.MultiCal.read_trainables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_trainables</span></code></a>([session])</p></td>
 <td><p></p></td>
@@ -690,20 +690,10 @@ Monte-Carlo routine.</p>
 <dl class="method">
 <dt id="pycalib.gp_classes.MultiCal.predict_mean_and_var">
 <code class="sig-name descname">predict_mean_and_var</code><span class="sig-paren">(</span><em class="sig-param">Fmus</em>, <em class="sig-param">Fvars</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycalib/gp_classes.html#MultiCal.predict_mean_and_var"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycalib.gp_classes.MultiCal.predict_mean_and_var" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a Normal distribution for the latent function,
-return the mean of Y
-if</p>
-<blockquote>
-<div><p>q(f) = N(Fmu, Fvar)</p>
-</div></blockquote>
-<dl class="simple">
-<dt>and this object represents</dt><dd><p>p(y|f)</p>
-</dd>
-<dt>then this method computes the predictive mean</dt><dd><p>intint y p(y|f)q(f) df dy</p>
-</dd>
-<dt>and the predictive variance</dt><dd><p>intint y^2 p(y|f)q(f) df dy  - [ intint y p(y|f)q(f) df dy ]^2</p>
-</dd>
-</dl>
+<dd><p>Given a Normal distribution for the latent function, return the mean of <span class="math notranslate nohighlight">\(Y\)</span>, if
+<span class="math notranslate nohighlight">\(q(f) = N(Fmu, Fvar)\)</span> and this object represents <span class="math notranslate nohighlight">\(p(y|f)\)</span>, then this method computes the predictive
+mean <span class="math notranslate nohighlight">\(\int\int y p(y|f)q(f) df dy\)</span> and the predictive variance
+<span class="math notranslate nohighlight">\(\int\int y^2 p(y|f)q(f) df dy  - [ \int\int y p(y|f)q(f) df dy ]^2\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

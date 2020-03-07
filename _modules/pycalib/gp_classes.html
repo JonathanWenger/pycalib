@@ -152,7 +152,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for pycalib.gp_classes</h1><div class="highlight"><pre>
-<span></span><span class="c1"># standard imports</span>
+<span></span><span class="sd">&quot;&quot;&quot;Gaussian Process classes enabling variational inference of a single GP in GPcalibration.&quot;&quot;&quot;</span>
+
+<span class="c1"># standard imports</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">import</span> <span class="nn">gpflow</span>
@@ -538,16 +540,10 @@
 
 <div class="viewcode-block" id="MultiCal.predict_mean_and_var"><a class="viewcode-back" href="../../automod/pycalib.gp_classes.MultiCal.html#pycalib.gp_classes.MultiCal.predict_mean_and_var">[docs]</a>    <span class="k">def</span> <span class="nf">predict_mean_and_var</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Fmus</span><span class="p">,</span> <span class="n">Fvars</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Given a Normal distribution for the latent function,</span>
-<span class="sd">        return the mean of Y</span>
-<span class="sd">        if</span>
-<span class="sd">            q(f) = N(Fmu, Fvar)</span>
-<span class="sd">        and this object represents</span>
-<span class="sd">            p(y|f)</span>
-<span class="sd">        then this method computes the predictive mean</span>
-<span class="sd">           \int\int y p(y|f)q(f) df dy</span>
-<span class="sd">        and the predictive variance</span>
-<span class="sd">           \int\int y^2 p(y|f)q(f) df dy  - [ \int\int y p(y|f)q(f) df dy ]^2</span>
+<span class="sd">        Given a Normal distribution for the latent function, return the mean of :math:`Y`, if</span>
+<span class="sd">        :math:`q(f) = N(Fmu, Fvar)` and this object represents :math:`p(y|f)`, then this method computes the predictive</span>
+<span class="sd">        mean :math:`\\int\\int y p(y|f)q(f) df dy` and the predictive variance</span>
+<span class="sd">        :math:`\\int\\int y^2 p(y|f)q(f) df dy  - [ \\int\\int y p(y|f)q(f) df dy ]^2`.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>

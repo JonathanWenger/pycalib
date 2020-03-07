@@ -152,7 +152,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for pycalib.calibration_methods</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Standard library imports</span>
+<span></span><span class="sd">&quot;&quot;&quot;Calibration Methods.&quot;&quot;&quot;</span>
+
+<span class="c1"># Standard library imports</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">numpy.matlib</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -502,7 +504,7 @@
 <span class="sd">        n_jobs : int or None, optional (default=None)</span>
 <span class="sd">            The number of jobs to use for the computation.</span>
 <span class="sd">            ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.</span>
-<span class="sd">            ``-1`` means using all processors. See :term:`Glossary &lt;n_jobs&gt;` for more details.</span>
+<span class="sd">            ``-1`` means using all processors.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -588,7 +590,7 @@
 <span class="sd">        n_jobs : int or None, optional (default=None)</span>
 <span class="sd">            The number of jobs to use for the computation.</span>
 <span class="sd">            ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.</span>
-<span class="sd">            ``-1`` means using all processors. See :term:`Glossary &lt;n_jobs&gt;` for more details.</span>
+<span class="sd">            ``-1`` means using all processors.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -673,7 +675,7 @@
 <span class="sd">        n_jobs : int or None, optional (default=None)</span>
 <span class="sd">            The number of jobs to use for the computation.</span>
 <span class="sd">            ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.</span>
-<span class="sd">            ``-1`` means using all processors. See :term:`Glossary &lt;n_jobs&gt;` for more details.</span>
+<span class="sd">            ``-1`` means using all processors.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -759,7 +761,7 @@
 <span class="sd">        n_jobs : int or None, optional (default=None)</span>
 <span class="sd">            The number of jobs to use for the computation.</span>
 <span class="sd">            ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.</span>
-<span class="sd">            ``-1`` means using all processors. See :term:`Glossary &lt;n_jobs&gt;` for more details.</span>
+<span class="sd">            ``-1`` means using all processors.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -780,7 +782,7 @@
             <span class="c1"># Compute probability of class 1 in each equal width bin</span>
             <span class="n">binned_stat</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binned_statistic</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">statistic</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
                                                        <span class="n">bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_bins</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">input_range</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">prob_class_1</span> <span class="o">=</span> <span class="n">binned_stat</span><span class="o">.</span><span class="n">statistic</span>  <span class="c1"># TODO: test this and correct attributes</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">prob_class_1</span> <span class="o">=</span> <span class="n">binned_stat</span><span class="o">.</span><span class="n">statistic</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">binning</span> <span class="o">=</span> <span class="n">binned_stat</span><span class="o">.</span><span class="n">bin_edges</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;equal_freq&#39;</span><span class="p">:</span>
             <span class="c1"># Find binning based on equal frequency</span>
@@ -923,7 +925,7 @@
 <span class="sd">        n_jobs : int or None, optional (default=None)</span>
 <span class="sd">            The number of jobs to use for the computation.</span>
 <span class="sd">            ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.</span>
-<span class="sd">            ``-1`` means using all processors. See :term:`Glossary &lt;n_jobs&gt;` for more details.</span>
+<span class="sd">            ``-1`` means using all processors.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1064,7 +1066,8 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] Wenger, J., Kjellström H. &amp; Triebel, R. Non-Parametric Calibration for Classification</span>
+<span class="sd">    .. [1] Wenger, J., Kjellström H. &amp; Triebel, R. Non-Parametric Calibration for Classification in</span>
+<span class="sd">           Proceedings of AISTATS (2020)</span>
 <span class="sd">    .. [2] Hensman, J., Matthews, A. G. d. G. &amp; Ghahramani, Z. Scalable Variational Gaussian Process Classification in</span>
 <span class="sd">           Proceedings of AISTATS (2015)</span>
 <span class="sd">    .. [3] Matthews, A. G. d. G., van der Wilk, M., et al. GPflow: A Gaussian process library using TensorFlow. Journal</span>

@@ -152,17 +152,15 @@
            <div itemprop="articleBody">
             
   <h1>Source code for pycalib.plotting</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Standard imports</span>
+<span></span><span class="sd">&quot;&quot;&quot;Plotting functions for calibration methods.&quot;&quot;&quot;</span>
+
+<span class="c1"># Standard imports</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.stats</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="c1"># matplotlib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib.offsetbox</span> <span class="kn">import</span> <span class="n">AnchoredText</span>
-
-<span class="c1"># scikit-learn</span>
-<span class="kn">import</span> <span class="nn">sklearn.metrics</span>
 
 <span class="c1"># Package imports</span>
 <span class="kn">import</span> <span class="nn">pycalib.scoring</span>
@@ -285,65 +283,6 @@
     <span class="c1"># Save to file</span>
     <span class="n">texfig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
-
-
-<span class="c1"># def confidence_diagram(y, y_pred, p_pred, n_classes=None, file=None, plot=True, n_bins=20, color=None, **kwargs):</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     Plot a confidence diagram</span>
-<span class="c1">#</span>
-<span class="c1">#     Plots a diagram showing both distributions of over- and underconfidence.</span>
-<span class="c1">#</span>
-<span class="c1">#     Parameters</span>
-<span class="c1">#     ----------</span>
-<span class="c1">#     y : array, shape = [n_samples]</span>
-<span class="c1">#         Ground truth labels.</span>
-<span class="c1">#     y_pred : array, shape = [n_samples]</span>
-<span class="c1">#         Predicted labels.</span>
-<span class="c1">#     p_pred : array, shape = [n_samples, n_classes]</span>
-<span class="c1">#         Array of confidence estimates.</span>
-<span class="c1">#     file : str, optional</span>
-<span class="c1">#         File name of output plot.</span>
-<span class="c1">#     plot : bool</span>
-<span class="c1">#         Should the generated plot be shown?</span>
-<span class="c1">#     n_bins: int, optional, default=20</span>
-<span class="c1">#         Number of bins to use for the histograms.</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#</span>
-<span class="c1">#     # Determine number of classes</span>
-<span class="c1">#     if n_classes is None:</span>
-<span class="c1">#         n_classes = len(np.unique(y))</span>
-<span class="c1">#</span>
-<span class="c1">#     # Find prediction confidence</span>
-<span class="c1">#     p_max = np.max(p_pred, axis=1)</span>
-<span class="c1">#</span>
-<span class="c1">#     # Define bins</span>
-<span class="c1">#     bins = np.linspace(0, 1, n_bins + 1)</span>
-<span class="c1">#</span>
-<span class="c1">#     # Plot overconfidence</span>
-<span class="c1">#     plt.subplot(2, 1, 1)</span>
-<span class="c1">#     plt.hist(p_max[y != y_pred], range=[1 / n_classes, 1], bins=bins, color=color, **kwargs)</span>
-<span class="c1">#     plt.axvline(pycalib.scoring.overconfidence(y, y_pred, p_pred), linewidth=3, color=&#39;k&#39;)</span>
-<span class="c1">#     plt.xlim([1 / n_classes, 1])</span>
-<span class="c1">#     plt.ylabel(&#39;Count&#39;)</span>
-<span class="c1">#     plt.title(&#39;Confidence of false predictions&#39;)</span>
-<span class="c1">#</span>
-<span class="c1">#     # Plot 1 - underconfidence</span>
-<span class="c1">#     plt.subplot(2, 1, 2)</span>
-<span class="c1">#     plt.xlim([1 / n_classes, 1])</span>
-<span class="c1">#     plt.hist(p_max[y == y_pred], range=[1 / n_classes, 1], bins=bins, color=color, **kwargs)</span>
-<span class="c1">#     plt.axvline(1 - pycalib.scoring.underconfidence(y, y_pred, p_pred), linewidth=3, color=&#39;k&#39;)</span>
-<span class="c1">#     plt.xlabel(&#39;Predicted Probability&#39;)</span>
-<span class="c1">#     plt.ylabel(&#39;Count&#39;)</span>
-<span class="c1">#     plt.title(&#39;Confidence of correct predictions&#39;)</span>
-<span class="c1">#</span>
-<span class="c1">#     # Save plot</span>
-<span class="c1">#     plt.subplots_adjust(hspace=0.5)</span>
-<span class="c1">#     if file is not None:</span>
-<span class="c1">#         plt.savefig(file)</span>
-<span class="c1">#     if plot:</span>
-<span class="c1">#         plt.show()</span>
-<span class="c1">#</span>
-<span class="c1">#     return plt</span>
 </pre></div>
 
            </div>
