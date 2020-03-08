@@ -9,15 +9,7 @@ This repository provides an implementation of the paper ["Non-Parametric Calibra
 </p>
 
 
-<!---
-* [Introduction](#introduction)
-* [Installation and Documentation](#usage)
-* [Datasets and Experiments](#data)
-* [Publication](#publication)
-* [License and Contact](#contact)
---->
-
-## <a name="usage">Introduction</a>
+## Introduction
 
 Many applications of classification methods not only require high accuracy but also reliable estimation of predictive uncertainty. However, while many current classification frameworks, in particular deep neural networks, achieve high accuracy, they tend to incorrectly estimate uncertainty. We provide a method that adjusts the confidence estimates of a general classifier such that they approach the probability of classifying correctly. In contrast to existing approaches, our calibration method employs a non-parametric representation using a latent Gaussian process, and is specifically designed for multi-class classification. It can be applied to any classifier that outputs confidence estimates and is not limited to neural networks. In the experiments included in this repository, we show the universally strong performance of our method across different classifiers and benchmark data sets, in particular for state-of-the art neural network architectures.
 
@@ -26,7 +18,7 @@ Many applications of classification methods not only require high accuracy but a
   <img src="https://raw.githubusercontent.com/JonathanWenger/pycalib/master/figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="400"/>
 </p>
 
-## <a name="usage">Installation and Documentation</a>
+## Installation and Documentation
 The code was developed in Python 3.6 under Ubuntu (18.04). You can install this Python 3 package using `pip` (or `pip3`):
 ```bash
 pip install setuptools numpy scipy scikit-learn cython
@@ -41,7 +33,7 @@ python setup.py install
 ```
 For tips on getting started and how to use this package please refer to the [documentation](https://jonathanwenger.github.io/pycalib/).
 
-## <a name="data">Experiments and Benchmark Datasets</a>
+## Experiments and Benchmark Datasets
 
 We performed calibration experiments for binary and multi-class benchmark datasets from computer vision for a range of classifiers and calibration methods. We found that GP calibration performed particularly well on large-scale architectures and challenging data sets.
 <p align="center">
@@ -60,7 +52,7 @@ The experiments can be reproduced by using the scripts in `benchmark` and `figur
 obtained from the [ImageNet website](http://www.image-net.org).
 
 
-## <a name="publication">Publication</a>
+## Publication
 If you use this repository in your research, please cite the following paper:
 
 _"Non-Parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1906.04933.pdf)), Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel
@@ -77,7 +69,7 @@ _"Non-Parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1
 }
 ```
 
-## <a name="contact"> License and Contact</a>
+## License and Contact
 
 This work is released under the [MIT License](https://github.com/JonathanWenger/pycalib/blob/master/LICENSE).
 
