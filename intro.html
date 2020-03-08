@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Introduction &mdash; pycalib  documentation</title>
+  <title>Non-Parametric Calibration for Classification &mdash; pycalib  documentation</title>
   
 
   
@@ -88,7 +88,14 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Non-Parametric Calibration for Classification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#a-name-usage-introduction-a"><span class="raw-html-m2r"><a name="usage">Introduction</a></span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-name-usage-installation-and-documentation-a"><span class="raw-html-m2r"><a name="usage">Installation and Documentation</a></span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-name-data-experiments-and-benchmark-datasets-a"><span class="raw-html-m2r"><a name="data">Experiments and Benchmark Datasets</a></span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-name-publication-publication-a"><span class="raw-html-m2r"><a name="publication">Publication</a></span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-name-contact-license-and-contact-a"><span class="raw-html-m2r"><a name="contact"> License and Contact</a></span></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 </ul>
@@ -136,7 +143,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Introduction</li>
+      <li>Non-Parametric Calibration for Classification</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -155,8 +162,79 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="non-parametric-calibration-for-classification">
+<span id="intro"></span><h1>Non-Parametric Calibration for Classification<a class="headerlink" href="#non-parametric-calibration-for-classification" title="Permalink to this headline">¶</a></h1>
+<a class="reference external image-reference" href="https://travis-ci.org/JonathanWenger/pycalib"><img alt="Build Status" src="https://travis-ci.org/JonathanWenger/pycalib.svg?branch=master" /></a>
+<p>This repository provides an implementation of the paper <a class="reference external" href="https://arxiv.org/abs/1906.04933">“Non-Parametric Calibration for Classification”</a> (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel) published at AISTATS 2020. All results presented in our work were produced with this code.</p>
+<p align="center">
+  <img src="figures/ece_logloss_example/ece_logloss.png" alt="latent_process" width="700"/>
+</p><!---
+* [Introduction](#introduction)
+* [Installation and Documentation](#usage)
+* [Datasets and Experiments](#data)
+* [Publication](#publication)
+* [License and Contact](#contact)
+---><div class="section" id="a-name-usage-introduction-a">
+<h2><span class="raw-html-m2r"><a name="usage">Introduction</a></span><a class="headerlink" href="#a-name-usage-introduction-a" title="Permalink to this headline">¶</a></h2>
+<p>Many applications of classification methods not only require high accuracy but also reliable estimation of predictive uncertainty. However, while many current classification frameworks, in particular deep neural networks, achieve high accuracy, they tend to incorrectly estimate uncertainty. We provide a method that adjusts the confidence estimates of a general classifier such that they approach the probability of classifying correctly. In contrast to existing approaches, our calibration method employs a non-parametric representation using a latent Gaussian process, and is specifically designed for multi-class classification. It can be applied to any classifier that outputs confidence estimates and is not limited to neural networks. In the experiments included in this repository, we show the universally strong performance of our method across different classifiers and benchmark data sets, in particular for state-of-the art neural network architectures.</p>
+<p align="center">
+  <img src="figures/gpcalib_illustration/diagram_calibration.png" alt="diagram_calibration" width="400"/>
+  <img src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="400"/>
+</p></div>
+<div class="section" id="a-name-usage-installation-and-documentation-a">
+<h2><span class="raw-html-m2r"><a name="usage">Installation and Documentation</a></span><a class="headerlink" href="#a-name-usage-installation-and-documentation-a" title="Permalink to this headline">¶</a></h2>
+<p>The code was developed in Python 3.6 under Ubuntu (18.04). You can install this Python 3 package using <code class="docutils literal notranslate"><span class="pre">pip</span></code> (or <code class="docutils literal notranslate"><span class="pre">pip3</span></code>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install setuptools numpy scipy scikit-learn cython
+pip install git+https://github.com/JonathanWenger/pycalib.git
+</pre></div>
+</div>
+<p>Note that some dependencies need to be installed separately since a subset of experiments rely on <cite>``scikit-garden`</cite> &lt;<a class="reference external" href="https://github.com/scikit-garden/scikit-garden">https://github.com/scikit-garden/scikit-garden</a>&gt;`_. Alternatively you can clone this repository with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install setuptools numpy scipy scikit-learn cython
+git clone https://github.com/JonathanWenger/pycalib
+<span class="nb">cd</span> pycalib
+python setup.py install
+</pre></div>
+</div>
+<p>For tips on getting started and how to use this package please refer to the <a class="reference external" href="https://jonathanwenger.github.io/pycalib/">documentation</a>.</p>
+</div>
+<div class="section" id="a-name-data-experiments-and-benchmark-datasets-a">
+<h2><span class="raw-html-m2r"><a name="data">Experiments and Benchmark Datasets</a></span><a class="headerlink" href="#a-name-data-experiments-and-benchmark-datasets-a" title="Permalink to this headline">¶</a></h2>
+<p>We performed calibration experiments for binary and multi-class benchmark datasets from computer vision for a range of classifiers and calibration methods. We found that GP calibration performed particularly well on large-scale architectures and challenging data sets.</p>
+<p align="center">
+  <img src="figures/gpcalib_illustration/calibration_experiment_results.png" alt="latent_process" width="700"/>
+</p><p>The experiments can be reproduced by using the scripts in <code class="docutils literal notranslate"><span class="pre">benchmark</span></code> and <code class="docutils literal notranslate"><span class="pre">figures</span></code>. The datasets we used and how to obtain them are listed below.</p>
+<ul class="simple">
+<li><p><strong>PCam</strong>: Due to the size of the data, only a script replicating the experiments is provided. The data can be downloaded from the
+<a class="reference external" href="https://github.com/basveeling/pcam">PCam repository</a>.</p></li>
+<li><p><strong>KITTI</strong>: The repository includes 64-dimensional features extracted from KITTI sequences compressed in a zip file
+<code class="docutils literal notranslate"><span class="pre">datasets/kitti/kitti_data.zip</span></code>.</p></li>
+<li><p><strong>MNIST</strong>: A script will automatically download the MNIST dataset if needed.</p></li>
+<li><p><strong>CIFAR-100</strong>: When the CIFAR-100 experiment is run, there is an option to automatically download the dataset.</p></li>
+<li><p><strong>ImageNet 2012</strong>: Due to the size of the data, only a script replicating the experiments is provided. The ImageNet validation data can be
+obtained from the <a class="reference external" href="http://www.image-net.org">ImageNet website</a>.</p></li>
+</ul>
+</div>
+<div class="section" id="a-name-publication-publication-a">
+<h2><span class="raw-html-m2r"><a name="publication">Publication</a></span><a class="headerlink" href="#a-name-publication-publication-a" title="Permalink to this headline">¶</a></h2>
+<p>If you use this repository in your research, please cite the following paper:</p>
+<p><em>“Non-Parametric Calibration for Classification”</em> (<a class="reference external" href="https://arxiv.org/pdf/1906.04933.pdf">PDF</a>), Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@InProceedings</span><span class="p">{</span><span class="nl">wenger2020calibration</span><span class="p">,</span>
+  <span class="na">title</span>         <span class="p">=</span> <span class="s">{Non-Parametric Calibration for Classification}</span><span class="p">,</span>
+  <span class="na">author</span>        <span class="p">=</span> <span class="s">{Jonathan Wenger and Hedvig Kjellstr{\&quot;o}m and Rudolph Triebel}</span><span class="p">,</span>
+  <span class="na">booktitle</span>     <span class="p">=</span> <span class="s">{Proceedings of the 23rd International Conference on Artificial Intelligence and Statistics (AISTATS)}</span><span class="p">,</span>
+  <span class="na">year</span>          <span class="p">=</span> <span class="s">{2020}</span><span class="p">,</span>
+  <span class="na">series</span>        <span class="p">=</span> <span class="s">{Proceedings of Machine Learning Research}</span><span class="p">,</span>
+  <span class="na">keywords</span>      <span class="p">=</span> <span class="s">{calibration, non-parametric, gaussian processes, classification}</span><span class="p">,</span>
+  <span class="na">url</span>           <span class="p">=</span> <span class="s">{https://github.com/JonathanWenger/pycalib}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-name-contact-license-and-contact-a">
+<h2><span class="raw-html-m2r"><a name="contact"> License and Contact</a></span><a class="headerlink" href="#a-name-contact-license-and-contact-a" title="Permalink to this headline">¶</a></h2>
+<p>This work is released under the <a class="reference external" href="LICENSE">MIT License</a>.</p>
+<p>Please submit an <a class="reference external" href="https://github.com/JonathanWenger/pycalib/issues/new">issue</a> to report bugs or request changes.</p>
+</div>
 </div>
 
 
