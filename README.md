@@ -5,7 +5,7 @@
 This repository provides an implementation of the paper ["Non-Parametric Calibration for Classification"](https://arxiv.org/abs/1906.04933) (Jonathan Wenger, Hedvig Kjellström, Rudolph Triebel) published at AISTATS 2020. All results presented in our work were produced with this code.
 
 <p align="center">
-  <img src="figures/ece_logloss_example/ece_logloss.png" alt="latent_process" width="700"/>
+  <img src="https://raw.githubusercontent.com/JonathanWenger/pycalib/master/figures/ece_logloss_example/ece_logloss.png" alt="latent_process" width="700"/>
 </p>
 
 
