@@ -10,6 +10,7 @@ install:
   - pip install sphinx
   - pip install sphinx_rtd_theme
   - pip install sphinx_automodapi
+  - pip install m2r # markdown to restructuredText conversion for sphinx
   - pip install Cython
   - pip install -r requirements.txt
 #   - pip install -e . # development installation of package, alternatively: python setup.py develop
