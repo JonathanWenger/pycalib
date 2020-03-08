@@ -22,8 +22,8 @@ This repository provides an implementation of the paper ["Non-Parametric Calibra
 Many applications of classification methods not only require high accuracy but also reliable estimation of predictive uncertainty. However, while many current classification frameworks, in particular deep neural networks, achieve high accuracy, they tend to incorrectly estimate uncertainty. We provide a method that adjusts the confidence estimates of a general classifier such that they approach the probability of classifying correctly. In contrast to existing approaches, our calibration method employs a non-parametric representation using a latent Gaussian process, and is specifically designed for multi-class classification. It can be applied to any classifier that outputs confidence estimates and is not limited to neural networks. In the experiments included in this repository, we show the universally strong performance of our method across different classifiers and benchmark data sets, in particular for state-of-the art neural network architectures.
 
 <p align="center">
-  <img src="figures/gpcalib_illustration/diagram_calibration.png" alt="diagram_calibration" width="400"/>
-  <img src="figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="400"/>
+  <img src="https://raw.githubusercontent.com/JonathanWenger/pycalib/master/figures/gpcalib_illustration/diagram_calibration.png" alt="diagram_calibration" width="400"/>
+  <img src="https://raw.githubusercontent.com/JonathanWenger/pycalib/master/figures/gpcalib_illustration/latent_process.png" alt="latent_process" width="400"/>
 </p>
 
 ## <a name="usage">Installation and Documentation</a>
@@ -32,7 +32,7 @@ The code was developed in Python 3.6 under Ubuntu (18.04). You can install this 
 pip install setuptools numpy scipy scikit-learn cython
 pip install git+https://github.com/JonathanWenger/pycalib.git
 ```
-Note that some dependencies need to be installed separately since a subset of experiments rely on [`scikit-garden`](https://github.com/scikit-garden/scikit-garden). Alternatively you can clone this repository with
+Note that some dependencies need to be installed separately since a subset of experiments rely on [scikit-garden](https://github.com/scikit-garden/scikit-garden). Alternatively you can clone this repository with
 ```bash
 pip install setuptools numpy scipy scikit-learn cython
 git clone https://github.com/JonathanWenger/pycalib
@@ -45,7 +45,7 @@ For tips on getting started and how to use this package please refer to the [doc
 
 We performed calibration experiments for binary and multi-class benchmark datasets from computer vision for a range of classifiers and calibration methods. We found that GP calibration performed particularly well on large-scale architectures and challenging data sets.
 <p align="center">
-  <img src="figures/gpcalib_illustration/calibration_experiment_results.png" alt="latent_process" width="700"/>
+  <img src="https://raw.githubusercontent.com/JonathanWenger/pycalib/master/figures/gpcalib_illustration/calibration_experiment_results.png" alt="latent_process" width="700"/>
 </p>
 
 The experiments can be reproduced by using the scripts in `benchmark` and `figures`. The datasets we used and how to obtain them are listed below.
@@ -79,6 +79,6 @@ _"Non-Parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1
 
 ## <a name="contact"> License and Contact</a>
 
-This work is released under the [MIT License](LICENSE).
+This work is released under the [MIT License](https://github.com/JonathanWenger/pycalib/blob/master/LICENSE).
 
-Please submit an [issue](https://github.com/JonathanWenger/pycalib/issues/new) to report bugs or request changes.
+Please submit an [issue on GitHub](https://github.com/JonathanWenger/pycalib/issues/new) to report bugs or request changes.
