@@ -1,4 +1,3 @@
-Introduction
-============
+.. _intro:
 
 .. mdinclude:: ../../README.md
