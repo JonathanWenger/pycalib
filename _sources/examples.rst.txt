@@ -1,6 +1,9 @@
 Examples
 =============
 
+The following examples demonstrate how to use ``pycalib``. We start with a code snippet generating synthetic output from
+ a classifier and after we calibrate a random forest classifier on MNIST using GP calibration.
+
 Synthetic data
 --------------
 We generate some synthetic data, which represents class probabilities for a set of samples as produced by some
@@ -39,8 +42,8 @@ classifier, which is not calibrated.
 
 Calibration on MNIST
 --------------------
-The following example shows how to use ``pycalib``. We train a random forest on the benchmark dataset MNIST and
-calibrate its posterior uncertainty using a multi-class calibration method.
+We train a random forest on the benchmark dataset MNIST and calibrate its uncertainty estimates using GP calibration.
+The expected calibration error markedly decreases.
 
 .. code-block:: python
 
@@ -52,6 +55,7 @@ calibrate its posterior uncertainty using a multi-class calibration method.
     from sklearn import datasets, model_selection
     from sklearn.ensemble import RandomForestClassifier
     import pycalib.calibration_methods as calm
+    from pycalib.scoring import expected_calibration_error
 
     # Seed and data size
     seed = 0
@@ -77,3 +81,8 @@ calibrate its posterior uncertainty using a multi-class calibration method.
     gpc = calm.GPCalibration(n_classes=10, random_state=seed)
     gpc.fit(rf.predict_proba(X_calib), y_calib)
     p_pred = gpc.predict_proba(p_uncal)
+
+    # Compute calibration error before and after calibration
+    ece_rf = expected_calibration_error(y_test, p_uncal, n_classes=10)
+    ece_cal = expected_calibration_error(y_test, p_pred, n_classes=10)
+    print("Calibration error of the random forest on MNIST before: {:.4f} and after calibration: {:.4f}".format(ece_rf, ece_cal))
