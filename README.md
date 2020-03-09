@@ -55,7 +55,8 @@ obtained from the [ImageNet website](http://www.image-net.org).
 ## Publication
 If you use this repository in your research, please cite the following paper:
 
-_"Non-Parametric Calibration for Classification"_ ([PDF](https://arxiv.org/pdf/1906.04933.pdf)), Jonathan Wenger, Hedvig Kjellström and Rudolph Triebel
+J. Wenger, H. Kjellström, and R. Triebel. Non-parametric calibration for classification ([PDF](https://arxiv.org/pdf/1906.04933.pdf)). In _Proceedings of the 23rd International Conference on Artificial Intelligence and Statistics (AISTATS)_.
+
 
 ```bibtex
 @InProceedings{wenger2020calibration,
