@@ -1,8 +1,8 @@
 Examples
 =============
 
-The following examples demonstrate how to use ``pycalib``. We start with a code snippet generating synthetic output from
- a classifier and after we calibrate a random forest classifier on MNIST using GP calibration.
+
+The following examples demonstrate how to use ``pycalib``. We start with a code snippet generating synthetic output from a classifier and after we calibrate a random forest classifier on MNIST using GP calibration.
 
 Synthetic data
 --------------
