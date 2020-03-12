@@ -1195,8 +1195,24 @@
 
 <div class="viewcode-block" id="CIFARData.load_pretrained_model"><a class="viewcode-back" href="../../automod/pycalib.benchmark.CIFARData.html#pycalib.benchmark.CIFARData.load_pretrained_model">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">load_pretrained_model</span><span class="p">(</span><span class="n">clf_name</span><span class="p">,</span> <span class="n">checkpoint_dir</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load pretrained CNN from checkpoints.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        clf_name : str</span>
+<span class="sd">            Name of pretrained network to load.</span>
+<span class="sd">        checkpoint_dir : str</span>
+<span class="sd">            Directory containing checkpoints of network, i.e. parameters of the pretrained network.</span>
+<span class="sd">        n_classes : int</span>
+<span class="sd">            Number of classes of the classification problem.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pretrained_model</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Import model architectures</span>
-        <span class="kn">import</span> <span class="nn">datasets.cifar100.models</span> <span class="k">as</span> <span class="nn">models</span>
+        <span class="kn">import</span> <span class="nn">pycalib.models.cifar100</span> <span class="k">as</span> <span class="nn">models</span>
 
         <span class="c1"># Set correct architecture parameters</span>
         <span class="c1"># (see: https://github.com/bearpaw/pytorch-classification/blob/master/TRAINING.md)</span>
@@ -1271,7 +1287,7 @@
 
 <div class="viewcode-block" id="CIFARData.classify_val_data"><a class="viewcode-back" href="../../automod/pycalib.benchmark.CIFARData.html#pycalib.benchmark.CIFARData.classify_val_data">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">classify_val_data</span><span class="p">(</span><span class="n">dataset_folder</span><span class="p">,</span> <span class="n">clf_name</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">download_test_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                          <span class="n">data_folder</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">checkpoint_folder</span><span class="o">=</span><span class="s2">&quot;models/pretrained_networks/&quot;</span><span class="p">,</span>
+                          <span class="n">data_folder</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">checkpoint_folder</span><span class="o">=</span><span class="s2">&quot;pretrained_networks/&quot;</span><span class="p">,</span>
                           <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;clf_output&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Classify the CIFAR-100 evaluation data set with a given model.</span>
