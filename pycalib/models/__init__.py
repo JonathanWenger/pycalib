@@ -50,10 +50,10 @@ Densenet-161             22.35           6.20
 .. _DenseNet: https://arxiv.org/abs/1608.06993
 """
 
-from .alexnet import *
-from .vgg import *
-from .resnet import *
-from .resnext import *
-from .wrn import *
-from .preresnet import *
-from .densenet import *
+from pycalib.models.cifar100.alexnet import *
+from pycalib.models.cifar100.vgg import *
+from pycalib.models.cifar100.resnet import *
+from pycalib.models.cifar100.resnext import *
+from pycalib.models.cifar100.wrn import *
+from pycalib.models.cifar100.preresnet import *
+from pycalib.models.cifar100.densenet import *

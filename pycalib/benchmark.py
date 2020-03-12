@@ -1041,8 +1041,24 @@ class CIFARData(Benchmark):
 
     @staticmethod
     def load_pretrained_model(clf_name, checkpoint_dir, n_classes=100):
+        """
+        Load pretrained CNN from checkpoints.
+
+        Parameters
+        ----------
+        clf_name : str
+            Name of pretrained network to load.
+        checkpoint_dir : str
+            Directory containing checkpoints of network, i.e. parameters of the pretrained network.
+        n_classes : int
+            Number of classes of the classification problem.
+
+        Returns
+        -------
+        pretrained_model
+        """
         # Import model architectures
-        import datasets.cifar100.models as models
+        import pycalib.models.cifar100 as models
 
         # Set correct architecture parameters
         # (see: https://github.com/bearpaw/pytorch-classification/blob/master/TRAINING.md)
@@ -1117,7 +1133,7 @@ class CIFARData(Benchmark):
 
     @staticmethod
     def classify_val_data(dataset_folder, clf_name, n_classes=100, download_test_data=False, batch_size=100,
-                          data_folder='data', checkpoint_folder="models/pretrained_networks/",
+                          data_folder='data', checkpoint_folder="pretrained_networks/",
                           output_folder='clf_output'):
         """
         Classify the CIFAR-100 evaluation data set with a given model.
