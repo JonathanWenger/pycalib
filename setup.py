@@ -15,7 +15,7 @@ setup(
     author_email='jonathan.wenger@uni-tuebingen.de',
     url='https://github.com/JonathanWenger/pycalib',
     license=license,
-    packages=find_packages(exclude=('tests', 'docs', 'datasets', 'figures', 'benchmark')),
+    packages=find_packages(exclude=('tests', 'docs', 'figures', 'benchmark')),
     install_requires=
     [
         'betacal>=0.2.7',
