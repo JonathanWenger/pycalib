@@ -85,4 +85,4 @@ The expected calibration error markedly decreases.
     # Compute calibration error before and after calibration
     ece_rf = expected_calibration_error(y_test, p_uncal, n_classes=10)
     ece_cal = expected_calibration_error(y_test, p_pred, n_classes=10)
-    print("Calibration error of the random forest on MNIST before: {:.4f} and after calibration: {:.4f}".format(ece_rf, ece_cal))
+    print("Calibration error of the random forest on MNIST before: {:.4f} and after calibration: {:.4f}.".format(ece_rf, ece_cal))
