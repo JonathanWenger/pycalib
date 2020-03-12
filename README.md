@@ -26,7 +26,7 @@ pip install git+https://github.com/JonathanWenger/pycalib.git
 ```
 Note that some dependencies need to be installed separately since a subset of experiments rely on 
 [scikit-garden](https://github.com/scikit-garden/scikit-garden). You can also clone this repository to run the scripts
- reproducing the experiments in the paper via
+ reproducing the experiments in the paper via:
 ```bash
 pip install setuptools numpy scipy scikit-learn cython
 pip install -e git+git://github.com/scikit-garden/scikit-garden.git#egg=scikit-garden
