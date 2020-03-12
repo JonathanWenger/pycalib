@@ -24,7 +24,9 @@ The code was developed in Python 3.6 under Ubuntu (18.04). You can install this 
 pip install setuptools numpy scipy scikit-learn cython
 pip install git+https://github.com/JonathanWenger/pycalib.git
 ```
-Note that some dependencies need to be installed separately since a subset of experiments rely on [scikit-garden](https://github.com/scikit-garden/scikit-garden). Alternatively you can clone this repository with
+Note that some dependencies need to be installed separately since a subset of experiments rely on 
+[scikit-garden](https://github.com/scikit-garden/scikit-garden). You can also clone this repository to run the scripts
+ reproducing the experiments in the paper via
 ```bash
 pip install setuptools numpy scipy scikit-learn cython
 git clone https://github.com/JonathanWenger/pycalib
