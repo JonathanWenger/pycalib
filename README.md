@@ -29,6 +29,7 @@ Note that some dependencies need to be installed separately since a subset of ex
  reproducing the experiments in the paper via
 ```bash
 pip install setuptools numpy scipy scikit-learn cython
+pip install -e git+git://github.com/scikit-garden/scikit-garden.git#egg=scikit-garden
 git clone https://github.com/JonathanWenger/pycalib
 cd pycalib
 python setup.py install

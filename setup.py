@@ -19,7 +19,7 @@ setup(
     install_requires=
     [
         'betacal>=0.2.7',
-        'gpflow>=1.3.0',
+        'gpflow>=1.3.0,<2.0.0',
         'matplotlib>=3.1.0',
         'numpy>=1.15.4',
         'pandas>=0.23.4',
@@ -29,8 +29,7 @@ setup(
         'tensorflow>=1.12.2,<2.0.0',
         'torch>=0.4.1',
         'torchvision>=0.5.0',
-        'pretrainedmodels>=0.7.4',
-        'scikit-garden @ git+ssh://git@github.com/scikit-garden/scikit-garden@master#egg=scikit-garden'
+        'pretrainedmodels>=0.7.4'
     ]
 )
 
